@@ -121,7 +121,7 @@ const Contact = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <PhoneIcon className="w-8 h-8 text-blue-200" />
-                  <span className="text-white text-lg font-medium">+1 (555) 123-4567</span>
+                  <span className="text-white text-lg font-medium">+234 91 3901 3309</span>
                 </motion.div>
                 <motion.div 
                   className="bg-white/10 backdrop-blur-lg rounded-lg p-6 md:p-8 flex items-center space-x-4 hover:bg-white/20 transition-all duration-300 cursor-pointer"
@@ -129,7 +129,7 @@ const Contact = () => {
                   whileTap={{ scale: 0.95 }}
                 >
                   <EnvelopeIcon className="w-8 h-8 text-blue-200" />
-                  <span className="text-white text-lg font-medium">info@a2digihub.com</span>
+                  <span className="text-white text-lg font-medium">a2digihub@gmail.com</span>
                 </motion.div>
               </motion.div>
             </div>
@@ -319,8 +319,8 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Address</h3>
                       <p className="text-gray-600">
-                        123 Innovation Street<br />
-                        Tech Valley, CA 94025
+                        Thinkers Corner, Emene<br />
+                        Enugu State, Nigeria
                       </p>
                     </div>
                   </div>
@@ -328,14 +328,14 @@ const Contact = () => {
                     <PhoneIcon className="w-6 h-6 text-blue-600 mt-1 mr-4" />
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
-                      <p className="text-gray-600">+1 (555) 123-4567</p>
+                      <p className="text-gray-600">+234 91 3901 3309</p>
                     </div>
                   </div>
                   <div className="flex items-start">
                     <EnvelopeIcon className="w-6 h-6 text-blue-600 mt-1 mr-4" />
                     <div>
                       <h3 className="font-semibold mb-1">Email</h3>
-                      <p className="text-gray-600">info@a2digihub.com</p>
+                      <p className="text-gray-600">a2digihub@gmail.com</p>
                     </div>
                   </div>
                   <div className="flex items-start">
@@ -357,7 +357,7 @@ const Contact = () => {
                 <h2 className="text-2xl font-bold mb-6">Location</h2>
                 <div className="aspect-w-16 aspect-h-9 rounded-lg overflow-hidden">
                   <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3168.6282365564086!2d-122.08374688469227!3d37.42199987982362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fba02425dad8f%3A0x6c296c66619367e0!2sGoogleplex!5e0!3m2!1sen!2sus!4v1623164718943!5m2!1sen!2sus"
+                    src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d5487.828500703654!2d7.54506193468986!3d6.471945583526658!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x1044a466f2e9edfb%3A0xc4bba9d32a4b082d!2sThinkers%20Corner%2C%20Enugu%2C%20Nigeria!3m2!1d6.4741520999999995!2d7.5518056!5e0!3m2!1sen!2sus!4v1732309557733!5m2!1sen!2sus"
                     width="100%"
                     height="300"
                     style={{ border: 0 }}
