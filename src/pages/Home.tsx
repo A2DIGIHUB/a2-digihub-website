@@ -210,13 +210,13 @@ const Home: React.FC = () => {
 
         {/* Main content */}
         <div className="relative container mx-auto px-4 sm:px-6 flex min-h-screen">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center py-12 md:py-20">
             {/* Left column - Text content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-6 md:space-y-8"
             >
               <div className="space-y-4">
                 <motion.div
@@ -225,20 +225,20 @@ const Home: React.FC = () => {
                   transition={{ delay: 0.2, duration: 0.8 }}
                   className="inline-block"
                 >
-                  <span className="px-4 py-2 rounded-full bg-blue-500/10 text-blue-200 text-sm font-medium">
+                  <span className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-blue-500/10 text-blue-200 text-xs sm:text-sm font-medium">
                     Welcome to A2-DIGIHUB
                   </span>
                 </motion.div>
                 <GradientText
                   text="Transforming Ideas into Digital Reality"
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
                   gradient="from-white via-blue-100 to-blue-200"
                 />
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
-                  className="text-lg sm:text-xl text-blue-100/90 max-w-xl"
+                  className="text-base sm:text-lg md:text-xl text-blue-100/90 max-w-xl"
                 >
                   Empowering businesses with cutting-edge digital solutions for the modern technological landscape.
                 </motion.p>
@@ -248,18 +248,18 @@ const Home: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4"
+                className="flex flex-col sm:flex-row gap-3 sm:gap-4"
               >
                 <Link
                   to="/contact"
-                  className="group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg font-medium text-white overflow-hidden transition-all hover:scale-105"
+                  className="group relative px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg font-medium text-white text-center overflow-hidden transition-all hover:scale-105"
                 >
                   <div className="absolute inset-0 w-1/2 h-full bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 transition-transform group-hover:translate-x-full" />
                   Get Started
                 </Link>
                 <Link
                   to="/services"
-                  className="group px-8 py-4 border-2 border-white/20 text-white rounded-lg font-medium hover:bg-white/10 transition-all hover:scale-105 backdrop-blur-sm"
+                  className="group px-6 sm:px-8 py-3 sm:py-4 border-2 border-white/20 text-white rounded-lg font-medium text-center hover:bg-white/10 transition-all hover:scale-105 backdrop-blur-sm"
                 >
                   Explore Services
                 </Link>
@@ -270,16 +270,16 @@ const Home: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8, duration: 0.8 }}
-                className="pt-8 border-t border-white/10"
+                className="pt-6 sm:pt-8 border-t border-white/10"
               >
-                <p className="text-sm text-blue-200/80 mb-4">Trusted Technologies</p>
-                <div className="flex gap-6 items-center">
+                <p className="text-xs sm:text-sm text-blue-200/80 mb-3 sm:mb-4">Trusted Technologies</p>
+                <div className="flex flex-wrap gap-4 sm:gap-6 items-center">
                   {techStack.slice(0, 4).map((tech, index) => (
                     <motion.img
                       key={tech.name}
                       src={tech.icon}
                       alt={tech.name}
-                      className="w-10 h-10 object-contain filter brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
+                      className="w-8 h-8 sm:w-10 sm:h-10 object-contain filter brightness-0 invert opacity-70 hover:opacity-100 transition-opacity"
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 0.7, y: 0 }}
                       transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
@@ -378,49 +378,53 @@ const Home: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-12 sm:mb-16"
+            className="text-center mb-10 sm:mb-12 md:mb-16"
           >
             <GradientText
               text="Cutting-Edge Features"
               className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4"
             />
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto">
               Discover how our innovative solutions can transform your business with 
               state-of-the-art technology and expert implementation.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {[
               {
-                icon: <RocketLaunchIcon className="w-8 h-8" />,
+                icon: <RocketLaunchIcon className="w-6 h-6 sm:w-8 sm:h-8" />,
                 title: 'Rapid Development',
                 description: 'Quick turnaround times with our agile development methodology.'
               },
               {
-                icon: <CpuChipIcon className="w-8 h-8" />,
-                title: 'AI Integration',
-                description: 'Leverage the power of artificial intelligence in your solutions.'
+                icon: <CpuChipIcon className="w-6 h-6 sm:w-8 sm:h-8" />,
+                title: 'Advanced Technology',
+                description: 'Utilizing cutting-edge tech stack for optimal performance.'
               },
               {
-                icon: <CloudIcon className="w-8 h-8" />,
-                title: 'Cloud-Native',
-                description: 'Built for the cloud with scalability and reliability in mind.'
+                icon: <CloudIcon className="w-6 h-6 sm:w-8 sm:h-8" />,
+                title: 'Cloud Solutions',
+                description: 'Scalable and secure cloud infrastructure for your applications.'
               }
             ].map((feature, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="p-4 sm:p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow"
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-white p-6 sm:p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow"
               >
-                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-blue-600 mb-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center mb-4 sm:mb-6">
                   {feature.icon}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2 sm:mb-3">
+                  {feature.title}
+                </h3>
+                <p className="text-sm sm:text-base text-gray-600">
+                  {feature.description}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -683,51 +687,61 @@ const Home: React.FC = () => {
               transition={{ duration: 0.8 }}
             >
               <div className="relative aspect-square">
-                <motion.div 
-                  className="absolute inset-0 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="w-full h-full flex items-center justify-center">
-                    <motion.div
-                      animate={{ 
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 360, 0]
-                      }}
-                      transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                      className="relative w-32 h-32"
-                    >
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur-lg opacity-50" />
-                      <div className="relative w-full h-full flex items-center justify-center">
-                        <motion.svg
-                          className="w-16 h-16 text-white"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                        >
-                          <motion.path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={1.5}
-                            d="M12 4v16m8-8H4"
-                            initial={{ pathLength: 0 }}
-                            animate={{ pathLength: 1 }}
-                            transition={{
-                              duration: 2,
-                              ease: "easeInOut",
-                              repeat: Infinity,
-                              repeatDelay: 1
-                            }}
-                          />
-                        </motion.svg>
-                      </div>
-                    </motion.div>
-                  </div>
-                </motion.div>
+                {/* Animated rings */}
+                {[...Array(3)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute inset-0 border-2 border-white/20 rounded-full"
+                    animate={{
+                      scale: [1, 1.2, 1],
+                      opacity: [0.1, 0.2, 0.1],
+                      rotate: [0, 180, 360],
+                    }}
+                    transition={{
+                      duration: 10 + i * 2,
+                      repeat: Infinity,
+                      ease: "linear",
+                    }}
+                  />
+                ))}
+                
+                {/* Central sphere */}
+                <motion.div
+                  className="absolute inset-0 m-auto w-48 h-48 bg-gradient-to-br from-blue-400 to-indigo-500 rounded-full blur-lg"
+                  animate={{
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                />
+                
+                {/* Floating icons */}
+                {[
+                  { icon: <RocketLaunchIcon className="w-8 h-8" />, position: "top-1/4 left-1/4" },
+                  { icon: <CpuChipIcon className="w-8 h-8" />, position: "top-1/4 right-1/4" },
+                  { icon: <CloudIcon className="w-8 h-8" />, position: "bottom-1/4 left-1/4" },
+                  { icon: <LightBulbIcon className="w-8 h-8" />, position: "bottom-1/4 right-1/4" },
+                ].map((item, index) => (
+                  <motion.div
+                    key={index}
+                    className={`absolute ${item.position} text-white/80`}
+                    animate={{
+                      y: [0, -10, 0],
+                      rotate: [0, 10, -10, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: index * 0.5,
+                    }}
+                  >
+                    {item.icon}
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>
