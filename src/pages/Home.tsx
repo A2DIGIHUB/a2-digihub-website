@@ -19,7 +19,7 @@ import {
 } from '@heroicons/react/24/outline';
 import FloatingElement from '../components/graphics/FloatingElement';
 import GradientText from '../components/graphics/GradientText';
-import Footer from '../components/layout/Footer';
+import Footer from '../components/Footer';
 
 const TestimonialCard3D = ({ testimonial, index }) => {
   return (

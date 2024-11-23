@@ -883,13 +883,13 @@ const About: React.FC = () => {
                 <li className="flex items-center space-x-3">
                   <EnvelopeIcon className="w-5 h-5 text-gray-400" />
                   <a href="mailto:info@a2digihub.com" className="text-gray-400 hover:text-white transition-colors">
-                    info@a2digihub.com
+                    a2digihub@gmail.com
                   </a>
                 </li>
                 <li className="flex items-center space-x-3">
                   <PhoneIcon className="w-5 h-5 text-gray-400" />
-                  <a href="tel:+1234567890" className="text-gray-400 hover:text-white transition-colors">
-                    +123 456 7890
+                  <a href="tel:+2349139013309" className="text-gray-400 hover:text-white transition-colors">
+                    +2349139013309
                   </a>
                 </li>
                 <li className="flex items-start space-x-3">

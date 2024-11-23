@@ -29,7 +29,11 @@ const Footer: React.FC = () => {
               Transforming businesses through innovative digital solutions and cutting-edge technology.
             </p>
             <div className="flex gap-4">
-              {[/* social media links */].map((social) => (
+              {[
+                { icon: "github", href: "https://github.com" },
+                { icon: "twitter", href: "https://twitter.com" },
+                { icon: "linkedin", href: "https://linkedin.com" }
+              ].map((social) => (
                 <motion.a
                   key={social.icon}
                   href={social.href}
@@ -55,7 +59,13 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-white font-semibold mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {[/* quick links */].map((link) => (
+              {[
+                { name: "About Us", href: "/about" },
+                { name: "Services", href: "/services" },
+                { name: "Case Studies", href: "/case-studies" },
+                { name: "Blog", href: "/blog" },
+                { name: "Contact", href: "/contact" }
+              ].map((link) => (
                 <motion.li
                   key={link.name}
                   whileHover={{ x: 5 }}
@@ -81,17 +91,23 @@ const Footer: React.FC = () => {
           >
             <h3 className="text-white font-semibold mb-4">Services</h3>
             <ul className="space-y-2">
-              {[/* services */].map((service) => (
+              {[
+                { name: "AI Development", href: "/services" },
+                { name: "Cloud Solutions", href: "/services" },
+                { name: "Digital Transformation", href: "/services" },
+                { name: "Custom Software", href: "/services" },
+                { name: "Data Analytics", href: "/services" }
+              ].map((service) => (
                 <motion.li
-                  key={service}
+                  key={service.name}
                   whileHover={{ x: 5 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <Link
-                    to="/services"
+                    to={service.href}
                     className="text-gray-400 hover:text-white transition-colors text-sm"
                   >
-                    {service}
+                    {service.name}
                   </Link>
                 </motion.li>
               ))}
@@ -161,7 +177,11 @@ const Footer: React.FC = () => {
               {new Date().getFullYear()} A2-DIGIHUB. All rights reserved.
             </p>
             <div className="flex gap-6">
-              {[/* bottom links */].map((link) => (
+              {[
+                { name: "Privacy Policy", href: "/privacy" },
+                { name: "Terms of Service", href: "/terms" },
+                { name: "Cookie Policy", href: "/cookies" }
+              ].map((link) => (
                 <motion.a
                   key={link.name}
                   href={link.href}
