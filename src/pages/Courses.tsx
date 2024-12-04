@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import Footer from '../components/Footer';
 import {
   AcademicCapIcon,
   ClockIcon,
@@ -12,106 +13,113 @@ import {
   ComputerDesktopIcon,
   PresentationChartBarIcon,
   CodeBracketIcon,
+  ServerIcon,
+  PaintBrushIcon,
+  SwatchIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+  MapPinIcon,
 } from '@heroicons/react/24/outline';
 
 // Course categories
 const categories = [
   { id: 'all', name: 'All Courses', icon: BookOpenIcon },
-  { id: 'web', name: 'Web Development', icon: CodeBracketIcon },
-  { id: 'digital', name: 'Digital Marketing', icon: PresentationChartBarIcon },
-  { id: 'design', name: 'Design', icon: ComputerDesktopIcon },
+  { id: 'frontend', name: 'Frontend Development', icon: CodeBracketIcon },
+  { id: 'backend', name: 'Backend Development', icon: ServerIcon },
+  { id: 'uiux', name: 'UI/UX Design', icon: PaintBrushIcon },
+  { id: 'graphic', name: 'Graphic Design', icon: SwatchIcon },
 ];
 
 // Course data
 const courses = [
   {
     id: 1,
-    title: 'Full Stack Web Development',
-    category: 'web',
-    description: 'Master both frontend and backend development with modern technologies.',
-    duration: '16 weeks',
-    level: 'Intermediate',
-    students: '75+',
-    rating: 4.9,
-    price: '₦85,000',
-    image: '/courses/fullstack.jpg',
+    title: 'Frontend Development',
+    category: 'frontend',
+    description: 'Master modern frontend development with React, TypeScript, and responsive design principles.',
+    duration: '12 weeks',
+    level: 'Beginner to Intermediate',
+    students: '50+',
+    rating: 4.8,
+    price: '₦75,000',
+    image: '/courses/Artboard1.png',
     features: [
       'HTML5, CSS3 & JavaScript',
-      'React & Node.js',
-      'Database Management',
-      'API Development',
-      'DevOps Basics',
-      'Real-world Projects'
+      'React & TypeScript',
+      'Responsive Web Design',
+      'State Management',
+      'API Integration',
+      'Modern Build Tools'
     ],
-    skills: ['React', 'Node.js', 'MongoDB', 'Express', 'Git'],
-    enrollmentLink: 'https://your-backend-url/enroll/fullstack'
+    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Git', 'REST APIs'],
+    enrollmentLink: 'https://your-backend-url/enroll/frontend'
   },
   {
     id: 2,
-    title: 'Digital Marketing Professional',
-    category: 'digital',
-    description: 'Comprehensive digital marketing training with practical implementation.',
-    duration: '12 weeks',
-    level: 'All Levels',
-    students: '90+',
-    rating: 4.8,
-    price: '₦65,000',
-    image: '/courses/digital-marketing.jpg',
+    title: 'Backend Development',
+    category: 'backend',
+    description: 'Learn server-side programming, database management, and API development with Node.js and Express.',
+    duration: '14 weeks',
+    level: 'Intermediate',
+    students: '45+',
+    rating: 4.9,
+    price: '₦85,000',
+    image: '/courses/Artboard2.png',
     features: [
-      'SEO & SEM',
-      'Social Media Marketing',
-      'Content Strategy',
-      'Email Marketing',
-      'Analytics & Reporting',
-      'Campaign Management'
+      'Node.js & Express',
+      'Database Design',
+      'RESTful APIs',
+      'Authentication & Security',
+      'Cloud Deployment',
+      'Performance Optimization'
     ],
-    skills: ['Google Analytics', 'SEO', 'Social Media', 'Content Marketing'],
-    enrollmentLink: 'https://your-backend-url/enroll/digital-marketing'
+    skills: ['Node.js', 'MongoDB', 'Express', 'SQL', 'AWS'],
+    enrollmentLink: 'https://your-backend-url/enroll/backend'
   },
   {
     id: 3,
-    title: 'UI/UX Design Masterclass',
-    category: 'design',
-    description: 'Learn to create beautiful, user-centered designs for web and mobile.',
-    duration: '14 weeks',
-    level: 'Intermediate',
-    students: '60+',
+    title: 'UI/UX Design',
+    category: 'uiux',
+    description: 'Master the art of creating beautiful, user-centered designs for web and mobile applications.',
+    duration: '10 weeks',
+    level: 'Beginner to Intermediate',
+    students: '40+',
     rating: 4.9,
-    price: '₦75,000',
-    image: '/courses/uiux.jpg',
+    price: '₦70,000',
+    image: '/courses/Artboard3.png',
     features: [
       'Design Principles',
       'User Research',
-      'Wireframing',
-      'Prototyping',
+      'Wireframing & Prototyping',
       'Design Systems',
-      'Portfolio Building'
+      'Usability Testing',
+      'Portfolio Development'
     ],
-    skills: ['Figma', 'Adobe XD', 'Sketch', 'Design Thinking'],
+    skills: ['Figma', 'Adobe XD', 'Design Thinking', 'User Research'],
     enrollmentLink: 'https://your-backend-url/enroll/uiux'
   },
   {
     id: 4,
-    title: 'Frontend Development Specialist',
-    category: 'web',
-    description: 'Become an expert in creating responsive and interactive web interfaces.',
+    title: 'Graphic Design',
+    category: 'graphic',
+    description: 'Learn professional graphic design for print and digital media using industry-standard tools.',
     duration: '12 weeks',
     level: 'Beginner to Intermediate',
-    students: '85+',
-    rating: 4.7,
-    price: '₦70,000',
-    image: '/courses/frontend.jpg',
+    students: '35+',
+    rating: 4.8,
+    price: '₦65,000',
+    image: '/courses/Artboard5.jpg',
     features: [
-      'Modern HTML & CSS',
-      'JavaScript ES6+',
-      'React Development',
-      'State Management',
-      'Performance Optimization',
-      'Modern Build Tools'
+      'Design Fundamentals',
+      'Typography & Color Theory',
+      'Logo Design',
+      'Print & Digital Media',
+      'Brand Identity Design',
+      'Portfolio Creation'
     ],
-    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Redux'],
-    enrollmentLink: 'https://your-backend-url/enroll/frontend'
-  },
+    skills: ['Adobe Photoshop', 'Adobe Illustrator', 'InDesign', 'Branding'],
+    enrollmentLink: 'https://your-backend-url/enroll/graphic'
+  }
 ];
 
 const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
@@ -120,9 +128,7 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
-      className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100"
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
     >
       <div className="relative aspect-w-16 aspect-h-9 group">
         <img
@@ -199,19 +205,19 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
 };
 
 const Courses = () => {
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
-  const filteredCourses = selectedCategory === 'all'
-    ? courses
-    : courses.filter(course => course.category === selectedCategory);
+  const handleCategoryClick = (category: string) => {
+    setSelectedCategory(selectedCategory === category ? null : category);
+  };
+
+  // Filter courses based on selected category
+  const filteredCourses = selectedCategory
+    ? courses.filter(course => course.category === selectedCategory)
+    : courses;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gray-50"
-    >
+    <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800 py-20 mb-16">
         <div className="absolute inset-0">
@@ -276,7 +282,7 @@ const Courses = () => {
               return (
                 <button
                   key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
+                  onClick={() => handleCategoryClick(category.id)}
                   className={`flex flex-col items-center p-4 rounded-lg transition-colors duration-200 ${
                     selectedCategory === category.id
                       ? 'bg-blue-50 text-blue-600'
@@ -292,10 +298,10 @@ const Courses = () => {
         </div>
       </div>
 
-      {/* Courses Grid */}
-      <div id="courses" className="container mx-auto px-4 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCourses.map((course) => (
+      {/* Course Grid */}
+      <div className="container mx-auto px-4 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredCourses.map((course, index) => (
             <CourseCard key={course.id} course={course} />
           ))}
         </div>
@@ -380,7 +386,11 @@ const Courses = () => {
           </div>
         </div>
       </div>
-    </motion.div>
+
+      {/* Footer */}
+      <Footer />
+
+    </div>
   );
 };
 
