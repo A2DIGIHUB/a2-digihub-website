@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import Footer from '../components/Footer';
 import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { EMAIL_SERVICE_ID, EMAIL_TEMPLATE_ID, initEmailJS } from '../utils/emailjs';
 
 const faqs = [
   {
@@ -34,23 +36,49 @@ const Contact = () => {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
 
+  useEffect(() => {
+    // Initialize EmailJS
+    initEmailJS();
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
+    if (!formData.name || !formData.email || !formData.message) {
+      setSubmitStatus('error');
+      setIsSubmitting(false);
+      return;
+    }
+
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      setSubmitStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        message: '',
-      });
+      const result = await emailjs.send(
+        EMAIL_SERVICE_ID,
+        EMAIL_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          phone: formData.phone,
+          company: formData.company,
+          message: formData.message,
+        }
+      );
+
+      if (result.status === 200) {
+        setSubmitStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          company: '',
+          message: '',
+        });
+      } else {
+        setSubmitStatus('error');
+      }
     } catch (error) {
+      console.error('Email send error:', error);
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -79,18 +107,18 @@ const Contact = () => {
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
             backgroundSize: '30px 30px'
-          }}/>
+          }} />
         </div>
 
         <div className="relative min-h-[80vh] flex items-center py-32 lg:py-48">
-          <motion.div 
+          <motion.div
             className="container mx-auto px-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             <div className="max-w-4xl mx-auto text-center">
-              <motion.h1 
+              <motion.h1
                 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -99,8 +127,8 @@ const Contact = () => {
                 Let's Build Something
                 <span className="block mt-4">Amazing Together</span>
               </motion.h1>
-              
-              <motion.p 
+
+              <motion.p
                 className="text-xl md:text-2xl text-blue-100 mb-16 max-w-2xl mx-auto leading-relaxed"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -115,7 +143,7 @@ const Contact = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <motion.div 
+                <motion.div
                   className="bg-white/10 backdrop-blur-lg rounded-lg p-6 md:p-8 flex items-center space-x-4 hover:bg-white/20 transition-all duration-300 cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -123,7 +151,7 @@ const Contact = () => {
                   <PhoneIcon className="w-8 h-8 text-blue-200" />
                   <span className="text-white text-lg font-medium">+234 91 3901 3309</span>
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="bg-white/10 backdrop-blur-lg rounded-lg p-6 md:p-8 flex items-center space-x-4 hover:bg-white/20 transition-all duration-300 cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -185,7 +213,7 @@ const Contact = () => {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <motion.div 
+            <motion.div
               className="bg-white rounded-xl shadow-lg p-8"
               initial={{ x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
@@ -281,7 +309,7 @@ const Contact = () => {
                     </>
                   ) : 'Send Message'}
                 </button>
-                
+
                 {submitStatus === 'success' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -291,7 +319,7 @@ const Contact = () => {
                     Message sent successfully! We'll get back to you soon.
                   </motion.div>
                 )}
-                
+
                 {submitStatus === 'error' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
@@ -375,7 +403,7 @@ const Contact = () => {
       {/* FAQ Section */}
       <div className="bg-white py-16">
         <div className="container mx-auto px-4">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-center mb-12"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
