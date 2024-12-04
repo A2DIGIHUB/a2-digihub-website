@@ -1,0 +1,22 @@
+# A2-DIGIHUB Robots.txt
+# https://www.robotstxt.org/robotstxt.html
+
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://a2-digihub.com/sitemap.xml
+
+# Prevent crawling of certain directories
+Disallow: /private/
+Disallow: /admin/
+Disallow: /temp/
+Disallow: /*?*  # Prevent crawling of URL parameters
+
+# Crawl-delay for specific bots
+User-agent: GPTBot
+Crawl-delay: 2
+
+User-agent: Googlebot
+Crawl-delay: 1

@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/a2-digihub-website/static/css/main.62c2c9bd.css",
+    "main.js": "/a2-digihub-website/static/js/main.bf128c7c.js",
+    "static/js/942.51e1e4c7.chunk.js": "/a2-digihub-website/static/js/942.51e1e4c7.chunk.js",
+    "static/js/823.3dc98788.chunk.js": "/a2-digihub-website/static/js/823.3dc98788.chunk.js",
+    "static/js/133.9d139984.chunk.js": "/a2-digihub-website/static/js/133.9d139984.chunk.js",
+    "static/js/11.5799ffcc.chunk.js": "/a2-digihub-website/static/js/11.5799ffcc.chunk.js",
+    "static/js/283.40182639.chunk.js": "/a2-digihub-website/static/js/283.40182639.chunk.js",
+    "static/js/766.2e5c16ae.chunk.js": "/a2-digihub-website/static/js/766.2e5c16ae.chunk.js",
+    "static/js/845.101b7773.chunk.js": "/a2-digihub-website/static/js/845.101b7773.chunk.js",
+    "index.html": "/a2-digihub-website/index.html",
+    "main.62c2c9bd.css.map": "/a2-digihub-website/static/css/main.62c2c9bd.css.map",
+    "main.bf128c7c.js.map": "/a2-digihub-website/static/js/main.bf128c7c.js.map",
+    "942.51e1e4c7.chunk.js.map": "/a2-digihub-website/static/js/942.51e1e4c7.chunk.js.map",
+    "823.3dc98788.chunk.js.map": "/a2-digihub-website/static/js/823.3dc98788.chunk.js.map",
+    "133.9d139984.chunk.js.map": "/a2-digihub-website/static/js/133.9d139984.chunk.js.map",
+    "11.5799ffcc.chunk.js.map": "/a2-digihub-website/static/js/11.5799ffcc.chunk.js.map",
+    "283.40182639.chunk.js.map": "/a2-digihub-website/static/js/283.40182639.chunk.js.map",
+    "766.2e5c16ae.chunk.js.map": "/a2-digihub-website/static/js/766.2e5c16ae.chunk.js.map",
+    "845.101b7773.chunk.js.map": "/a2-digihub-website/static/js/845.101b7773.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62c2c9bd.css",
+    "static/js/main.bf128c7c.js"
+  ]
+}

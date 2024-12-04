@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256px" height="256px" viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#3178C6" x="32" y="32" width="192" height="192" rx="16"/>
+        <path d="M150,144 L150,168 L128,168 L128,216 L106,216 L106,168 L84,168 L84,144 L150,144 Z" fill="white"/>
+        <path d="M198,144 C198,157.6 187.6,168 174,168 C160.4,168 150,157.6 150,144 C150,130.4 160.4,120 174,120 C187.6,120 198,130.4 198,144 Z" fill="white"/>
+    </g>
+</svg>
