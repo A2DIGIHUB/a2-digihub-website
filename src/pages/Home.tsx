@@ -530,7 +530,7 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { number: '100+', label: 'Projects Completed' },
+              { number: '75+', label: 'Projects Completed' },
               { number: '50+', label: 'Happy Clients' },
               { number: '95%', label: 'Success Rate' },
               { number: '24/7', label: 'Support' }

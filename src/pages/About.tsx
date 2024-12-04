@@ -21,7 +21,7 @@ import {
 } from '@heroicons/react/24/outline';
 
 const stats = [
-  { label: 'Years of Experience', value: '10+', prefix: '', suffix: '+' },
+  { label: 'Years of Experience', value: '10', prefix: '', suffix: '+' },
   { label: 'Projects Completed', value: '500', prefix: '', suffix: '+' },
   { label: 'Happy Clients', value: '200', prefix: '', suffix: '+' },
   { label: 'Team Members', value: '50', prefix: '', suffix: '+' },
@@ -115,22 +115,22 @@ const values = [
 
 const journey = [
   {
-    year: '2013',
+    year: '2021',
     title: 'Company Founded',
     description: 'Started with a vision to transform digital landscape.'
   },
   {
-    year: '2015',
+    year: '2022',
     title: 'Global Expansion',
     description: 'Opened offices in major tech hubs worldwide.'
   },
   {
-    year: '2018',
+    year: '2023',
     title: 'Innovation Hub',
     description: 'Launched our first innovation lab.'
   },
   {
-    year: '2023',
+    year: '2024',
     title: 'Digital Leadership',
     description: 'Recognized as industry leader in digital transformation.'
   }
@@ -496,7 +496,7 @@ const About: React.FC = () => {
 
                 {/* Secondary Description */}
                 <p className="text-blue-200 text-lg leading-relaxed">
-                  Since 2013, we've been at the forefront of digital transformation, helping businesses adapt and thrive in the digital age.
+                  Since 2021, we've been at the forefront of digital transformation, helping businesses adapt and thrive in the digital age.
                 </p>
 
                 {/* CTA Button */}
