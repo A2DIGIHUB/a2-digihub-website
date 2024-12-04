@@ -13,6 +13,7 @@ const About = React.lazy(() => import('./pages/About'));
 const Services = React.lazy(() => import('./pages/Services'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const Terms = React.lazy(() => import('./pages/Terms'));
+const Courses = React.lazy(() => import('./pages/Courses'));
 
 // Initialize performance monitoring
 initializeMonitoring();
@@ -28,6 +29,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/courses" element={<Courses />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/terms" element={<Terms />} />
               </Routes>
