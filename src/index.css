@@ -97,9 +97,8 @@ code {
   }
 
   .bg-grid-pattern {
-    background-image: url('./grid.svg');
-    background-repeat: repeat;
-    background-size: 100px 100px;
+    background-image: radial-gradient(circle at center, #e5e7eb 1px, transparent 1px);
+    background-size: 20px 20px;
   }
 
   /* Testimonial Card Hover Effects */
