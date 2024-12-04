@@ -53,17 +53,28 @@ const Contact = () => {
     }
 
     try {
+      console.log('Sending email with:', {
+        serviceId: EMAIL_SERVICE_ID,
+        templateId: EMAIL_TEMPLATE_ID,
+        formData
+      });
+
       const result = await emailjs.send(
         EMAIL_SERVICE_ID,
         EMAIL_TEMPLATE_ID,
         {
           from_name: formData.name,
           from_email: formData.email,
-          phone: formData.phone,
-          company: formData.company,
+          phone: formData.phone || 'Not provided',
+          company: formData.company || 'Not provided',
           message: formData.message,
+          to_name: 'A2 DigiHub Team',
+          reply_to: formData.email,
+          to_email: 'a2digihub@gmail.com'
         }
       );
+
+      console.log('EmailJS response:', result);
 
       if (result.status === 200) {
         setSubmitStatus('success');
@@ -75,6 +86,7 @@ const Contact = () => {
           message: '',
         });
       } else {
+        console.error('Unexpected status:', result.status);
         setSubmitStatus('error');
       }
     } catch (error) {
