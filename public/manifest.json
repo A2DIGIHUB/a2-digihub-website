@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "A2-DIGIHUB",
+  "name": "A2-DIGIHUB - Digital Innovation Hub",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#2563eb",
+  "background_color": "#ffffff",
+  "description": "A2-DIGIHUB is a leading tech firm specializing in AI development, cloud solutions, and digital transformation services. We help businesses innovate and grow through cutting-edge technology solutions."
 }
