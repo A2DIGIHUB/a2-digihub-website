@@ -17,7 +17,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 1,
     title: "E-Learning Platform",
     description: "A comprehensive digital learning platform with interactive courses and real-time analytics.",
-    image: "/images/portfolio/elearning.jpg",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "Web Development",
     link: "#"
   },
@@ -25,7 +25,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 2,
     title: "FinTech Mobile App",
     description: "Mobile banking solution with advanced security features and seamless user experience.",
-    image: "/images/portfolio/fintech.jpg",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "Mobile Development",
     link: "#"
   },
@@ -33,7 +33,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 3,
     title: "AI-Powered Analytics",
     description: "Business intelligence platform leveraging artificial intelligence for predictive analytics.",
-    image: "/images/portfolio/analytics.jpg",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "AI & Machine Learning",
     link: "#"
   },
@@ -41,7 +41,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 4,
     title: "IoT Smart Home",
     description: "Connected home automation system with real-time monitoring and control.",
-    image: "/images/portfolio/iot.jpg",
+    image: "https://images.unsplash.com/photo-1558002038-bb4237b50307?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "IoT Solutions",
     link: "#"
   },
@@ -49,7 +49,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 5,
     title: "Healthcare Management",
     description: "Digital healthcare platform for patient management and telemedicine services.",
-    image: "/images/portfolio/healthcare.jpg",
+    image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "Healthcare",
     link: "#"
   },
@@ -57,7 +57,7 @@ const portfolioItems: PortfolioItem[] = [
     id: 6,
     title: "Supply Chain Platform",
     description: "Blockchain-based supply chain management system for transparency and efficiency.",
-    image: "/images/portfolio/supply-chain.jpg",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "Blockchain",
     link: "#"
   }
@@ -69,7 +69,7 @@ interface PortfolioSectionProps {
 
 const PortfolioSection: React.FC<PortfolioSectionProps> = ({ showAll = false }) => {
   const [activeCategory, setActiveCategory] = useState<string>('all');
-  const categories = ['all', ...new Set(portfolioItems.map(item => item.category))];
+  const categories = ['all', ...Array.from(new Set(portfolioItems.map(item => item.category)))];
   
   const filteredItems = activeCategory === 'all' 
     ? portfolioItems 
