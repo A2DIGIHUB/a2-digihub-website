@@ -41,33 +41,34 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 backdrop-blur-md ${
           isScrolled || location.pathname !== '/' 
-            ? 'bg-slate-900/95 shadow-lg'
-            : 'bg-slate-900/80'
+            ? 'bg-white/90 dark:bg-slate-900/90 shadow-lg'
+            : 'bg-transparent'
         }`}
       >
-        <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
+        <div className="absolute inset-0 border-b border-slate-900/10 dark:border-slate-50/[0.06]"></div>
+        <nav className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
             <Link 
               to="/" 
               className="flex items-center space-x-2 group"
             >
-              <span className="text-2xl font-bold text-sky-400 group-hover:text-sky-300 transition-colors duration-300">
+              <span className="text-xl font-bold bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 bg-clip-text text-transparent group-hover:from-indigo-600 group-hover:via-sky-600 group-hover:to-emerald-600 transition-all duration-300">
                 A2 DIGIHUB
               </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex md:items-center md:space-x-6">
+            <div className="hidden md:flex md:items-center md:space-x-1">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
                   to={item.path}
-                  className={`text-sm font-medium transition-all duration-200 px-4 py-2 rounded-lg ${
+                  className={`text-sm font-medium transition-all duration-200 px-3 py-2 rounded-md ${
                     location.pathname === item.path
-                      ? 'text-sky-300 bg-sky-400/10'
-                      : 'text-gray-300 hover:text-sky-300 hover:bg-sky-400/5'
+                      ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800'
+                      : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                   }`}
                 >
                   {item.label}
@@ -79,7 +80,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-lg text-gray-300 hover:text-sky-300 hover:bg-sky-400/5 transition-colors focus:outline-none"
+              className="md:hidden p-2 rounded-md text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none"
             >
               {isMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
@@ -97,24 +98,24 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-slate-900/95 border-t border-sky-900/30"
+              className="md:hidden bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-900/10 dark:border-slate-50/[0.06]"
             >
-              <div className="container mx-auto px-4 py-4 space-y-2">
+              <div className="container mx-auto px-4 py-3 space-y-1">
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`block px-4 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
+                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                       location.pathname === item.path
-                        ? 'text-sky-300 bg-sky-400/10'
-                        : 'text-gray-300 hover:text-sky-300 hover:bg-sky-400/5'
+                        ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800'
+                        : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                   >
                     {item.label}
                   </Link>
                 ))}
-                <div className="px-4 py-2 text-sm font-semibold text-gray-500 uppercase tracking-wider">
+                <div className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Solutions
                 </div>
                 {dropdownItems.map((item) => (
@@ -122,10 +123,10 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsMenuOpen(false)}
-                    className={`block px-6 py-3 rounded-lg text-base font-medium transition-all duration-200 ${
+                    className={`block px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                       location.pathname === item.path
-                        ? 'text-sky-300 bg-sky-400/10'
-                        : 'text-gray-300 hover:text-sky-300 hover:bg-sky-400/5'
+                        ? 'text-slate-900 dark:text-white bg-slate-100 dark:bg-slate-800'
+                        : 'text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
                     }`}
                   >
                     {item.label}
@@ -137,11 +138,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         </AnimatePresence>
       </header>
 
-      <main className="flex-grow pt-20 w-full max-w-full">
+      <main className="flex-grow pt-16 w-full max-w-full">
         {children}
       </main>
 
-      <footer className="bg-gray-900 text-white w-full">
+      <footer className="bg-slate-900 text-white w-full">
         {/* Footer content */}
       </footer>
     </div>
