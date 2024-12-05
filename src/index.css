@@ -7,10 +7,15 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    @apply overflow-x-hidden;
   }
 
   body {
-    @apply text-gray-900 antialiased;
+    @apply text-gray-900 antialiased overflow-x-hidden min-h-screen;
+  }
+
+  #root {
+    @apply min-h-screen flex flex-col;
   }
 
   /* Improved focus styles */
