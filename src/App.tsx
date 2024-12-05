@@ -14,6 +14,7 @@ const Services = React.lazy(() => import('./pages/Services'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const Terms = React.lazy(() => import('./pages/Terms'));
 const Courses = React.lazy(() => import('./pages/Courses'));
+const Portfolio = React.lazy(() => import('./pages/Portfolio'));
 
 // Initialize performance monitoring
 initializeMonitoring();
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Services />} />
+                <Route path="/portfolio" element={<Portfolio />} />
                 <Route path="/courses" element={<Courses />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/terms" element={<Terms />} />
