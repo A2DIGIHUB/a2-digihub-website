@@ -37,13 +37,15 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className="flex flex-col min-h-screen w-full overflow-x-hidden">
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? 'bg-white shadow-md' : 'bg-transparent'
+          isScrolled || location.pathname !== '/' 
+            ? 'bg-slate-900/80 backdrop-blur-lg'
+            : 'bg-transparent'
         }`}
       >
         <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center space-x-2">
-              <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-400 bg-clip-text text-transparent">
+              <span className="text-2xl font-bold text-white">
                 A2 DIGIHUB
               </span>
             </Link>
@@ -56,8 +58,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   to={item.path}
                   className={`text-sm font-medium transition-colors duration-200 ${
                     location.pathname === item.path
-                      ? 'text-blue-600'
-                      : 'text-gray-700 hover:text-blue-600'
+                      ? 'text-white'
+                      : 'text-gray-300 hover:text-white'
                   }`}
                 >
                   {item.label}
@@ -68,7 +70,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Mobile menu button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600 focus:outline-none"
+              className="md:hidden p-2 rounded-md text-gray-300 hover:text-white focus:outline-none"
             >
               {isMenuOpen ? (
                 <XMarkIcon className="h-6 w-6" />
@@ -86,7 +88,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-t"
+              className="md:hidden bg-slate-900/95 backdrop-blur-lg border-t border-gray-800"
             >
               <div className="container mx-auto px-4 py-2 space-y-1">
                 {navItems.map((item) => (
@@ -96,8 +98,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     onClick={() => setIsMenuOpen(false)}
                     className={`block px-3 py-2 rounded-md text-base font-medium ${
                       location.pathname === item.path
-                        ? 'text-blue-600 bg-blue-50'
-                        : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50'
+                        ? 'text-white bg-white/10'
+                        : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     {item.label}
