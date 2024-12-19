@@ -19,6 +19,7 @@ import {
   PhoneIcon,
   EnvelopeIcon,
   MapPinIcon,
+  ShieldCheckIcon,
 } from '@heroicons/react/24/outline';
 
 // Course categories
@@ -28,6 +29,7 @@ const categories = [
   { id: 'backend', name: 'Backend Development', icon: ServerIcon },
   { id: 'uiux', name: 'UI/UX Design', icon: PaintBrushIcon },
   { id: 'graphic', name: 'Graphic Design', icon: SwatchIcon },
+  { id: 'security', name: 'Cyber Security', icon: ShieldCheckIcon },
 ];
 
 // Course data
@@ -102,23 +104,45 @@ const courses = [
     id: 4,
     title: 'Graphic Design',
     category: 'graphic',
-    description: 'Learn professional graphic design for print and digital media using industry-standard tools.',
-    duration: '12 weeks',
+    description: 'Learn professional graphic design skills using industry-standard tools and techniques.',
+    duration: '10 weeks',
     level: 'Beginner to Intermediate',
     students: '35+',
     rating: 4.8,
-    price: '₦65,000',
+    price: '₦70,000',
     image: '/courses/Artboard5.jpg',
     features: [
       'Design Fundamentals',
-      'Typography & Color Theory',
-      'Logo Design',
-      'Print & Digital Media',
+      'Adobe Creative Suite',
       'Brand Identity Design',
-      'Portfolio Creation'
+      'Print & Digital Design',
+      'Portfolio Development',
+      'Client Communication'
     ],
-    skills: ['Adobe Photoshop', 'Adobe Illustrator', 'InDesign', 'Branding'],
+    skills: ['Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Brand Design'],
     enrollmentLink: 'https://your-backend-url/enroll/graphic'
+  },
+  {
+    id: 5,
+    title: 'Cyber Security',
+    category: 'security',
+    description: 'Master the fundamentals of cyber security, ethical hacking, and network defense strategies.',
+    duration: '16 weeks',
+    level: 'Intermediate',
+    students: '30+',
+    rating: 4.9,
+    price: '₦90,000',
+    image: '/courses/Artboard 4.png',
+    features: [
+      'Network Security',
+      'Ethical Hacking',
+      'Security Auditing',
+      'Penetration Testing',
+      'Incident Response',
+      'Security Compliance'
+    ],
+    skills: ['Network Security', 'Ethical Hacking', 'Penetration Testing', 'Security Tools', 'Risk Assessment'],
+    enrollmentLink: 'https://your-backend-url/enroll/security'
   }
 ];
 
@@ -130,11 +154,11 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
       viewport={{ once: true }}
       className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
     >
-      <div className="relative aspect-w-16 aspect-h-9 group">
+      <div className="relative h-64 w-full group">
         <img
           src={course.image}
           alt={course.title}
-          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="absolute bottom-4 left-4">
