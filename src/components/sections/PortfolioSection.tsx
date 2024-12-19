@@ -60,6 +60,14 @@ const portfolioItems: PortfolioItem[] = [
     image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
     category: "Blockchain",
     link: "#"
+  },
+  {
+    id: 7,
+    title: "Graphic Design Portfolio",
+    description: "Collection of creative graphic design works including branding, illustrations, and digital art.",
+    image: "/images/graphic-design.jpg",
+    category: "Graphic Design",
+    link: "https://drive.google.com/drive/folders/12OwxZiEsHkrW2E2jIMDLD3DHRIIdcFAm?usp=sharing"
   }
 ];
 
@@ -107,11 +115,11 @@ const PortfolioSection: React.FC<PortfolioSectionProps> = ({ showAll = false }) 
             transition={{ duration: 0.5 }}
             className="group relative bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow"
           >
-            <div className="aspect-w-16 aspect-h-9">
+            <div className="relative h-64 w-full">
               <img
                 src={item.image}
                 alt={item.title}
-                className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
             <div className="p-6">
@@ -126,6 +134,8 @@ const PortfolioSection: React.FC<PortfolioSectionProps> = ({ showAll = false }) 
               </p>
               <a
                 href={item.link}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
               >
                 Learn More
