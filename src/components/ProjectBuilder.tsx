@@ -52,15 +52,77 @@ const ProjectBuilder: React.FC = () => {
   const services: Service[] = [
     {
       id: 1,
-      title: 'Digital Marketing',
-      description: 'Strategic digital marketing solutions to grow your online presence',
-      priceRange: '₦100,000 - ₦300,000',
-      deliveryTime: '2-4 weeks',
+      title: 'Business Branding',
+      description: 'Affordable brand identity solutions perfect for startups and small businesses',
+      priceRange: '₦50,000 - ₦100,000',
+      deliveryTime: '2-5 days',
       features: [
-        'Social Media Marketing',
-        'Content Strategy',
-        'SEO Optimization',
-        'Analytics & Reporting'
+        'Logo Design & Brand Guidelines',
+        'Social Media Branding Kit',
+        'Business Card Design',
+        'Email Signature',
+        'Basic Marketing Materials'
+      ],
+      subOptions: [
+        {
+          id: 'basic',
+          title: 'Basic Branding Package',
+          description: 'Essential branding elements for startups',
+          basePrice: 50000,
+          timelinePrices: {
+            urgent: 75000,
+            standard: 50000,
+            flexible: 45000
+          },
+          features: [
+            'Professional Logo Design',
+            'Basic Brand Guidelines',
+            'Business Card Design',
+            'Email Signature',
+            'Social Media Profile Images'
+          ]
+        },
+        {
+          id: 'standard',
+          title: 'Standard Branding Package',
+          description: 'Comprehensive branding for growing businesses',
+          basePrice: 75000,
+          timelinePrices: {
+            urgent: 112500,
+            standard: 75000,
+            flexible: 67500
+          },
+          features: [
+            'Professional Logo Design',
+            'Detailed Brand Guidelines',
+            'Business Card & Letterhead',
+            'Email Signature',
+            'Social Media Kit (Profile & Cover Images)',
+            'Basic Marketing Materials',
+            'Brand Color Palette'
+          ]
+        },
+        {
+          id: 'premium',
+          title: 'Premium Branding Package',
+          description: 'Complete brand identity system',
+          basePrice: 100000,
+          timelinePrices: {
+            urgent: 150000,
+            standard: 100000,
+            flexible: 90000
+          },
+          features: [
+            'Professional Logo Design with Multiple Concepts',
+            'Comprehensive Brand Guidelines',
+            'Complete Stationery Design',
+            'Social Media Branding Kit',
+            'Marketing Materials Design',
+            'Brand Story Development',
+            'Brand Voice Guidelines',
+            'Typography Selection'
+          ]
+        }
       ]
     },
     {
@@ -438,10 +500,20 @@ const ProjectBuilder: React.FC = () => {
             total += websiteOption.timelinePrices[timelineValue] || websiteOption.basePrice;
           }
         }
+      } else if (serviceId === 1) { // Business Branding
+        // Get the selected branding package
+        const selectedBrandingPackage = selectedSubOptions[0]; // We only allow one selection
+        if (selectedBrandingPackage) {
+          const service = services.find(s => s.id === 1);
+          const brandingPackage = service?.subOptions?.find(opt => opt.id === selectedBrandingPackage);
+          if (brandingPackage) {
+            total += brandingPackage.timelinePrices[timelineValue] || brandingPackage.basePrice;
+          }
+        }
       } else {
         // Handle other services as before
         const basePrices: { [key: number]: { min: number; max: number } } = {
-          1: { min: 150000, max: 1500000 },    // Business Branding
+          1: { min: 50000, max: 100000 },    // Business Branding
           2: { min: 150000, max: 450000 },    // Custom Software Development
           3: { min: 300000, max: 2000000 },    // Cloud Solutions
           4: { min: 1000000, max: 6000000 }    // AI & ML
@@ -547,8 +619,8 @@ const ProjectBuilder: React.FC = () => {
                       timeline === 'urgent' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                     }`}
                   >
-                    <h3 className="font-semibold mb-2">Urgent Delivery</h3>
-                    <p className="text-sm text-gray-600">1-2 weeks</p>
+                    <h3 className="font-semibold mb-2">Express Delivery</h3>
+                    <p className="text-sm text-gray-600">1-2 days</p>
                     <p className="text-sm text-blue-600 mt-2">50% premium</p>
                   </button>
                   <button
@@ -559,7 +631,7 @@ const ProjectBuilder: React.FC = () => {
                     }`}
                   >
                     <h3 className="font-semibold mb-2">Standard Delivery</h3>
-                    <p className="text-sm text-gray-600">3-4 weeks</p>
+                    <p className="text-sm text-gray-600">2-3 days</p>
                     <p className="text-sm text-blue-600 mt-2">Standard rate</p>
                   </button>
                   <button
@@ -569,8 +641,8 @@ const ProjectBuilder: React.FC = () => {
                       timeline === 'flexible' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                     }`}
                   >
-                    <h3 className="font-semibold mb-2">Flexible Delivery</h3>
-                    <p className="text-sm text-gray-600">5+ weeks</p>
+                    <h3 className="font-semibold mb-2">Relaxed Delivery</h3>
+                    <p className="text-sm text-gray-600">4-5 days</p>
                     <p className="text-sm text-blue-600 mt-2">10% discount</p>
                   </button>
                 </div>
@@ -640,6 +712,69 @@ const ProjectBuilder: React.FC = () => {
                 </div>
               )}
 
+              {selectedServices.includes(1) && (
+                <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+                  <h3 className="text-lg font-semibold mb-4">Branding Packages</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {services.find(s => s.id === 1)?.subOptions?.map((option) => (
+                      <button
+                        key={option.id}
+                        type="button"
+                        onClick={() => {
+                          const newSelection = selectedSubOptions.includes(option.id)
+                            ? selectedSubOptions.filter(id => id !== option.id)
+                            : [option.id];
+                          setSelectedSubOptions(newSelection);
+                          if (timeline) {
+                            const newEstimate = calculatePrice(selectedServices, timeline);
+                            setEstimatedPrice(newEstimate);
+                          }
+                        }}
+                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${
+                          selectedSubOptions.includes(option.id)
+                            ? 'border-blue-500 bg-blue-50'
+                            : 'border-gray-200'
+                        }`}
+                      >
+                        <div className="flex flex-col h-full">
+                          <div className="flex-grow">
+                            <h4 className="font-semibold text-lg mb-1">{option.title}</h4>
+                            <p className="text-sm text-gray-600 mb-3">{option.description}</p>
+                            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+                              {option.features.map((feature, index) => (
+                                <li key={index} className="flex items-start">
+                                  <svg className="w-4 h-4 mr-2 text-blue-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                  </svg>
+                                  <span>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="mt-auto pt-4 border-t border-gray-200">
+                            {timeline ? (
+                              <div>
+                                <div className="text-lg font-semibold text-blue-600">
+                                  ₦{option.timelinePrices[timeline as keyof typeof option.timelinePrices].toLocaleString()}
+                                </div>
+                                <div className="text-sm text-gray-500">
+                                  {timeline === 'urgent' ? '(+50% rush fee)' :
+                                   timeline === 'flexible' ? '(10% discount)' : '(standard rate)'}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="text-lg font-semibold text-blue-600">
+                                From ₦{option.basePrice.toLocaleString()}
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               {/* Selected Project Summary */}
               {selectedServices.includes(2) && selectedSubOptions[0] && timeline && (
                 <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
@@ -650,6 +785,28 @@ const ProjectBuilder: React.FC = () => {
                         <div>
                           <h4 className="font-semibold text-blue-600">
                             {services.find(s => s.id === 2)?.subOptions?.find(opt => opt.id === selectedSubOptions[0])?.title}
+                          </h4>
+                          <p className="text-sm text-gray-600 mt-1 capitalize">{timeline} Delivery</p>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-blue-600">{estimatedPrice}</div>
+                          <p className="text-sm text-gray-500">Final Price</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {selectedServices.includes(1) && selectedSubOptions[0] && timeline && (
+                <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
+                  <h3 className="text-lg font-semibold mb-4">Project Summary</h3>
+                  <div className="space-y-4">
+                    <div className="bg-white p-4 rounded-lg border border-gray-200">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-semibold text-blue-600">
+                            {services.find(s => s.id === 1)?.subOptions?.find(opt => opt.id === selectedSubOptions[0])?.title}
                           </h4>
                           <p className="text-sm text-gray-600 mt-1 capitalize">{timeline} Delivery</p>
                         </div>
