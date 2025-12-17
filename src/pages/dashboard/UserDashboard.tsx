@@ -2,7 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { Link, Navigate } from 'react-router-dom';
-import { ClockIcon, PlusIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/react/24/outline';
+import {
+    ClockIcon,
+    PlusIcon,
+    CheckCircleIcon,
+    XCircleIcon,
+    ChartBarIcon,
+    DocumentTextIcon,
+    ArrowTrendingUpIcon,
+    CalendarIcon,
+    SparklesIcon
+} from '@heroicons/react/24/outline';
+import { motion } from 'framer-motion';
 
 const UserDashboard: React.FC = () => {
     const { user, isAdmin } = useAuth();
@@ -45,120 +56,209 @@ const UserDashboard: React.FC = () => {
         }
     };
 
+    const stats = [
+        {
+            name: 'Total Projects',
+            value: projects.length,
+            icon: DocumentTextIcon,
+            change: '+12%',
+            changeType: 'positive',
+            color: 'blue'
+        },
+        {
+            name: 'In Progress',
+            value: projects.filter(p => p.status === 'approved').length,
+            icon: ClockIcon,
+            change: '+4.75%',
+            changeType: 'positive',
+            color: 'yellow'
+        },
+        {
+            name: 'Completed',
+            value: projects.filter(p => p.status === 'completed').length,
+            icon: CheckCircleIcon,
+            change: '+54.02%',
+            changeType: 'positive',
+            color: 'green'
+        },
+        {
+            name: 'Success Rate',
+            value: projects.length > 0 ? `${Math.round((projects.filter(p => p.status === 'completed').length / projects.length) * 100)}%` : '0%',
+            icon: ChartBarIcon,
+            change: '+2.5%',
+            changeType: 'positive',
+            color: 'purple'
+        }
+    ];
+
+    const quickActions = [
+        { name: 'Start New Project', href: '/services', icon: PlusIcon, color: 'blue' },
+        { name: 'View All Projects', href: '/dashboard/projects', icon: DocumentTextIcon, color: 'purple' },
+        { name: 'Analytics', href: '/dashboard/analytics', icon: ChartBarIcon, color: 'green' },
+    ];
+
     return (
         <div className="space-y-6">
+            {/* Header */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">My Dashboard</h1>
-                    <p className="text-gray-600 dark:text-gray-400">Welcome back, {user?.email}</p>
+                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome Back!</h1>
+                    <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                        Here's what's happening with your projects today.
+                    </p>
                 </div>
                 <Link
-                    to="/"
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors"
+                    to="/services"
+                    className="inline-flex items-center px-4 py-2.5 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
                 >
                     <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                     New Project
                 </Link>
             </div>
 
-            {/* Stats Overview */}
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-                <div className="bg-white dark:bg-slate-800 overflow-hidden shadow rounded-lg transition-colors duration-300">
-                    <div className="p-5">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <ClockIcon className="h-6 w-6 text-gray-400 dark:text-slate-500" aria-hidden="true" />
-                            </div>
-                            <div className="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Pending Projects</dt>
-                                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
-                                        {projects.filter(p => p.status === 'pending').length}
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-white dark:bg-slate-800 overflow-hidden shadow rounded-lg transition-colors duration-300">
-                    <div className="p-5">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <CheckCircleIcon className="h-6 w-6 text-green-400 dark:text-green-500" aria-hidden="true" />
-                            </div>
-                            <div className="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Approved Projects</dt>
-                                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
-                                        {projects.filter(p => p.status === 'approved').length}
-                                    </dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="bg-white dark:bg-slate-800 overflow-hidden shadow rounded-lg transition-colors duration-300">
-                    <div className="p-5">
-                        <div className="flex items-center">
-                            <div className="flex-shrink-0">
-                                <XCircleIcon className="h-6 w-6 text-red-400 dark:text-red-500" aria-hidden="true" />
-                            </div>
-                            <div className="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">Completed Projects</dt>
-                                    <dd className="text-lg font-medium text-gray-900 dark:text-white">
-                                        {projects.filter(p => p.status === 'completed').length}
-                                    </dd>
-                                </dl>
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+                {stats.map((stat, index) => (
+                    <motion.div
+                        key={stat.name}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="bg-white dark:bg-slate-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all duration-200"
+                    >
+                        <div className="p-5">
+                            <div className="flex items-center">
+                                <div className={`flex-shrink-0 p-3 rounded-lg bg-${stat.color}-100 dark:bg-${stat.color}-900/20`}>
+                                    <stat.icon className={`h-6 w-6 text-${stat.color}-600 dark:text-${stat.color}-400`} />
+                                </div>
+                                <div className="ml-5 w-0 flex-1">
+                                    <dl>
+                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                                            {stat.name}
+                                        </dt>
+                                        <dd className="flex items-baseline">
+                                            <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                                                {stat.value}
+                                            </div>
+                                            <div className={`ml-2 flex items-baseline text-sm font-semibold ${stat.changeType === 'positive' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                                <ArrowTrendingUpIcon className="self-center flex-shrink-0 h-4 w-4" />
+                                                <span className="ml-1">{stat.change}</span>
+                                            </div>
+                                        </dd>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </motion.div>
+                ))}
+            </div>
+
+            {/* Quick Actions */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-xl p-6 border border-blue-100 dark:border-slate-700">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
+                    <SparklesIcon className="h-5 w-5 mr-2 text-blue-600 dark:text-blue-400" />
+                    Quick Actions
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                    {quickActions.map((action) => (
+                        <Link
+                            key={action.name}
+                            to={action.href}
+                            className="flex items-center p-4 bg-white dark:bg-slate-700 rounded-lg shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-600 group"
+                        >
+                            <div className={`p-2 rounded-lg bg-${action.color}-100 dark:bg-${action.color}-900/20 group-hover:scale-110 transition-transform`}>
+                                <action.icon className={`h-5 w-5 text-${action.color}-600 dark:text-${action.color}-400`} />
+                            </div>
+                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-white">
+                                {action.name}
+                            </span>
+                        </Link>
+                    ))}
                 </div>
             </div>
 
-            {/* Projects List */}
-            <div className="bg-white dark:bg-slate-800 shadow overflow-hidden sm:rounded-md transition-colors duration-300">
-                <div className="px-4 py-5 sm:px-6 border-b border-gray-200 dark:border-slate-700">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">Recent Projects</h3>
+            {/* Recent Projects */}
+            <div className="bg-white dark:bg-slate-800 shadow-sm rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
+                <div className="px-6 py-5 border-b border-gray-100 dark:border-slate-700">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
+                        <CalendarIcon className="h-5 w-5 mr-2 text-gray-400" />
+                        Recent Projects
+                    </h3>
+                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        Track the status of your latest project requests
+                    </p>
                 </div>
-                <ul className="divide-y divide-gray-200 dark:divide-slate-700">
+                <div className="divide-y divide-gray-100 dark:divide-slate-700">
                     {loading ? (
-                        <div className="p-10 text-center text-gray-500 dark:text-gray-400">Loading projects...</div>
+                        <div className="p-10 text-center">
+                            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
+                            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">Loading projects...</p>
+                        </div>
                     ) : projects.length === 0 ? (
-                        <div className="p-10 text-center text-gray-500 dark:text-gray-400">
-                            No projects found. Start a new project to get started!
+                        <div className="p-10 text-center">
+                            <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400" />
+                            <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-white">No projects yet</h3>
+                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                Get started by creating your first project.
+                            </p>
+                            <div className="mt-6">
+                                <Link
+                                    to="/services"
+                                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700"
+                                >
+                                    <PlusIcon className="-ml-1 mr-2 h-5 w-5" />
+                                    New Project
+                                </Link>
+                            </div>
                         </div>
                     ) : (
-                        projects.map((project) => (
-                            <li key={project.id}>
-                                <div className="px-4 py-4 sm:px-6 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer">
-                                    <div className="flex items-center justify-between">
-                                        <p className="text-sm font-medium text-blue-600 dark:text-blue-400 truncate">
-                                            {project.service_type}
-                                        </p>
-                                        <div className="ml-2 flex-shrink-0 flex">
-                                            <p className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(project.status)}`}>
-                                                {project.status}
-                                            </p>
+                        <ul className="divide-y divide-gray-100 dark:divide-slate-700">
+                            {projects.slice(0, 5).map((project) => (
+                                <li key={project.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                    <div className="px-6 py-4">
+                                        <div className="flex items-center justify-between">
+                                            <div className="flex-1 min-w-0">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex-shrink-0">
+                                                        <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                                                            <DocumentTextIcon className="h-5 w-5 text-white" />
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex-1">
+                                                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                                                            {project.service_type}
+                                                        </p>
+                                                        <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                            {project.package_type} • {project.estimated_price}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="ml-4 flex-shrink-0 flex items-center gap-3">
+                                                <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(project.status)}`}>
+                                                    {project.status}
+                                                </span>
+                                                <span className="text-xs text-gray-500 dark:text-gray-400">
+                                                    {new Date(project.created_at).toLocaleDateString()}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div className="mt-2 sm:flex sm:justify-between">
-                                        <div className="sm:flex">
-                                            <p className="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                                                {project.package_type}
-                                            </p>
-                                        </div>
-                                        <div className="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400 sm:mt-0">
-                                            <p>
-                                                Estimated: {project.estimated_price}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        ))
+                                </li>
+                            ))}
+                        </ul>
                     )}
-                </ul>
+                </div>
+                {projects.length > 5 && (
+                    <div className="px-6 py-4 bg-gray-50 dark:bg-slate-700/50 border-t border-gray-100 dark:border-slate-700">
+                        <Link
+                            to="/dashboard/projects"
+                            className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
+                        >
+                            View all {projects.length} projects →
+                        </Link>
+                    </div>
+                )}
             </div>
         </div>
     );
