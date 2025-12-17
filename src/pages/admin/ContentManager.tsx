@@ -379,9 +379,9 @@ const ContentManager: React.FC = () => {
                     ))}
                 </Tab.List>
                 <Tab.Panels className="mt-6">
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden min-h-[400px]">
+                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden min-h-[400px] transition-colors">
                         {loading ? (
-                            <div className="flex justify-center items-center h-64 text-gray-500">
+                            <div className="flex justify-center items-center h-64 text-gray-500 dark:text-gray-400">
                                 <span className="animate-pulse">Loading content...</span>
                             </div>
                         ) : (
@@ -439,12 +439,12 @@ const ContentManager: React.FC = () => {
             <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="relative z-50">
                 <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" aria-hidden="true" />
                 <div className="fixed inset-0 flex items-center justify-center p-4">
-                    <Dialog.Panel className="w-full max-w-2xl rounded-2xl bg-white p-6 shadow-xl max-h-[90vh] overflow-y-auto">
+                    <Dialog.Panel className="w-full max-w-2xl rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-xl max-h-[90vh] overflow-y-auto transition-colors">
                         <div className="flex justify-between items-center mb-6">
-                            <Dialog.Title className="text-lg font-bold text-gray-900">
+                            <Dialog.Title className="text-lg font-bold text-gray-900 dark:text-white">
                                 {editingItem ? 'Edit Item' : 'Create New Item'}
                             </Dialog.Title>
-                            <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500">
+                            <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
                         </div>
