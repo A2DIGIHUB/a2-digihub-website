@@ -1,165 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
+import { supabase } from '../lib/supabase';
 import {
   AcademicCapIcon,
   ClockIcon,
   UserGroupIcon,
-  ChartBarIcon,
-  CurrencyDollarIcon,
   StarIcon,
   BookOpenIcon,
-  ComputerDesktopIcon,
-  PresentationChartBarIcon,
   CodeBracketIcon,
   ServerIcon,
   PaintBrushIcon,
   SwatchIcon,
-  PhoneIcon,
-  EnvelopeIcon,
-  MapPinIcon,
   ShieldCheckIcon,
+  ChartBarIcon // Kept for Why Choose Us section
 } from '@heroicons/react/24/outline';
 
-// Course categories
-const categories = [
-  { id: 'all', name: 'All Courses', icon: BookOpenIcon },
-  { id: 'frontend', name: 'Frontend Development', icon: CodeBracketIcon },
-  { id: 'backend', name: 'Backend Development', icon: ServerIcon },
-  { id: 'uiux', name: 'UI/UX Design', icon: PaintBrushIcon },
-  { id: 'graphic', name: 'Graphic Design', icon: SwatchIcon },
-  { id: 'security', name: 'Cyber Security', icon: ShieldCheckIcon },
-];
+interface Course {
+  id: string;
+  title: string;
+  alias?: string; // category
+  description: string;
+  duration: string;
+  level: string;
+  price: number | string;
+  image_url: string;
+  active: boolean;
+  created_at: string;
+}
 
-// Course data
-const courses = [
-  {
-    id: 1,
-    title: 'Frontend Development',
-    category: 'frontend',
-    description: 'Master modern frontend development with React, TypeScript, and responsive design principles.',
-    duration: '12 weeks',
-    level: 'Beginner to Intermediate',
-    students: '50+',
-    rating: 4.8,
-    price: '₦75,000',
-    image: '/courses/Artboard1.png',
-    features: [
-      'HTML5, CSS3 & JavaScript',
-      'React & TypeScript',
-      'Responsive Web Design',
-      'State Management',
-      'API Integration',
-      'Modern Build Tools'
-    ],
-    skills: ['React', 'TypeScript', 'Tailwind CSS', 'Git', 'REST APIs'],
-    enrollmentLink: 'https://your-backend-url/enroll/frontend'
-  },
-  {
-    id: 2,
-    title: 'Backend Development',
-    category: 'backend',
-    description: 'Learn server-side programming, database management, and API development with Node.js and Express.',
-    duration: '14 weeks',
-    level: 'Intermediate',
-    students: '45+',
-    rating: 4.9,
-    price: '₦85,000',
-    image: '/courses/Artboard2.png',
-    features: [
-      'Node.js & Express',
-      'Database Design',
-      'RESTful APIs',
-      'Authentication & Security',
-      'Cloud Deployment',
-      'Performance Optimization'
-    ],
-    skills: ['Node.js', 'MongoDB', 'Express', 'SQL', 'AWS'],
-    enrollmentLink: 'https://your-backend-url/enroll/backend'
-  },
-  {
-    id: 3,
-    title: 'UI/UX Design',
-    category: 'uiux',
-    description: 'Master the art of creating beautiful, user-centered designs for web and mobile applications.',
-    duration: '10 weeks',
-    level: 'Beginner to Intermediate',
-    students: '40+',
-    rating: 4.9,
-    price: '₦70,000',
-    image: '/courses/Artboard3.png',
-    features: [
-      'Design Principles',
-      'User Research',
-      'Wireframing & Prototyping',
-      'Design Systems',
-      'Usability Testing',
-      'Portfolio Development'
-    ],
-    skills: ['Figma', 'Adobe XD', 'Design Thinking', 'User Research'],
-    enrollmentLink: 'https://your-backend-url/enroll/uiux'
-  },
-  {
-    id: 4,
-    title: 'Graphic Design',
-    category: 'graphic',
-    description: 'Learn professional graphic design skills using industry-standard tools and techniques.',
-    duration: '10 weeks',
-    level: 'Beginner to Intermediate',
-    students: '35+',
-    rating: 4.8,
-    price: '₦70,000',
-    image: '/courses/Artboard5.jpg',
-    features: [
-      'Design Fundamentals',
-      'Adobe Creative Suite',
-      'Brand Identity Design',
-      'Print & Digital Design',
-      'Portfolio Development',
-      'Client Communication'
-    ],
-    skills: ['Adobe Photoshop', 'Adobe Illustrator', 'Adobe InDesign', 'Brand Design'],
-    enrollmentLink: 'https://your-backend-url/enroll/graphic'
-  },
-  {
-    id: 5,
-    title: 'Cyber Security',
-    category: 'security',
-    description: 'Master the fundamentals of cyber security, ethical hacking, and network defense strategies.',
-    duration: '16 weeks',
-    level: 'Intermediate',
-    students: '30+',
-    rating: 4.9,
-    price: '₦90,000',
-    image: '/courses/Artboard 4.png',
-    features: [
-      'Network Security',
-      'Ethical Hacking',
-      'Security Auditing',
-      'Penetration Testing',
-      'Incident Response',
-      'Security Compliance'
-    ],
-    skills: ['Network Security', 'Ethical Hacking', 'Penetration Testing', 'Security Tools', 'Risk Assessment'],
-    enrollmentLink: 'https://your-backend-url/enroll/security'
+// Icon mapper helper
+const getCategoryIcon = (alias: string) => {
+  switch (alias) {
+    case 'frontend': return CodeBracketIcon;
+    case 'backend': return ServerIcon;
+    case 'uiux': return PaintBrushIcon;
+    case 'graphic': return SwatchIcon;
+    case 'security': return ShieldCheckIcon;
+    default: return BookOpenIcon;
   }
-];
+};
 
-const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
+const CourseCard: React.FC<{ course: Course }> = ({ course }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow"
+      className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow flex flex-col h-full"
     >
-      <div className="relative h-64 w-full group">
-        <img
-          src={course.image}
-          alt={course.title}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-        />
+      <div className="relative h-64 w-full group overflow-hidden">
+        {course.image_url ? (
+          <img
+            src={course.image_url}
+            alt={course.title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full bg-slate-200 flex items-center justify-center">
+            <AcademicCapIcon className="w-16 h-16 text-slate-400" />
+          </div>
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="absolute bottom-4 left-4">
             <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-600 text-white">
@@ -168,60 +70,44 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
           </div>
         </div>
       </div>
-      
-      <div className="p-6">
+
+      <div className="p-6 flex flex-col flex-1">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold text-gray-900">{course.title}</h3>
-          <span className="text-lg font-bold text-blue-600">{course.price}</span>
+          <span className="text-lg font-bold text-blue-600">
+            {typeof course.price === 'number' ? `₦${course.price.toLocaleString()}` : course.price}
+          </span>
         </div>
-        
-        <p className="text-gray-600 mb-4 line-clamp-2">{course.description}</p>
-        
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <div className="flex items-center text-gray-600">
-            <ClockIcon className="w-5 h-5 mr-2 text-blue-600" />
+
+        <p className="text-gray-600 mb-4 line-clamp-3 flex-1">{course.description}</p>
+
+        <div className="grid grid-cols-2 gap-3 mb-6 mt-auto">
+          <div className="flex items-center text-gray-600 text-sm">
+            <ClockIcon className="w-4 h-4 mr-2 text-blue-600" />
             <span>{course.duration}</span>
           </div>
-          <div className="flex items-center text-gray-600">
-            <UserGroupIcon className="w-5 h-5 mr-2 text-blue-600" />
-            <span>{course.students}</span>
+          {/* Mock Data for stats not in DB yet */}
+          <div className="flex items-center text-gray-600 text-sm">
+            <UserGroupIcon className="w-4 h-4 mr-2 text-blue-600" />
+            <span>Students: 20+</span>
           </div>
-          <div className="flex items-center text-gray-600">
-            <StarIcon className="w-5 h-5 mr-2 text-yellow-500" />
-            <span>{course.rating}/5.0</span>
+          <div className="flex items-center text-gray-600 text-sm">
+            <StarIcon className="w-4 h-4 mr-2 text-yellow-500" />
+            <span>5.0</span>
           </div>
-          <div className="flex items-center text-gray-600">
-            <AcademicCapIcon className="w-5 h-5 mr-2 text-blue-600" />
+          <div className="flex items-center text-gray-600 text-sm">
+            <AcademicCapIcon className="w-4 h-4 mr-2 text-blue-600" />
             <span>{course.level}</span>
           </div>
         </div>
 
-        <div className="mb-6">
-          <h4 className="font-semibold text-gray-900 mb-3">Key Skills:</h4>
-          <div className="flex flex-wrap gap-2">
-            {course.skills.map((skill, index) => (
-              <span
-                key={index}
-                className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-50 text-blue-700"
-              >
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-4">
-          <a
-            href={course.enrollmentLink}
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="space-y-4 pt-4 border-t border-gray-100">
+          <Link
+            to="/contact" // Ideally specific enrollment link, but contact works for now
             className="block w-full py-3 px-6 text-center font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors duration-200"
           >
             Enroll Now
-          </a>
-          <button className="block w-full py-3 px-6 text-center font-semibold text-blue-600 border-2 border-blue-600 rounded-lg hover:bg-blue-50 transition-colors duration-200">
-            Learn More
-          </button>
+          </Link>
         </div>
       </div>
     </motion.div>
@@ -229,16 +115,29 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
 };
 
 const Courses = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [courses, setCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const handleCategoryClick = (category: string) => {
-    setSelectedCategory(selectedCategory === category ? null : category);
-  };
+  useEffect(() => {
+    fetchCourses();
+  }, []);
 
-  // Filter courses based on selected category
-  const filteredCourses = selectedCategory
-    ? courses.filter(course => course.category === selectedCategory)
-    : courses;
+  const fetchCourses = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('courses')
+        .select('*')
+        .eq('active', true)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setCourses(data || []);
+    } catch (error) {
+      console.error("Error fetching courses", error);
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -247,7 +146,7 @@ const Courses = () => {
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_white_1px,_transparent_1px)] bg-[length:20px_20px] opacity-20" />
         </div>
-        
+
         <div className="relative container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -297,38 +196,19 @@ const Courses = () => {
         </div>
       </div>
 
-      {/* Course Categories */}
-      <div className="container mx-auto px-4">
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {categories.map((category) => {
-              const Icon = category.icon;
-              return (
-                <button
-                  key={category.id}
-                  onClick={() => handleCategoryClick(category.id)}
-                  className={`flex flex-col items-center p-4 rounded-lg transition-colors duration-200 ${
-                    selectedCategory === category.id
-                      ? 'bg-blue-50 text-blue-600'
-                      : 'hover:bg-gray-50 text-gray-600'
-                  }`}
-                >
-                  <Icon className="w-6 h-6 mb-2" />
-                  <span className="font-medium">{category.name}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
       {/* Course Grid */}
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredCourses.map((course, index) => (
-            <CourseCard key={course.id} course={course} />
-          ))}
-        </div>
+      <div id="courses" className="container mx-auto px-4 py-12">
+        {loading ? (
+          <div className="text-center py-20 text-gray-500">Loading courses...</div>
+        ) : courses.length === 0 ? (
+          <div className="text-center py-20 text-gray-500">No courses available at the moment. Please check back later.</div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {courses.map((course) => (
+              <CourseCard key={course.id} course={course} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Why Choose Us Section */}
@@ -379,34 +259,6 @@ const Courses = () => {
                 </motion.div>
               );
             })}
-          </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="bg-gradient-to-br from-gray-900 to-gray-800 py-20">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-              Ready to Start Your Learning Journey?
-            </h2>
-            <p className="text-lg text-gray-300 mb-8">
-              Join thousands of students who have transformed their careers through our courses
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                to="/contact"
-                className="px-8 py-3 text-lg font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-500 transition-colors duration-200"
-              >
-                Contact Us
-              </Link>
-              <a
-                href="#courses"
-                className="px-8 py-3 text-lg font-semibold text-white border-2 border-white/30 rounded-lg hover:bg-white/10 transition-colors duration-200"
-              >
-                View Courses
-              </a>
-            </div>
           </div>
         </div>
       </div>

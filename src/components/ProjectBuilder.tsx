@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { supabase } from '../lib/supabase';
 
 interface Service {
   id: number;
@@ -68,7 +69,7 @@ const ProjectBuilder: React.FC = () => {
           id: 'basic',
           title: 'Basic Branding Package',
           description: 'Essential branding elements for startups',
-          basePrice: 50000,
+          basePrice: 75000,
           timelinePrices: {
             urgent: 75000,
             standard: 50000,
@@ -86,7 +87,7 @@ const ProjectBuilder: React.FC = () => {
           id: 'standard',
           title: 'Standard Branding Package',
           description: 'Comprehensive branding for growing businesses',
-          basePrice: 75000,
+          basePrice: 150000,
           timelinePrices: {
             urgent: 112500,
             standard: 75000,
@@ -106,7 +107,7 @@ const ProjectBuilder: React.FC = () => {
           id: 'premium',
           title: 'Premium Branding Package',
           description: 'Complete brand identity system',
-          basePrice: 100000,
+          basePrice: 250000,
           timelinePrices: {
             urgent: 150000,
             standard: 100000,
@@ -431,12 +432,38 @@ const ProjectBuilder: React.FC = () => {
 
     setIsSubmitting(true);
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Mock success
+      const user = (await supabase.auth.getUser()).data.user;
+
+      if (!user) {
+        // Option: Prompt login or create a "guest" flow. 
+        // For now, let's assume we want them to login to save it.
+        // Or we can save it with user_id = null if we allow guest quotes (requires schema update)
+        // But our RLS requires auth.
+        alert("Please login to submit a quote.");
+        // Redirect to login?
+        window.location.href = '/login';
+        return;
+      }
+
+      const { error } = await supabase.from('quotes').insert({
+        user_id: user.id,
+        service_type: services.find(s => selectedServices.includes(s.id))?.title || 'Unknown Service',
+        package_type: selectedSubOptions.length > 0 ? selectedSubOptions[0] : null,
+        estimated_price: estimatedPrice,
+        timeline: timeline,
+        status: 'pending',
+        details: {
+          requirements,
+          contactInfo,
+          selectedServices,
+          selectedSubOptions
+        }
+      });
+
+      if (error) throw error;
+
       setSubmitSuccess(true);
-      
+
       // Reset form after 2 seconds
       setTimeout(() => {
         setSelectedServices([]);
@@ -452,8 +479,10 @@ const ProjectBuilder: React.FC = () => {
         setStep(1);
         setSubmitSuccess(false);
       }, 2000);
-    } catch (error) {
+
+    } catch (error: any) {
       console.error('Error submitting form:', error);
+      alert(`Failed to submit quote: ${error.message}`);
     } finally {
       setIsSubmitting(false);
     }
@@ -543,7 +572,7 @@ const ProjectBuilder: React.FC = () => {
     const newSelectedServices = selectedServices.includes(serviceId)
       ? selectedServices.filter(id => id !== serviceId)
       : [...selectedServices, serviceId];
-    
+
     setSelectedServices(newSelectedServices);
     if (newSelectedServices.length > 0 && timeline) {
       const newEstimate = calculatePrice(newSelectedServices, timeline);
@@ -566,11 +595,10 @@ const ProjectBuilder: React.FC = () => {
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className={`p-6 border rounded-lg transition-all ${
-                    selectedServices.includes(service.id)
-                      ? 'border-blue-500 bg-blue-50'
-                      : 'border-gray-200 hover:border-blue-300'
-                  }`}
+                  className={`p-6 border rounded-lg transition-all ${selectedServices.includes(service.id)
+                    ? 'border-blue-500 bg-blue-50'
+                    : 'border-gray-200 hover:border-blue-300'
+                    }`}
                   onClick={() => handleServiceSelect(service.id)}
                 >
                   <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
@@ -606,72 +634,27 @@ const ProjectBuilder: React.FC = () => {
             className="space-y-6"
           >
             <div className="space-y-6">
-              {/* Project Timeline */}
-              <div className="mb-8">
-                <label className="block text-sm font-medium text-gray-700 mb-4">
-                  Project Timeline
-                </label>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <button
-                    type="button"
-                    onClick={() => handleTimelineChange('urgent')}
-                    className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${
-                      timeline === 'urgent' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-                    }`}
-                  >
-                    <h3 className="font-semibold mb-2">Express Delivery</h3>
-                    <p className="text-sm text-gray-600">1-2 days</p>
-                    <p className="text-sm text-blue-600 mt-2">50% premium</p>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleTimelineChange('standard')}
-                    className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${
-                      timeline === 'standard' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-                    }`}
-                  >
-                    <h3 className="font-semibold mb-2">Standard Delivery</h3>
-                    <p className="text-sm text-gray-600">2-3 days</p>
-                    <p className="text-sm text-blue-600 mt-2">Standard rate</p>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleTimelineChange('flexible')}
-                    className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${
-                      timeline === 'flexible' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
-                    }`}
-                  >
-                    <h3 className="font-semibold mb-2">Relaxed Delivery</h3>
-                    <p className="text-sm text-gray-600">4-5 days</p>
-                    <p className="text-sm text-blue-600 mt-2">10% discount</p>
-                  </button>
-                </div>
-              </div>
-
-              {/* Project Details Summary */}
+              {/* Project Details Summary (Sub-options) - Moved ABOVE Timeline */}
               {selectedServices.includes(2) && (
                 <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <h3 className="text-lg font-semibold mb-4">Website Types</h3>
+                  <h3 className="text-lg font-semibold mb-4">Select Website Type</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {services.find(s => s.id === 2)?.subOptions?.map((option) => (
                       <button
                         key={option.id}
                         type="button"
                         onClick={() => {
-                          const newSelection = selectedSubOptions.includes(option.id)
-                            ? selectedSubOptions.filter(id => id !== option.id)
-                            : [option.id];
+                          const newSelection = [option.id]; // Single selection for simplicity in pricing
                           setSelectedSubOptions(newSelection);
                           if (timeline) {
                             const newEstimate = calculatePrice(selectedServices, timeline);
                             setEstimatedPrice(newEstimate);
                           }
                         }}
-                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${
-                          selectedSubOptions.includes(option.id)
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-gray-200'
-                        }`}
+                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${selectedSubOptions.includes(option.id)
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200'
+                          }`}
                       >
                         <div className="flex flex-col h-full">
                           <div className="flex-grow">
@@ -689,21 +672,9 @@ const ProjectBuilder: React.FC = () => {
                             </ul>
                           </div>
                           <div className="mt-auto pt-4 border-t border-gray-200">
-                            {timeline ? (
-                              <div>
-                                <div className="text-lg font-semibold text-blue-600">
-                                  ₦{option.timelinePrices[timeline as keyof typeof option.timelinePrices].toLocaleString()}
-                                </div>
-                                <div className="text-sm text-gray-500">
-                                  {timeline === 'urgent' ? '(+50% rush fee)' :
-                                   timeline === 'flexible' ? '(10% discount)' : '(standard rate)'}
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="text-lg font-semibold text-blue-600">
-                                From ₦{option.basePrice.toLocaleString()}
-                              </div>
-                            )}
+                            <div className="text-lg font-semibold text-blue-600">
+                              From ₦{option.basePrice.toLocaleString()}
+                            </div>
                           </div>
                         </div>
                       </button>
@@ -714,27 +685,24 @@ const ProjectBuilder: React.FC = () => {
 
               {selectedServices.includes(1) && (
                 <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <h3 className="text-lg font-semibold mb-4">Branding Packages</h3>
+                  <h3 className="text-lg font-semibold mb-4">Select Branding Package</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {services.find(s => s.id === 1)?.subOptions?.map((option) => (
                       <button
                         key={option.id}
                         type="button"
                         onClick={() => {
-                          const newSelection = selectedSubOptions.includes(option.id)
-                            ? selectedSubOptions.filter(id => id !== option.id)
-                            : [option.id];
+                          const newSelection = [option.id];
                           setSelectedSubOptions(newSelection);
                           if (timeline) {
                             const newEstimate = calculatePrice(selectedServices, timeline);
                             setEstimatedPrice(newEstimate);
                           }
                         }}
-                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${
-                          selectedSubOptions.includes(option.id)
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-gray-200'
-                        }`}
+                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${selectedSubOptions.includes(option.id)
+                          ? 'border-blue-500 bg-blue-50'
+                          : 'border-gray-200'
+                          }`}
                       >
                         <div className="flex flex-col h-full">
                           <div className="flex-grow">
@@ -752,21 +720,9 @@ const ProjectBuilder: React.FC = () => {
                             </ul>
                           </div>
                           <div className="mt-auto pt-4 border-t border-gray-200">
-                            {timeline ? (
-                              <div>
-                                <div className="text-lg font-semibold text-blue-600">
-                                  ₦{option.timelinePrices[timeline as keyof typeof option.timelinePrices].toLocaleString()}
-                                </div>
-                                <div className="text-sm text-gray-500">
-                                  {timeline === 'urgent' ? '(+50% rush fee)' :
-                                   timeline === 'flexible' ? '(10% discount)' : '(standard rate)'}
-                                </div>
-                              </div>
-                            ) : (
-                              <div className="text-lg font-semibold text-blue-600">
-                                From ₦{option.basePrice.toLocaleString()}
-                              </div>
-                            )}
+                            <div className="text-lg font-semibold text-blue-600">
+                              From ₦{option.basePrice.toLocaleString()}
+                            </div>
                           </div>
                         </div>
                       </button>
@@ -774,6 +730,54 @@ const ProjectBuilder: React.FC = () => {
                   </div>
                 </div>
               )}
+
+              {/* Project Timeline - Only show if options selected (for those with options) or if generic service */}
+              {((selectedServices.includes(1) && selectedSubOptions.length > 0) ||
+                (selectedServices.includes(2) && selectedSubOptions.length > 0) ||
+                (!selectedServices.includes(1) && !selectedServices.includes(2))) && (
+                  <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-500">
+                    <label className="block text-sm font-medium text-gray-700 mb-4">
+                      Select Delivery Speed
+                    </label>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <button
+                        type="button"
+                        onClick={() => handleTimelineChange('urgent')}
+                        className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'urgent' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                          }`}
+                      >
+                        <h3 className="font-semibold mb-2">Express Delivery</h3>
+                        <p className="text-sm text-gray-600">1-2 days</p>
+                        <p className="text-sm text-blue-600 mt-2">50% premium</p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleTimelineChange('standard')}
+                        className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'standard' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                          }`}
+                      >
+                        <h3 className="font-semibold mb-2">Standard Delivery</h3>
+                        <p className="text-sm text-gray-600">2-3 days</p>
+                        <p className="text-sm text-blue-600 mt-2">Standard rate</p>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleTimelineChange('flexible')}
+                        className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'flexible' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                          }`}
+                      >
+                        <h3 className="font-semibold mb-2">Relaxed Delivery</h3>
+                        <p className="text-sm text-gray-600">4-5 days</p>
+                        <p className="text-sm text-blue-600 mt-2">10% discount</p>
+                      </button>
+                    </div>
+                    {estimatedPrice && (
+                      <div className="mt-4 p-4 bg-blue-50 text-blue-800 rounded-lg text-center font-bold text-xl border border-blue-200">
+                        Estimated Total: {estimatedPrice}
+                      </div>
+                    )}
+                  </div>
+                )}
 
               {/* Selected Project Summary */}
               {selectedServices.includes(2) && selectedSubOptions[0] && timeline && (
@@ -921,13 +925,12 @@ const ProjectBuilder: React.FC = () => {
                 {[1, 2, 3].map((stepNumber) => (
                   <div
                     key={stepNumber}
-                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${
-                      stepNumber === step
-                        ? 'bg-blue-500'
-                        : stepNumber < step
+                    className={`w-3 h-3 rounded-full transition-colors duration-300 ${stepNumber === step
+                      ? 'bg-blue-500'
+                      : stepNumber < step
                         ? 'bg-green-500'
                         : 'bg-gray-300'
-                    }`}
+                      }`}
                   />
                 ))}
               </div>
@@ -944,7 +947,7 @@ const ProjectBuilder: React.FC = () => {
               {renderStep()}
             </AnimatePresence>
 
-            <motion.div 
+            <motion.div
               className="mt-8 flex justify-between"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
