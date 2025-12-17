@@ -67,8 +67,19 @@ const Profile: React.FC = () => {
             }
 
             const file = event.target.files[0];
+
+            // Validate file size (2MB limit for avatars)
+            if (file.size > 2 * 1024 * 1024) {
+                throw new Error('Avatar file size must be less than 2MB');
+            }
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                throw new Error('Please upload an image file');
+            }
+
             const fileExt = file.name.split('.').pop();
-            const fileName = `${Math.random()}.${fileExt}`;
+            const fileName = `${user?.id}-${Date.now()}.${fileExt}`;
             const filePath = `${fileName}`;
 
             let { error: uploadError } = await supabase.storage
@@ -76,6 +87,9 @@ const Profile: React.FC = () => {
                 .upload(filePath, file);
 
             if (uploadError) {
+                if (uploadError.message.includes('not found')) {
+                    throw new Error('Storage bucket not configured. Please run storage_migration.sql in your Supabase project.');
+                }
                 throw uploadError;
             }
 
@@ -94,9 +108,9 @@ const Profile: React.FC = () => {
 
             setMessage({ type: 'success', text: 'Avatar uploaded successfully!' });
 
-        } catch (error) {
-            setMessage({ type: 'error', text: 'Error uploading avatar!' });
-            console.error(error);
+        } catch (error: any) {
+            setMessage({ type: 'error', text: error.message || 'Error uploading avatar!' });
+            console.error('Avatar upload error:', error);
         } finally {
             setLoading(false);
         }

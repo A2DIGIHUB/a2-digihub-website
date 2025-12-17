@@ -111,6 +111,12 @@ const ContentManager: React.FC = () => {
         const file = event.target.files?.[0];
         if (!file) return;
 
+        // Validate file size (5MB limit)
+        if (file.size > 5 * 1024 * 1024) {
+            addNotification('error', 'File size must be less than 5MB');
+            return;
+        }
+
         setUploadingImage(true);
         try {
             const fileExt = file.name.split('.').pop();
@@ -121,7 +127,13 @@ const ContentManager: React.FC = () => {
                 .from('content-images')
                 .upload(filePath, file);
 
-            if (uploadError) throw uploadError;
+            if (uploadError) {
+                // Provide more helpful error messages
+                if (uploadError.message.includes('not found')) {
+                    throw new Error('Storage bucket not configured. Please run storage_migration.sql in your Supabase project.');
+                }
+                throw uploadError;
+            }
 
             const { data } = supabase.storage
                 .from('content-images')
@@ -135,6 +147,7 @@ const ContentManager: React.FC = () => {
             addNotification('success', 'Image uploaded successfully!');
 
         } catch (error: any) {
+            console.error('Upload error:', error);
             addNotification('error', `Upload failed: ${error.message}`);
         } finally {
             setUploadingImage(false);
