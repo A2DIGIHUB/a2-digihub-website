@@ -11,14 +11,19 @@ import {
     DocumentTextIcon,
     ArrowTrendingUpIcon,
     CalendarIcon,
-    SparklesIcon
+    SparklesIcon,
+    EyeIcon
 } from '@heroicons/react/24/outline';
 import { motion } from 'framer-motion';
+import ProjectDetailModal from '../../components/ProjectDetailModal';
+import { EnhancedQuote, getStatusConfig, getProgressColor } from '../../lib/projectStatus';
 
 const UserDashboard: React.FC = () => {
     const { user, isAdmin } = useAuth();
-    const [projects, setProjects] = useState<any[]>([]);
+    const [projects, setProjects] = useState<EnhancedQuote[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const fetchProjects = async () => {
         try {
@@ -47,13 +52,14 @@ const UserDashboard: React.FC = () => {
         return <Navigate to="/admin" replace />;
     }
 
+    const handleViewProject = (projectId: string) => {
+        setSelectedProjectId(projectId);
+        setIsModalOpen(true);
+    };
+
     const getStatusColor = (status: string) => {
-        switch (status) {
-            case 'approved': return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
-            case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
-            case 'completed': return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
-            default: return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
-        }
+        const config = getStatusConfig(status as any);
+        return `${config.bgColor} ${config.darkBgColor} ${config.color}`;
     };
 
     const stats = [
@@ -213,39 +219,70 @@ const UserDashboard: React.FC = () => {
                         </div>
                     ) : (
                         <ul className="divide-y divide-gray-100 dark:divide-slate-700">
-                            {projects.slice(0, 5).map((project) => (
-                                <li key={project.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
-                                    <div className="px-6 py-4">
-                                        <div className="flex items-center justify-between">
-                                            <div className="flex-1 min-w-0">
-                                                <div className="flex items-center gap-3">
-                                                    <div className="flex-shrink-0">
-                                                        <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                                                            <DocumentTextIcon className="h-5 w-5 text-white" />
+                            {projects.slice(0, 5).map((project) => {
+                                const statusConfig = getStatusConfig(project.status);
+                                const progressColor = getProgressColor(project.progress_percentage || 0);
+
+                                return (
+                                    <li key={project.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                        <div className="px-6 py-4">
+                                            <div className="flex items-start justify-between gap-4">
+                                                <div className="flex-1 min-w-0">
+                                                    <div className="flex items-center gap-3 mb-3">
+                                                        <div className="flex-shrink-0">
+                                                            <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
+                                                                <DocumentTextIcon className="h-5 w-5 text-white" />
+                                                            </div>
+                                                        </div>
+                                                        <div className="flex-1">
+                                                            <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                                                                {project.service_type}
+                                                            </p>
+                                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                                                {project.package_type} • {project.estimated_price}
+                                                            </p>
                                                         </div>
                                                     </div>
-                                                    <div className="flex-1">
-                                                        <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
-                                                            {project.service_type}
-                                                        </p>
-                                                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                                                            {project.package_type} • {project.estimated_price}
-                                                        </p>
+
+                                                    {/* Progress Bar */}
+                                                    <div className="mb-2">
+                                                        <div className="flex items-center justify-between mb-1">
+                                                            <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+                                                                Progress
+                                                            </span>
+                                                            <span className="text-xs font-semibold text-gray-900 dark:text-white">
+                                                                {project.progress_percentage || 0}%
+                                                            </span>
+                                                        </div>
+                                                        <div className="w-full bg-gray-200 dark:bg-slate-600 rounded-full h-2 overflow-hidden">
+                                                            <div
+                                                                className={`h-full ${progressColor} transition-all duration-500`}
+                                                                style={{ width: `${project.progress_percentage || 0}%` }}
+                                                            />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className="ml-4 flex-shrink-0 flex items-center gap-3">
-                                                <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${getStatusColor(project.status)}`}>
-                                                    {project.status}
-                                                </span>
-                                                <span className="text-xs text-gray-500 dark:text-gray-400">
-                                                    {new Date(project.created_at).toLocaleDateString()}
-                                                </span>
+
+                                                <div className="flex flex-col items-end gap-2">
+                                                    <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${statusConfig.bgColor} ${statusConfig.darkBgColor} ${statusConfig.color}`}>
+                                                        {statusConfig.label}
+                                                    </span>
+                                                    <button
+                                                        onClick={() => handleViewProject(project.id)}
+                                                        className="inline-flex items-center gap-1 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-md transition-colors"
+                                                    >
+                                                        <EyeIcon className="h-4 w-4" />
+                                                        View Details
+                                                    </button>
+                                                    <span className="text-xs text-gray-500 dark:text-gray-400">
+                                                        {new Date(project.created_at).toLocaleDateString()}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </li>
-                            ))}
+                                    </li>
+                                );
+                            })}
                         </ul>
                     )}
                 </div>
@@ -260,6 +297,15 @@ const UserDashboard: React.FC = () => {
                     </div>
                 )}
             </div>
+
+            {/* Project Detail Modal */}
+            {selectedProjectId && (
+                <ProjectDetailModal
+                    isOpen={isModalOpen}
+                    onClose={() => setIsModalOpen(false)}
+                    projectId={selectedProjectId}
+                />
+            )}
         </div>
     );
 };
