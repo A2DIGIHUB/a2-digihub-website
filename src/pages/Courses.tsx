@@ -216,7 +216,7 @@ const Courses = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Why Choose A2 DigiHub?
+              Why Choose Illumi-Labs?
             </h2>
             <p className="text-lg text-gray-600">
               We provide comprehensive training programs designed to help you succeed in the digital world

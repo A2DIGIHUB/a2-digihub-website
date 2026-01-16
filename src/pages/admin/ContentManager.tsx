@@ -91,7 +91,14 @@ const ContentManager: React.FC = () => {
 
     const handleCreate = () => {
         setEditingItem(null);
-        setFormData({}); // Reset form
+        // Initialize with default values based on active tab
+        const defaultData = activeTab === 0
+            ? { active: true, level: 'Beginner' } // Courses defaults
+            : activeTab === 1
+                ? { category: 'Web Development', featured: false } // Portfolio defaults
+                : { is_published: false }; // Blog defaults
+
+        setFormData(defaultData);
         setIsModalOpen(true);
     };
 
@@ -156,29 +163,42 @@ const ContentManager: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        console.log('Form submitted!');
+        console.log('Active Tab:', activeTab);
+        console.log('Form Data:', formData);
+
         const table = activeTab === 0 ? 'courses' : activeTab === 1 ? 'projects_portfolio' : 'blogs';
+        console.log('Target Table:', table);
 
         try {
             let error;
             if (editingItem) {
+                console.log('Updating existing item:', editingItem.id);
                 const { error: updateError } = await supabase
                     .from(table)
                     .update(formData)
                     .eq('id', editingItem.id);
                 error = updateError;
             } else {
-                const { error: insertError } = await supabase
+                console.log('Creating new item...');
+                const { error: insertError, data } = await supabase
                     .from(table)
                     .insert([formData]);
+                console.log('Insert result:', { error: insertError, data });
                 error = insertError;
             }
 
-            if (error) throw error;
+            if (error) {
+                console.error('Database error:', error);
+                throw error;
+            }
 
+            console.log('Success! Closing modal and refreshing...');
             addNotification('success', `Item ${editingItem ? 'updated' : 'created'} successfully`);
             setIsModalOpen(false);
             fetchContent();
         } catch (error: any) {
+            console.error('Submit error:', error);
             addNotification('error', `Operation failed: ${error.message}`);
         }
     };

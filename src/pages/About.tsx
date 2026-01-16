@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  BeakerIcon, 
-  StarIcon, 
-  ShieldCheckIcon, 
+import {
+  BeakerIcon,
+  StarIcon,
+  ShieldCheckIcon,
   UserGroupIcon,
   LinkIcon,
   ChevronRightIcon,
@@ -31,7 +31,7 @@ const teamMembers = [
   {
     name: 'Benjamin Pascal',
     role: 'Founder & CEO',
-    image: '/team/benjamin-pascal.jpg', 
+    image: '/team/benjamin-pascal.jpg',
     bio: 'Visionary leader driving digital innovation and transformation.',
     social: {
       linkedin: '#',
@@ -297,7 +297,7 @@ const TeamCarousel: React.FC = () => {
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
           >
-            <motion.div 
+            <motion.div
               className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 max-w-2xl w-full shadow-xl"
               animate={{
                 boxShadow: isHovered
@@ -306,7 +306,7 @@ const TeamCarousel: React.FC = () => {
               }}
             >
               <div className="flex flex-col md:flex-row items-center gap-8">
-                <motion.div 
+                <motion.div
                   className="relative w-48 h-48 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-500"
                   variants={imageVariants}
                   whileHover="hover"
@@ -333,27 +333,27 @@ const TeamCarousel: React.FC = () => {
                     }}
                   />
                 </motion.div>
-                <motion.div 
+                <motion.div
                   className="flex-1 text-center md:text-left"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 }}
                 >
-                  <motion.h3 
+                  <motion.h3
                     className="text-2xl font-bold text-white mb-2"
                     animate={{ scale: isHovered ? 1.05 : 1 }}
                     transition={{ duration: 0.2 }}
                   >
                     {member.name}
                   </motion.h3>
-                  <motion.p 
+                  <motion.p
                     className="text-blue-200 font-medium mb-4"
                     animate={{ x: isHovered ? 10 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     {member.role}
                   </motion.p>
-                  <motion.p 
+                  <motion.p
                     className="text-blue-100 mb-6"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -361,7 +361,7 @@ const TeamCarousel: React.FC = () => {
                   >
                     {member.bio}
                   </motion.p>
-                  <motion.div 
+                  <motion.div
                     className="flex items-center justify-center md:justify-start space-x-4"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -407,9 +407,8 @@ const TeamCarousel: React.FC = () => {
             className="group relative"
           >
             <motion.div
-              className={`w-3 h-3 rounded-full transition-colors duration-200 ${
-                index === currentIndex ? 'bg-white' : 'bg-white/30'
-              }`}
+              className={`w-3 h-3 rounded-full transition-colors duration-200 ${index === currentIndex ? 'bg-white' : 'bg-white/30'
+                }`}
               whileHover={{ scale: 1.2 }}
               animate={index === currentIndex ? {
                 scale: [1, 1.2, 1],
@@ -449,7 +448,7 @@ const About: React.FC = () => {
       {/* Hero Section */}
       <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white overflow-hidden">
         {/* Background Pattern */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 opacity-20"
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.2 }}
@@ -486,7 +485,7 @@ const About: React.FC = () => {
 
                 {/* Title */}
                 <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                  About A2-DIGIHUB
+                  About Illumi-Labs
                 </h1>
 
                 {/* Description */}
@@ -522,7 +521,7 @@ const About: React.FC = () => {
                 <div className="relative w-full h-[500px]">
                   {/* Floating Cards */}
                   <motion.div
-                    animate={{ 
+                    animate={{
                       y: [0, -20, 0],
                     }}
                     transition={{
@@ -540,7 +539,7 @@ const About: React.FC = () => {
                   </motion.div>
 
                   <motion.div
-                    animate={{ 
+                    animate={{
                       y: [0, 20, 0],
                     }}
                     transition={{
@@ -577,16 +576,16 @@ const About: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center p-6 bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow"
               >
-                <motion.div 
+                <motion.div
                   className="text-4xl font-bold text-blue-600 mb-2"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ 
+                  transition={{
                     type: "spring",
                     stiffness: 260,
                     damping: 20,
-                    delay: 0.1 + index * 0.1 
+                    delay: 0.1 + index * 0.1
                   }}
                 >
                   {stat.prefix}{stat.value}{stat.suffix}
@@ -633,7 +632,7 @@ const About: React.FC = () => {
       {/* Journey Section */}
       <div className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          <motion.h2 
+          <motion.h2
             className="text-3xl font-bold text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -645,7 +644,7 @@ const About: React.FC = () => {
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-blue-200" />
-            
+
             {/* Journey items */}
             <div className="space-y-20">
               {journey.map((item, index) => (
@@ -655,9 +654,8 @@ const About: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.2 }}
-                  className={`relative flex items-center ${
-                    index % 2 === 0 ? 'justify-start' : 'justify-end'
-                  }`}
+                  className={`relative flex items-center ${index % 2 === 0 ? 'justify-start' : 'justify-end'
+                    }`}
                 >
                   <div className={`w-1/2 ${index % 2 === 0 ? 'pr-12' : 'pl-12'}`}>
                     <div className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
@@ -679,7 +677,7 @@ const About: React.FC = () => {
       <div className="py-20 bg-gradient-to-br from-blue-600 to-indigo-600">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -694,7 +692,7 @@ const About: React.FC = () => {
               transition={{ delay: 0.2 }}
               className="text-xl text-blue-100 max-w-2xl mx-auto"
             >
-              The passionate individuals driving innovation and excellence at A2-DIGIHUB
+              The passionate individuals driving innovation and excellence at Illumi-Labs
             </motion.p>
           </div>
           <TeamCarousel />
@@ -704,7 +702,7 @@ const About: React.FC = () => {
       {/* Values Section */}
       <div className="py-24 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -851,7 +849,7 @@ const About: React.FC = () => {
           <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Company Info */}
             <div className="space-y-4">
-              <h3 className="text-xl font-bold mb-4">A2-DIGIHUB</h3>
+              <h3 className="text-xl font-bold mb-4">Illumi-Labs</h3>
               <p className="text-gray-400 leading-relaxed">
                 Transforming businesses through innovative digital solutions and cutting-edge technology.
               </p>
@@ -882,8 +880,8 @@ const About: React.FC = () => {
               <ul className="space-y-3">
                 <li className="flex items-center space-x-3">
                   <EnvelopeIcon className="w-5 h-5 text-gray-400" />
-                  <a href="mailto:info@a2digihub.com" className="text-gray-400 hover:text-white transition-colors">
-                    a2digihub@gmail.com
+                  <a href="mailto:contact@illumi-labs.com" className="text-gray-400 hover:text-white transition-colors">
+                    contact@illumi-labs.com
                   </a>
                 </li>
                 <li className="flex items-center space-x-3">
@@ -938,7 +936,7 @@ const About: React.FC = () => {
           <div className="border-t border-gray-800 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
               <p className="text-gray-400 text-sm">
-                &copy; 2023 A2-DIGIHUB. All rights reserved.
+                &copy; 2023 Illumi-Labs. All rights reserved.
               </p>
               <div className="flex space-x-6">
                 <a href="/privacy" className="text-gray-400 hover:text-white text-sm transition-colors">

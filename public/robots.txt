@@ -1,4 +1,4 @@
-# A2-DIGIHUB Robots.txt
+# Illumi-Labs Robots.txt
 # https://www.robotstxt.org/robotstxt.html
 
 # Allow all crawlers
@@ -6,7 +6,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://a2-digihub.com/sitemap.xml
+Sitemap: https://illumi-labs.com/sitemap.xml
 
 # Prevent crawling of certain directories
 Disallow: /private/

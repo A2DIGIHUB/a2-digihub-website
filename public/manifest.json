@@ -1,6 +1,6 @@
 {
-  "short_name": "A2-DIGIHUB",
-  "name": "A2-DIGIHUB - Digital Innovation Hub",
+  "short_name": "Illumi-Labs",
+  "name": "Illumi-Labs - Digital Innovation Hub",
   "icons": [
     {
       "src": "favicon.ico",
@@ -22,5 +22,5 @@
   "display": "standalone",
   "theme_color": "#2563eb",
   "background_color": "#ffffff",
-  "description": "A2-DIGIHUB is a leading tech firm specializing in AI development, cloud solutions, and digital transformation services. We help businesses innovate and grow through cutting-edge technology solutions."
+  "description": "Illumi-Labs is a leading tech firm specializing in AI development, cloud solutions, and digital transformation services. We help businesses innovate and grow through cutting-edge technology solutions."
 }

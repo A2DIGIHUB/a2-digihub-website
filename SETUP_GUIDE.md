@@ -1,6 +1,6 @@
-# A2-DIGIHUB Setup Guide
+# Illumi-Labs Setup Guide
 
-This guide will help you set up the A2-DIGIHUB website with all required features.
+This guide will help you set up the Illumi-Labs website with all required features.
 
 ## Prerequisites
 

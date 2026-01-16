@@ -8,7 +8,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div>
-            <h3 className="text-white text-xl font-bold mb-4">A2-DIGIHUB</h3>
+            <h3 className="text-white text-xl font-bold mb-4">Illumi-Labs</h3>
             <p className="mb-6">
               Transforming businesses through innovative digital solutions and cutting-edge technology.
             </p>
@@ -64,7 +64,7 @@ const Footer = () => {
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <span>a2digihub@gmail.com</span>
+                <span>contact@illumi-labs.com</span>
               </li>
               <li className="flex items-center space-x-2">
                 <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -86,7 +86,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm"> 2024 A2-DIGIHUB. All rights reserved.</p>
+            <p className="text-sm"> 2024 Illumi-Labs. All rights reserved.</p>
             <div className="mt-4 md:mt-0">
               <ul className="flex space-x-6 text-sm">
                 <li><Link to="/privacy" className="hover:text-white">Privacy Policy</Link></li>

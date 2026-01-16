@@ -7,12 +7,12 @@ const Terms: React.FC = () => {
     {
       title: 'Terms and Conditions',
       icon: DocumentTextIcon,
-      content: `These terms and conditions outline the rules and regulations for the use of A2-DIGIHUB's services and website.`,
+      content: `These terms and conditions outline the rules and regulations for the use of Illumi-Labs' services and website.`,
     },
     {
       title: 'Acceptance of Terms',
       icon: ScaleIcon,
-      content: `By accessing this website and using our services, you accept these terms and conditions in full. Do not continue to use A2-DIGIHUB's website if you do not accept all of the terms and conditions stated on this page.`,
+      content: `By accessing this website and using our services, you accept these terms and conditions in full. Do not continue to use Illumi-Labs' website if you do not accept all of the terms and conditions stated on this page.`,
     },
     {
       title: 'Privacy and Data Protection',
@@ -91,10 +91,10 @@ const Terms: React.FC = () => {
               className="prose prose-blue max-w-none"
             >
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Detailed Terms</h2>
-              
+
               <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">1. License to Use Website</h3>
               <p className="text-gray-600 mb-6">
-                Unless otherwise stated, A2-DIGIHUB and/or its licensors own the intellectual property rights for all material on this website. All intellectual property rights are reserved.
+                Unless otherwise stated, Illumi-Labs and/or its licensors own the intellectual property rights for all material on this website. All intellectual property rights are reserved.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">2. Restrictions</h3>
@@ -111,17 +111,17 @@ const Terms: React.FC = () => {
 
               <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">3. Your Content</h3>
               <p className="text-gray-600 mb-6">
-                In these terms and conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this website. By displaying Your Content, you grant A2-DIGIHUB a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.
+                In these terms and conditions, "Your Content" shall mean any audio, video text, images or other material you choose to display on this website. By displaying Your Content, you grant Illumi-Labs a non-exclusive, worldwide irrevocable, sub licensable license to use, reproduce, adapt, publish, translate and distribute it in any and all media.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">4. No Warranties</h3>
               <p className="text-gray-600 mb-6">
-                This website is provided "as is," with all faults, and A2-DIGIHUB express no representations or warranties, of any kind related to this website or the materials contained on this website.
+                This website is provided "as is," with all faults, and Illumi-Labs express no representations or warranties, of any kind related to this website or the materials contained on this website.
               </p>
 
               <h3 className="text-xl font-semibold text-gray-900 mt-8 mb-4">5. Limitation of Liability</h3>
               <p className="text-gray-600 mb-6">
-                In no event shall A2-DIGIHUB, nor any of its officers, directors and employees, be held liable for anything arising out of or in any way connected with your use of this website.
+                In no event shall Illumi-Labs, nor any of its officers, directors and employees, be held liable for anything arising out of or in any way connected with your use of this website.
               </p>
             </motion.div>
 
@@ -137,7 +137,7 @@ const Terms: React.FC = () => {
                 If you have any questions about these Terms of Service, please contact us:
               </p>
               <ul className="text-gray-600 space-y-2">
-                <li>• Email: legal@a2digihub.com</li>
+                <li>• Email: legal@illumi-labs.com</li>
                 <li>• Phone: +123 456 7890</li>
                 <li>• Address: 123 Digital Hub Street, Tech City, TC 12345</li>
               </ul>

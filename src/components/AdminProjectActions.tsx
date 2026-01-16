@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { Dialog } from '@headlessui/react';
-import { XMarkIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 import { supabase } from '../lib/supabase';
 import {
     ProjectStatus,
     getStatusConfig,
-    canTransitionTo,
     calculateEstimatedCompletion,
 } from '../lib/projectStatus';
 import { useAuth } from '../contexts/AuthContext';
