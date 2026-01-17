@@ -12,6 +12,12 @@ import {
     UserIcon,
     CurrencyDollarIcon
 } from '@heroicons/react/24/outline';
+import ProjectDetailModal from '../../components/ProjectDetailModal';
+
+console.log('ProjectDetailModal:', ProjectDetailModal);
+console.log('DragDropContext:', DragDropContext);
+console.log('Droppable:', Droppable);
+console.log('Draggable:', Draggable);
 
 interface ProjectRequest {
     id: string;
@@ -38,6 +44,8 @@ const ProjectBoard: React.FC = () => {
     const { addNotification } = useNotifications();
     const [tasks, setTasks] = useState<ProjectRequest[]>([]);
     const [loading, setLoading] = useState(true);
+    const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     useEffect(() => {
         fetchTasks();
@@ -121,86 +129,72 @@ const ProjectBoard: React.FC = () => {
                 )}
             </div>
 
-            <DragDropContext onDragEnd={onDragEnd}>
-                <div className="flex-1 overflow-x-auto overflow-y-hidden">
-                    <div className="flex gap-6 h-full min-w-[1000px] pb-4">
-                        {Object.values(columns).map((column) => (
-                            <div key={column.id} className="w-80 flex-shrink-0 flex flex-col">
-                                <div className={`flex items-center justify-between p-3 rounded-t-xl font-semibold text-sm ${column.color.split(' ')[0]} ${column.color.split(' ')[1]}`}>
-                                    <span>{column.title}</span>
-                                    <span className="bg-white/50 px-2 py-0.5 rounded-full text-xs">
-                                        {getTasksByStatus(column.id).length}
-                                    </span>
-                                </div>
-                                <div className="bg-gray-50/50 border border-gray-100 rounded-b-xl flex-1 p-2">
-                                    {/* 
-                                        Only enable Droppable if Admin. 
-                                        Actually, DragDropContext handles the logic, but disabling Droppable 
-                                        visually reinforces it. However, dnd lib allows dropping even if we 
-                                        don't check isAdmin here, so we must disable individual Draggables.
-                                    */}
-                                    <Droppable droppableId={column.id} isDropDisabled={!isAdmin}>
-                                        {(provided) => (
-                                            <div
-                                                {...provided.droppableProps}
-                                                ref={provided.innerRef}
-                                                className="h-full min-h-[100px] flex flex-col gap-3"
-                                            >
-                                                {getTasksByStatus(column.id).map((task, index) => (
-                                                    <Draggable
-                                                        key={task.id}
-                                                        draggableId={task.id}
-                                                        index={index}
-                                                        isDragDisabled={!isAdmin} // Crucial: Users cannot drag
-                                                    >
-                                                        {(provided, snapshot) => (
-                                                            <div
-                                                                ref={provided.innerRef}
-                                                                {...provided.draggableProps}
-                                                                {...provided.dragHandleProps}
-                                                                className={`bg-white p-4 rounded-lg shadow-sm border border-gray-200 
-                                                                    ${snapshot.isDragging ? 'shadow-lg ring-2 ring-blue-500 rotate-2' : 'hover:shadow-md'} 
-                                                                    transition-all cursor-pointer`}
-                                                            >
-                                                                <div className="flex justify-between items-start mb-2">
-                                                                    <span className="text-xs font-medium px-2 py-1 rounded bg-gray-100 text-gray-600">
-                                                                        {task.service_type}
-                                                                    </span>
-                                                                    {/* Admin Menu (could add later) */}
-                                                                </div>
-
-                                                                <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
-                                                                    {task.package_type || task.service_type}
-                                                                </h3>
-
-                                                                <div className="flex items-center text-xs text-gray-500 mb-3">
-                                                                    <ClockIcon className="w-3 h-3 mr-1" />
-                                                                    {task.timeline}
-                                                                </div>
-
-                                                                <div className="border-t border-gray-100 pt-3 mt-2 flex items-center justify-between text-xs">
-                                                                    <div className="flex items-center font-medium text-gray-900">
-                                                                        <CurrencyDollarIcon className="w-3 h-3 mr-1 text-gray-400" />
-                                                                        {task.estimated_price}
-                                                                    </div>
-                                                                    <div className="text-gray-400">
-                                                                        {new Date(task.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </Draggable>
-                                                ))}
-                                                {provided.placeholder}
+            {/* <DragDropContext onDragEnd={onDragEnd}> */}
+            <div className="flex-1 overflow-x-auto overflow-y-hidden">
+                <div className="flex gap-6 h-full min-w-[1000px] pb-4">
+                    {Object.values(columns).map((column) => (
+                        <div key={column.id} className="w-80 flex-shrink-0 flex flex-col">
+                            <div className={`flex items-center justify-between p-3 rounded-t-xl font-semibold text-sm ${column.color.split(' ')[0]} ${column.color.split(' ')[1]}`}>
+                                <span>{column.title}</span>
+                                <span className="bg-white/50 px-2 py-0.5 rounded-full text-xs">
+                                    {getTasksByStatus(column.id).length}
+                                </span>
+                            </div>
+                            <div className="bg-gray-50/50 border border-gray-100 rounded-b-xl flex-1 p-2">
+                                <div className="h-full min-h-[100px] flex flex-col gap-3">
+                                    {getTasksByStatus(column.id).map((task) => (
+                                        <div
+                                            key={task.id}
+                                            onClick={() => {
+                                                setSelectedProjectId(task.id);
+                                                setIsModalOpen(true);
+                                            }}
+                                            className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all cursor-pointer"
+                                        >
+                                            <div className="flex justify-between items-start mb-2">
+                                                <span className="text-xs font-medium px-2 py-1 rounded bg-gray-100 text-gray-600">
+                                                    {task.service_type}
+                                                </span>
                                             </div>
-                                        )}
-                                    </Droppable>
+
+                                            <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
+                                                {task.package_type || task.service_type}
+                                            </h3>
+
+                                            <div className="flex items-center text-xs text-gray-500 mb-3">
+                                                <ClockIcon className="w-3 h-3 mr-1" />
+                                                {task.timeline}
+                                            </div>
+
+                                            <div className="border-t border-gray-100 pt-3 mt-2 flex items-center justify-between text-xs">
+                                                <div className="flex items-center font-medium text-gray-900">
+                                                    <CurrencyDollarIcon className="w-3 h-3 mr-1 text-gray-400" />
+                                                    {task.estimated_price}
+                                                </div>
+                                                <div className="text-gray-400">
+                                                    {new Date(task.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                        ))}
-                    </div>
+                        </div>
+                    ))}
                 </div>
-            </DragDropContext>
+            </div>
+            {/* </DragDropContext> */}
+
+            {selectedProjectId && (
+                <ProjectDetailModal
+                    isOpen={isModalOpen}
+                    onClose={() => {
+                        setIsModalOpen(false);
+                        setSelectedProjectId(null);
+                    }}
+                    projectId={selectedProjectId}
+                />
+            )}
         </div>
     );
 };

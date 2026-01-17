@@ -35,7 +35,7 @@ const AdminDashboard: React.FC = () => {
                     .from('quotes')
                     .select(`
                         *,
-                        profiles:user_id (email, full_name)
+                        profiles:user_id (full_name, phone)
                     `)
                     .order('created_at', { ascending: false }),
                 supabase
@@ -228,13 +228,16 @@ const AdminDashboard: React.FC = () => {
                                             <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
                                                 {quote.profiles?.full_name || 'Unknown User'}
                                             </p>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                                {quote.profiles?.phone || 'No contact info'}
+                                            </p>
+                                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                                                 {quote.service_type} • {quote.estimated_price}
                                             </p>
                                         </div>
                                         <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${quote.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                                                quote.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-                                                    'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                                            quote.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
+                                                'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
                                             }`}>
                                             {quote.status}
                                         </span>
@@ -299,7 +302,7 @@ const AdminDashboard: React.FC = () => {
                                             </p>
                                         </div>
                                         <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'admin' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
-                                                'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                            'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
                                             }`}>
                                             {user.role || 'user'}
                                         </span>

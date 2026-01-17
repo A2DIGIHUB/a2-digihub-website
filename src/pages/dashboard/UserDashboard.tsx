@@ -224,7 +224,11 @@ const UserDashboard: React.FC = () => {
                                 const progressColor = getProgressColor(project.progress_percentage || 0);
 
                                 return (
-                                    <li key={project.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                    <li
+                                        key={project.id}
+                                        onClick={() => handleViewProject(project.id)}
+                                        className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer"
+                                    >
                                         <div className="px-6 py-4">
                                             <div className="flex items-start justify-between gap-4">
                                                 <div className="flex-1 min-w-0">

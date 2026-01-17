@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { supabase } from '../lib/supabase';
+import { useNavigate } from 'react-router-dom';
 
 interface Service {
   id: number;
@@ -15,6 +16,7 @@ interface Service {
     title: string;
     description: string;
     basePrice: number;
+    deliveryTime: string; // Added delivery estimate for specific package
     timelinePrices: {
       urgent: number;
       standard: number;
@@ -33,18 +35,16 @@ interface FormErrors {
   phone?: string;
 }
 
+
+
 const ProjectBuilder: React.FC = () => {
+  const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [selectedServices, setSelectedServices] = useState<number[]>([]);
   const [selectedSubOptions, setSelectedSubOptions] = useState<string[]>([]);
   const [timeline, setTimeline] = useState('');
   const [requirements, setRequirements] = useState('');
-  const [contactInfo, setContactInfo] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-  });
+  // Contact info state removed as user must be logged in
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -54,26 +54,27 @@ const ProjectBuilder: React.FC = () => {
     {
       id: 1,
       title: 'Business Branding',
-      description: 'Affordable brand identity solutions perfect for startups and small businesses',
-      priceRange: '₦50,000 - ₦100,000',
-      deliveryTime: '2-5 days',
+      description: 'Professional brand identity solutions to elevate your business presence',
+      priceRange: '₦80,000 - ₦450,000',
+      deliveryTime: '1-3 weeks',
       features: [
         'Logo Design & Brand Guidelines',
         'Social Media Branding Kit',
         'Business Card Design',
         'Email Signature',
-        'Basic Marketing Materials'
+        'Marketing Materials'
       ],
       subOptions: [
         {
           id: 'basic',
           title: 'Basic Branding Package',
           description: 'Essential branding elements for startups',
-          basePrice: 75000,
+          basePrice: 80000,
+          deliveryTime: '1 week',
           timelinePrices: {
-            urgent: 75000,
-            standard: 50000,
-            flexible: 45000
+            urgent: 120000,
+            standard: 80000,
+            flexible: 72000
           },
           features: [
             'Professional Logo Design',
@@ -87,11 +88,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'standard',
           title: 'Standard Branding Package',
           description: 'Comprehensive branding for growing businesses',
-          basePrice: 150000,
+          basePrice: 200000,
+          deliveryTime: '2 weeks',
           timelinePrices: {
-            urgent: 112500,
-            standard: 75000,
-            flexible: 67500
+            urgent: 300000,
+            standard: 200000,
+            flexible: 180000
           },
           features: [
             'Professional Logo Design',
@@ -107,11 +109,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'premium',
           title: 'Premium Branding Package',
           description: 'Complete brand identity system',
-          basePrice: 250000,
+          basePrice: 450000,
+          deliveryTime: '3 weeks',
           timelinePrices: {
-            urgent: 150000,
-            standard: 100000,
-            flexible: 90000
+            urgent: 675000,
+            standard: 450000,
+            flexible: 405000
           },
           features: [
             'Professional Logo Design with Multiple Concepts',
@@ -129,9 +132,9 @@ const ProjectBuilder: React.FC = () => {
     {
       id: 2,
       title: 'Custom Software Development',
-      description: 'Professional website development tailored to your needs',
-      priceRange: '₦150,000 - ₦450,000',
-      deliveryTime: '2-4 weeks',
+      description: 'Professional website and application development tailored to your needs',
+      priceRange: '₦200,000 - ₦1,500,000+',
+      deliveryTime: '2 weeks - 6 months',
       features: [
         'Responsive Design',
         'SEO Optimization',
@@ -143,11 +146,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'personal',
           title: 'Personal Website',
           description: 'Perfect for individuals wanting to establish their online presence',
-          basePrice: 150000,
+          basePrice: 200000,
+          deliveryTime: '2-3 weeks',
           timelinePrices: {
-            urgent: 225000,
-            standard: 150000,
-            flexible: 135000
+            urgent: 300000,
+            standard: 200000,
+            flexible: 180000
           },
           features: [
             'About Me Section',
@@ -158,33 +162,95 @@ const ProjectBuilder: React.FC = () => {
           ]
         },
         {
-          id: 'ecommerce',
-          title: 'E-Commerce Website',
-          description: 'Full-featured online store with payment integration',
-          basePrice: 450000,
+          id: 'ecommerce_lite',
+          title: 'E-Commerce Lite (WhatsApp Store)',
+          description: 'Simplified online store with WhatsApp checkout integration',
+          basePrice: 300000,
+          deliveryTime: '2-4 weeks',
           timelinePrices: {
-            urgent: 675000,
-            standard: 450000,
-            flexible: 405000
+            urgent: 450000,
+            standard: 300000,
+            flexible: 270000
           },
           features: [
-            'Product Catalog',
-            'Shopping Cart',
-            'Payment Integration',
-            'Order Management',
-            'Customer Accounts',
-            'Inventory Management'
+            'Product Catalog (Up to 50 items)',
+            'WhatsApp Checkout Integration',
+            'Mobile Responsive Design',
+            'Order Management Dashboard',
+            'Social Media Links',
+            'Search Functionality'
+          ]
+        },
+        {
+          id: 'ecommerce_pro',
+          title: 'E-Commerce Pro (Full Store)',
+          description: 'Complete online store with payment gateways and automation',
+          basePrice: 750000,
+          deliveryTime: '8-12 weeks',
+          timelinePrices: {
+            urgent: 1125000,
+            standard: 750000,
+            flexible: 675000
+          },
+          features: [
+            'Unlimited Product Catalog',
+            'Payment Gateways (Paystack/Flutterwave)',
+            'Shopping Cart & Customer Accounts',
+            'Inventory & Order Management',
+            'Sales Analytics',
+            'Email Notifications'
+          ]
+        },
+        {
+          id: 'realestate_lite',
+          title: 'Real Estate Lite (Listings)',
+          description: 'Essential property listing platform for agents',
+          basePrice: 400000,
+          deliveryTime: '4-6 weeks',
+          timelinePrices: {
+            urgent: 600000,
+            standard: 400000,
+            flexible: 360000
+          },
+          features: [
+            'Property Listing Gallery',
+            'Contact Agent Forms',
+            'Basic Property Search',
+            'Mobile Responsive',
+            'Admin Dashboard',
+            'Social Sharing'
+          ]
+        },
+        {
+          id: 'realestate_pro',
+          title: 'Real Estate Pro (Portal)',
+          description: 'Advanced real estate portal with extensive features',
+          basePrice: 750000,
+          deliveryTime: '10-14 weeks',
+          timelinePrices: {
+            urgent: 1125000,
+            standard: 750000,
+            flexible: 675000
+          },
+          features: [
+            'Advanced Search & Filtering',
+            'Map Integration & Virtual Tours',
+            'Agent Profiles & Login',
+            'User Favorites & Saved Searches',
+            'Appointment Scheduling',
+            'Mortgage Calculator'
           ]
         },
         {
           id: 'educational',
           title: 'Educational Website',
           description: 'Platform for educational institutions and learning programs',
-          basePrice: 350000,
+          basePrice: 1000000, // Reduced from 1.2M
+          deliveryTime: '10-14 weeks',
           timelinePrices: {
-            urgent: 525000,
-            standard: 350000,
-            flexible: 315000
+            urgent: 1500000,
+            standard: 1000000,
+            flexible: 900000
           },
           features: [
             'Course Management',
@@ -198,11 +264,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'news',
           title: 'News/Magazine Website',
           description: 'Content-rich platform for articles and media',
-          basePrice: 250000,
+          basePrice: 500000, // Reduced from 600k
+          deliveryTime: '5-8 weeks',
           timelinePrices: {
-            urgent: 375000,
-            standard: 250000,
-            flexible: 225000
+            urgent: 750000,
+            standard: 500000,
+            flexible: 450000
           },
           features: [
             'Article Management',
@@ -216,11 +283,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'portfolio',
           title: 'Portfolio Website',
           description: 'Showcase your work and achievements',
-          basePrice: 250000,
+          basePrice: 450000, // Reduced from 500k
+          deliveryTime: '4-6 weeks',
           timelinePrices: {
-            urgent: 375000,
-            standard: 250000,
-            flexible: 225000
+            urgent: 675000,
+            standard: 450000,
+            flexible: 405000
           },
           features: [
             'Project Gallery',
@@ -232,13 +300,14 @@ const ProjectBuilder: React.FC = () => {
         },
         {
           id: 'social',
-          title: 'Social Media Website',
+          title: 'Social Media Platform',
           description: 'Connect and engage with your community',
-          basePrice: 200000,
+          basePrice: 1200000, // Reduced from 1.5M
+          deliveryTime: '3-6 months',
           timelinePrices: {
-            urgent: 300000,
-            standard: 200000,
-            flexible: 180000
+            urgent: 1800000,
+            standard: 1200000,
+            flexible: 1080000
           },
           features: [
             'User Profiles',
@@ -252,11 +321,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'brochure',
           title: 'Brochure Website',
           description: 'Simple yet elegant business presence',
-          basePrice: 150000,
+          basePrice: 200000, // Reduced from 250k
+          deliveryTime: '2-3 weeks',
           timelinePrices: {
-            urgent: 225000,
-            standard: 150000,
-            flexible: 135000
+            urgent: 300000,
+            standard: 200000,
+            flexible: 180000
           },
           features: [
             'Company Info',
@@ -267,32 +337,15 @@ const ProjectBuilder: React.FC = () => {
           ]
         },
         {
-          id: 'jobboard',
-          title: 'Job Board Website',
-          description: 'Platform for job listings and recruitment',
-          basePrice: 350000,
-          timelinePrices: {
-            urgent: 525000,
-            standard: 350000,
-            flexible: 315000
-          },
-          features: [
-            'Job Listings',
-            'Application System',
-            'Company Profiles',
-            'Search & Filter',
-            'User Accounts'
-          ]
-        },
-        {
           id: 'business',
           title: 'Business Website',
           description: 'Professional corporate web presence',
-          basePrice: 350000,
+          basePrice: 450000, // Reduced from 500k
+          deliveryTime: '3-5 weeks',
           timelinePrices: {
-            urgent: 525000,
-            standard: 350000,
-            flexible: 315000
+            urgent: 675000,
+            standard: 450000,
+            flexible: 405000
           },
           features: [
             'Service Showcase',
@@ -306,11 +359,12 @@ const ProjectBuilder: React.FC = () => {
           id: 'blog',
           title: 'Blog Website',
           description: 'Share your stories and content',
-          basePrice: 150000,
+          basePrice: 200000, // Reduced from 250k
+          deliveryTime: '2-4 weeks',
           timelinePrices: {
-            urgent: 225000,
-            standard: 150000,
-            flexible: 135000
+            urgent: 300000,
+            standard: 200000,
+            flexible: 180000
           },
           features: [
             'Blog Posts',
@@ -319,25 +373,6 @@ const ProjectBuilder: React.FC = () => {
             'Social Sharing',
             'RSS Feed'
           ]
-        },
-        {
-          id: 'realestate',
-          title: 'Real Estate Website',
-          description: 'Showcase properties and connect with potential buyers/renters',
-          basePrice: 400000,
-          timelinePrices: {
-            urgent: 600000,
-            standard: 400000,
-            flexible: 360000
-          },
-          features: [
-            'Property Listings',
-            'Advanced Search & Filters',
-            'Virtual Tours',
-            'Agent Profiles',
-            'Appointment Scheduling',
-            'Property Comparison'
-          ]
         }
       ]
     },
@@ -345,8 +380,8 @@ const ProjectBuilder: React.FC = () => {
       id: 3,
       title: 'Cloud Solutions',
       description: 'Modern cloud infrastructure and migration services',
-      priceRange: '₦300,000 - ₦2,000,000',
-      deliveryTime: '1-3 months',
+      priceRange: '₦500,000 - ₦4,000,000',
+      deliveryTime: '1-6 months',
       features: [
         'Cloud Migration',
         'Infrastructure Setup',
@@ -358,8 +393,8 @@ const ProjectBuilder: React.FC = () => {
       id: 4,
       title: 'AI & Machine Learning',
       description: 'Intelligent automation and data analysis solutions',
-      priceRange: '₦1,000,000 - ₦6,000,000',
-      deliveryTime: '3-8 months',
+      priceRange: '₦1,500,000 - ₦10,000,000',
+      deliveryTime: '2-12 months',
       features: [
         'AI Model Development',
         'Data Analysis',
@@ -392,27 +427,7 @@ const ProjectBuilder: React.FC = () => {
           newErrors.timeline = 'Please select a timeline';
           isValid = false;
         }
-        if (!requirements.trim()) {
-          newErrors.requirements = 'Please describe your project requirements';
-          isValid = false;
-        }
-        break;
-      case 3:
-        if (!contactInfo.name.trim()) {
-          newErrors.name = 'Name is required';
-          isValid = false;
-        }
-        if (!contactInfo.email.trim()) {
-          newErrors.email = 'Email is required';
-          isValid = false;
-        } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(contactInfo.email)) {
-          newErrors.email = 'Invalid email address';
-          isValid = false;
-        }
-        if (!contactInfo.phone.trim()) {
-          newErrors.phone = 'Phone number is required';
-          isValid = false;
-        }
+        // Requirements are now optional
         break;
     }
 
@@ -428,19 +443,14 @@ const ProjectBuilder: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateStep(3)) return;
+    if (!validateStep(2)) return;
 
     setIsSubmitting(true);
     try {
       const user = (await supabase.auth.getUser()).data.user;
 
       if (!user) {
-        // Option: Prompt login or create a "guest" flow. 
-        // For now, let's assume we want them to login to save it.
-        // Or we can save it with user_id = null if we allow guest quotes (requires schema update)
-        // But our RLS requires auth.
         alert("Please login to submit a quote.");
-        // Redirect to login?
         window.location.href = '/login';
         return;
       }
@@ -454,7 +464,6 @@ const ProjectBuilder: React.FC = () => {
         status: 'pending',
         details: {
           requirements,
-          contactInfo,
           selectedServices,
           selectedSubOptions
         }
@@ -464,20 +473,9 @@ const ProjectBuilder: React.FC = () => {
 
       setSubmitSuccess(true);
 
-      // Reset form after 2 seconds
+      // Redirect to dashboard after 2 seconds
       setTimeout(() => {
-        setSelectedServices([]);
-        setSelectedSubOptions([]);
-        setTimeline('');
-        setRequirements('');
-        setContactInfo({
-          name: '',
-          email: '',
-          phone: '',
-          company: '',
-        });
-        setStep(1);
-        setSubmitSuccess(false);
+        navigate('/dashboard');
       }, 2000);
 
     } catch (error: any) {
@@ -516,46 +514,46 @@ const ProjectBuilder: React.FC = () => {
       'flexible': 0.9   // 10% discount for flexible
     };
 
+    // Get the current multiplier
+    const multiplier = timelineMultipliers[timelineValue] || 1;
     let total = 0;
 
     selectedServices.forEach(serviceId => {
       if (serviceId === 2) { // Custom Software Development
-        // Get the selected website type
-        const selectedWebsiteType = selectedSubOptions[0]; // We only allow one selection
+        const selectedWebsiteType = selectedSubOptions[0];
         if (selectedWebsiteType) {
           const service = services.find(s => s.id === 2);
           const websiteOption = service?.subOptions?.find(opt => opt.id === selectedWebsiteType);
           if (websiteOption) {
+            // Use the specific pre-calculated timeline price (do not multiply again)
             total += websiteOption.timelinePrices[timelineValue] || websiteOption.basePrice;
           }
         }
       } else if (serviceId === 1) { // Business Branding
-        // Get the selected branding package
-        const selectedBrandingPackage = selectedSubOptions[0]; // We only allow one selection
+        const selectedBrandingPackage = selectedSubOptions[0];
         if (selectedBrandingPackage) {
           const service = services.find(s => s.id === 1);
           const brandingPackage = service?.subOptions?.find(opt => opt.id === selectedBrandingPackage);
           if (brandingPackage) {
+            // Use the specific pre-calculated timeline price (do not multiply again)
             total += brandingPackage.timelinePrices[timelineValue] || brandingPackage.basePrice;
           }
         }
       } else {
-        // Handle other services as before
+        // For other services (Cloud, AI), use base price * multiplier
         const basePrices: { [key: number]: { min: number; max: number } } = {
-          1: { min: 50000, max: 100000 },    // Business Branding
-          2: { min: 150000, max: 450000 },    // Custom Software Development
-          3: { min: 300000, max: 2000000 },    // Cloud Solutions
-          4: { min: 1000000, max: 6000000 }    // AI & ML
+          3: { min: 500000, max: 4000000 },    // Cloud Solutions (Reduced from 5M)
+          4: { min: 1500000, max: 10000000 }    // AI & ML (Reduced from 2M/15M)
         };
         if (basePrices[serviceId]) {
-          total += basePrices[serviceId].min;
+          // Apply multiplier here for these services
+          total += Math.round(basePrices[serviceId].min * multiplier);
         }
       }
     });
 
-    // Apply timeline multiplier
-    const multiplier = timelineMultipliers[timelineValue] || 1;
-    total = Math.round(total * multiplier);
+    // Note: We removed the global multiplier application here to avoid double-charging
+    // for services that already have timeline-specific prices.
 
     return `₦${total.toLocaleString()}`;
   };
@@ -659,7 +657,8 @@ const ProjectBuilder: React.FC = () => {
                         <div className="flex flex-col h-full">
                           <div className="flex-grow">
                             <h4 className="font-semibold text-lg mb-1">{option.title}</h4>
-                            <p className="text-sm text-gray-600 mb-3">{option.description}</p>
+                            <p className="text-sm text-gray-600 mb-2">{option.description}</p>
+                            <p className="text-sm text-blue-600 font-medium mb-3">Est. Time: {option.deliveryTime}</p>
                             <ul className="text-sm text-gray-600 space-y-1 mb-4">
                               {option.features.map((feature, index) => (
                                 <li key={index} className="flex items-start">
@@ -707,7 +706,8 @@ const ProjectBuilder: React.FC = () => {
                         <div className="flex flex-col h-full">
                           <div className="flex-grow">
                             <h4 className="font-semibold text-lg mb-1">{option.title}</h4>
-                            <p className="text-sm text-gray-600 mb-3">{option.description}</p>
+                            <p className="text-sm text-gray-600 mb-2">{option.description}</p>
+                            <p className="text-sm text-blue-600 font-medium mb-3">Est. Time: {option.deliveryTime}</p>
                             <ul className="text-sm text-gray-600 space-y-1 mb-4">
                               {option.features.map((feature, index) => (
                                 <li key={index} className="flex items-start">
@@ -746,8 +746,8 @@ const ProjectBuilder: React.FC = () => {
                         className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'urgent' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                           }`}
                       >
-                        <h3 className="font-semibold mb-2">Express Delivery</h3>
-                        <p className="text-sm text-gray-600">1-2 days</p>
+                        <h3 className="font-semibold mb-2">Accelerated Timeline</h3>
+                        <p className="text-sm text-gray-600">Prioritized delivery</p>
                         <p className="text-sm text-blue-600 mt-2">50% premium</p>
                       </button>
                       <button
@@ -756,8 +756,8 @@ const ProjectBuilder: React.FC = () => {
                         className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'standard' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                           }`}
                       >
-                        <h3 className="font-semibold mb-2">Standard Delivery</h3>
-                        <p className="text-sm text-gray-600">2-3 days</p>
+                        <h3 className="font-semibold mb-2">Standard Timeline</h3>
+                        <p className="text-sm text-gray-600">Standard schedule</p>
                         <p className="text-sm text-blue-600 mt-2">Standard rate</p>
                       </button>
                       <button
@@ -766,8 +766,8 @@ const ProjectBuilder: React.FC = () => {
                         className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'flexible' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
                           }`}
                       >
-                        <h3 className="font-semibold mb-2">Relaxed Delivery</h3>
-                        <p className="text-sm text-gray-600">4-5 days</p>
+                        <h3 className="font-semibold mb-2">Flexible Timeline</h3>
+                        <p className="text-sm text-gray-600">Extended schedule</p>
                         <p className="text-sm text-blue-600 mt-2">10% discount</p>
                       </button>
                     </div>
@@ -795,6 +795,9 @@ const ProjectBuilder: React.FC = () => {
                         <div className="text-right">
                           <div className="text-2xl font-bold text-blue-600">{estimatedPrice}</div>
                           <p className="text-sm text-gray-500">Final Price</p>
+                          <p className="text-xs text-blue-600 mt-1">
+                            Est. Time: {services.find(s => s.id === 2)?.subOptions?.find(opt => opt.id === selectedSubOptions[0])?.deliveryTime}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -825,7 +828,7 @@ const ProjectBuilder: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-gray-700 font-medium mb-2">Project Requirements</label>
+                <label className="block text-gray-700 font-medium mb-2">Project Requirements (Optional)</label>
                 <textarea
                   value={requirements}
                   onChange={(e) => setRequirements(e.target.value)}
@@ -833,61 +836,6 @@ const ProjectBuilder: React.FC = () => {
                   placeholder="Please describe your project requirements and any specific features you need..."
                 ></textarea>
                 {renderError(errors.requirements)}
-              </div>
-            </div>
-          </motion.div>
-        );
-
-      case 3:
-        return (
-          <motion.div
-            key="step3"
-            {...fadeInUp}
-            className="space-y-6"
-          >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Name</label>
-                <input
-                  type="text"
-                  value={contactInfo.name}
-                  onChange={(e) => setContactInfo({ ...contactInfo, name: e.target.value })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  placeholder="Your name"
-                />
-                {renderError(errors.name)}
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Email</label>
-                <input
-                  type="email"
-                  value={contactInfo.email}
-                  onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  placeholder="Your email"
-                />
-                {renderError(errors.email)}
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Phone</label>
-                <input
-                  type="tel"
-                  value={contactInfo.phone}
-                  onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  placeholder="Your phone number"
-                />
-                {renderError(errors.phone)}
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">Company (Optional)</label>
-                <input
-                  type="text"
-                  value={contactInfo.company}
-                  onChange={(e) => setContactInfo({ ...contactInfo, company: e.target.value })}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                  placeholder="Your company name"
-                />
               </div>
             </div>
           </motion.div>
@@ -922,7 +870,7 @@ const ProjectBuilder: React.FC = () => {
             <div className="flex items-center justify-between mb-8">
               <h2 className="text-3xl font-bold text-gray-900">Project Builder</h2>
               <div className="flex items-center space-x-2">
-                {[1, 2, 3].map((stepNumber) => (
+                {[1, 2].map((stepNumber) => (
                   <div
                     key={stepNumber}
                     className={`w-3 h-3 rounded-full transition-colors duration-300 ${stepNumber === step
@@ -938,7 +886,6 @@ const ProjectBuilder: React.FC = () => {
             <div className="flex justify-between text-sm font-medium text-gray-500">
               <span className={step >= 1 ? 'text-blue-600' : ''}>Select Services</span>
               <span className={step >= 2 ? 'text-blue-600' : ''}>Project Details</span>
-              <span className={step >= 3 ? 'text-blue-600' : ''}>Contact Info</span>
             </div>
           </div>
 
@@ -962,7 +909,7 @@ const ProjectBuilder: React.FC = () => {
                   Back
                 </button>
               )}
-              {step < 3 ? (
+              {step < 2 ? (
                 <motion.button
                   type="button"
                   onClick={handleNext}

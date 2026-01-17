@@ -65,6 +65,7 @@ export interface EnhancedQuote {
     notes?: string;
     profiles?: {
         email?: string;
+        phone?: string;
         full_name?: string;
         avatar_url?: string;
     };
