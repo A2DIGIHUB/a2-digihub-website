@@ -19,7 +19,7 @@ import ProjectDetailModal from '../../components/ProjectDetailModal';
 import { EnhancedQuote, getStatusConfig, getProgressColor } from '../../lib/projectStatus';
 
 const UserDashboard: React.FC = () => {
-    const { user, isAdmin } = useAuth();
+    const { user, isAdmin, loading: authLoading } = useAuth();
     const [projects, setProjects] = useState<EnhancedQuote[]>([]);
     const [loading, setLoading] = useState(true);
     const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
@@ -47,6 +47,14 @@ const UserDashboard: React.FC = () => {
             fetchProjects();
         }
     }, [user]);
+
+    if (authLoading) {
+        return (
+            <div className="flex h-[50vh] items-center justify-center">
+                <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-blue-600"></div>
+            </div>
+        );
+    }
 
     if (isAdmin) {
         return <Navigate to="/admin" replace />;

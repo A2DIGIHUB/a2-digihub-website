@@ -25,7 +25,7 @@ const UserManagement: React.FC = () => {
             const { data, error } = await supabase
                 .from('profiles')
                 .select('*')
-                .order('created_at', { ascending: false });
+                .order('updated_at', { ascending: false });
 
             if (error) throw error;
             setUsers(data || []);
@@ -101,7 +101,7 @@ const UserManagement: React.FC = () => {
                                         </span>
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
-                                        {new Date(user.created_at).toLocaleDateString()}
+                                        {new Date(user.updated_at || new Date()).toLocaleDateString()}
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <button className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 disabled:opacity-50 cursor-not-allowed" title="Requires Backend API">Edit</button>

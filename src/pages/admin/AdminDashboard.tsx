@@ -17,7 +17,7 @@ import {
 import { motion } from 'framer-motion';
 
 const AdminDashboard: React.FC = () => {
-    const { isAdmin, loading: authLoading } = useAuth();
+    const { user, isAdmin, loading: authLoading } = useAuth();
     const [quotes, setQuotes] = useState<any[]>([]);
     const [users, setUsers] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
@@ -41,7 +41,7 @@ const AdminDashboard: React.FC = () => {
                 supabase
                     .from('profiles')
                     .select('*')
-                    .order('created_at', { ascending: false })
+                    .order('updated_at', { ascending: false })
             ]);
 
             if (quotesRes.error) throw quotesRes.error;
