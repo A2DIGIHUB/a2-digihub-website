@@ -29,11 +29,11 @@ const Navbar: React.FC = () => {
 
   // Dynamic navbar styles based on scroll and page
   const navBackground = isScrolled || !isHomePage
-    ? 'bg-white/80 dark:bg-slate-900/80 backdrop-blur-md shadow-sm'
+    ? 'glass-panel border-b border-ios-border'
     : 'bg-transparent';
 
   const textColor = isScrolled || !isHomePage
-    ? 'text-slate-900 dark:text-white'
+    ? 'text-ios-text'
     : 'text-white';
 
   return (
@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
             <Link
               key={item.name}
               to={item.href}
-              className={`text-sm font-semibold leading-6 transition-colors duration-300 hover:text-blue-500 ${textColor}`}
+              className={`text-sm font-semibold leading-6 transition-colors duration-300 hover:text-ios-blue ${textColor}`}
             >
               {item.name}
             </Link>
@@ -78,27 +78,27 @@ const Navbar: React.FC = () => {
           <ThemeToggle />
           <Link
             to="/login"
-            className={`text-sm font-semibold leading-6 ${textColor} hover:text-blue-500 transition-colors duration-300`}
+            className={`text-sm font-semibold leading-6 ${textColor} hover:text-ios-blue transition-colors duration-300`}
           >
             Log in <span aria-hidden="true">&rarr;</span>
           </Link>
           <Link
             to="/signup"
-            className="rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all duration-300"
+            className="rounded-full bg-ios-blue px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-blue-500 hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
           >
             Get Started
           </Link>
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-50" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-slate-900 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transition-colors duration-300">
+        <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-ios-bg px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
               <div className="p-2 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600">
                 <SparklesIcon className="h-6 w-6 text-white" />
               </div>
-              <span className="text-xl font-bold text-slate-900 dark:text-white">
+              <span className="text-xl font-bold text-ios-text">
                 {settings.site_name}
               </span>
             </Link>
@@ -106,7 +106,7 @@ const Navbar: React.FC = () => {
               <ThemeToggle />
               <button
                 type="button"
-                className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-200"
+                className="-m-2.5 rounded-md p-2.5 text-ios-subtext hover:text-ios-text"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
@@ -115,13 +115,13 @@ const Navbar: React.FC = () => {
             </div>
           </div>
           <div className="mt-6 flow-root">
-            <div className="-my-6 divide-y divide-gray-500/10">
+            <div className="-my-6 divide-y divide-ios-border">
               <div className="space-y-2 py-6">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     to={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                    className="-mx-3 block rounded-xl px-3 py-2 text-base font-semibold leading-7 text-ios-text hover:bg-ios-surface hover:text-ios-blue"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.name}
@@ -131,14 +131,14 @@ const Navbar: React.FC = () => {
               <div className="py-6 space-y-3">
                 <Link
                   to="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-slate-800"
+                  className="-mx-3 block rounded-xl px-3 py-2.5 text-base font-semibold leading-7 text-ios-text hover:bg-ios-surface hover:text-ios-blue"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Log in
                 </Link>
                 <Link
                   to="/signup"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-white bg-blue-600 hover:bg-blue-700 text-center"
+                  className="-mx-3 block rounded-xl px-3 py-2.5 text-base font-semibold leading-7 text-white bg-ios-blue hover:bg-blue-500 text-center shadow-lg"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Get Started

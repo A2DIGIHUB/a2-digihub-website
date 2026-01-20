@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  RocketLaunchIcon, 
-  CodeBracketIcon, 
-  CloudArrowUpIcon, 
+import {
+  RocketLaunchIcon,
+  CodeBracketIcon,
+  CloudArrowUpIcon,
   CpuChipIcon,
   ChartBarIcon,
   ShieldCheckIcon,
@@ -178,25 +178,25 @@ const Services = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-ios-bg text-ios-text">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white">
+      <div className="relative bg-gradient-to-r from-blue-900 to-indigo-900 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 mix-blend-multiply" />
-          <div className="absolute inset-0" style={{ backgroundImage: 'url(../grid.svg)', opacity: 0.2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-indigo-900 mix-blend-multiply opacity-90" />
+          <div className="absolute inset-0" style={{ backgroundImage: "url('/grid.svg')", opacity: 0.1 }} />
         </div>
-        <div className="relative">
-          <div className="container mx-auto px-4 py-24">
+        <div className="relative z-10">
+          <div className="container mx-auto px-4 py-24 md:py-32">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="max-w-3xl mx-auto text-center"
+              className="max-w-4xl mx-auto text-center"
             >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white tracking-tight">
                 Our Services
               </h1>
-              <p className="text-xl md:text-2xl text-blue-100">
+              <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
                 Comprehensive digital solutions to transform your business and drive growth
               </p>
             </motion.div>
@@ -205,18 +205,17 @@ const Services = () => {
       </div>
 
       {/* Category Filter */}
-      <div className="sticky top-0 z-10 bg-white shadow-md">
+      <div className="sticky top-0 z-20 glass-panel backdrop-blur-xl border-b border-ios-border">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-3">
             {categories.map((category) => (
               <motion.button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-full transition-colors ${
-                  selectedCategory === category.id
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
+                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${selectedCategory === category.id
+                  ? 'bg-ios-blue text-white shadow-lg shadow-blue-500/30'
+                  : 'bg-ios-surface hover:bg-ios-surface-2 text-ios-subtext hover:text-ios-text border border-ios-border'
+                  }`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -228,7 +227,7 @@ const Services = () => {
       </div>
 
       {/* Services Grid */}
-      <div className="py-16">
+      <div className="py-24 bg-ios-bg">
         <div className="container mx-auto px-4">
           <AnimatePresence mode="wait">
             <motion.div
@@ -248,15 +247,14 @@ const Services = () => {
                   exit={{ opacity: 0 }}
                   onHoverStart={() => setHoveredService(service.id)}
                   onHoverEnd={() => setHoveredService(null)}
-                  className={`bg-white rounded-2xl shadow-lg p-8 hover:shadow-xl transition-all duration-300 ${
-                    hoveredService === service.id ? 'scale-105' : ''
-                  }`}
+                  className={`glass-card p-8 group cursor-pointer ${hoveredService === service.id ? 'scale-[1.02] border-ios-blue/30 shadow-xl' : ''
+                    }`}
                 >
-                  <div className={`text-${service.color}-600 mb-6`}>
-                    <service.icon className="w-12 h-12" />
+                  <div className={`text-${service.color}-500 mb-6 p-4 rounded-2xl bg-${service.color}-500/10 w-fit group-hover:bg-${service.color}-500 group-hover:text-white transition-colors duration-300`}>
+                    <service.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold mb-4">{service.title}</h3>
-                  <p className="text-gray-600 mb-6">{service.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-ios-text">{service.title}</h3>
+                  <p className="text-ios-subtext mb-6 text-sm leading-relaxed">{service.description}</p>
                   <ul className="space-y-3">
                     {service.features.map((feature, index) => (
                       <motion.li
@@ -264,10 +262,10 @@ const Services = () => {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="flex items-center text-gray-600"
+                        className="flex items-center text-ios-subtext text-sm"
                       >
                         <svg
-                          className={`w-5 h-5 text-${service.color}-600 mr-3 flex-shrink-0`}
+                          className={`w-4 h-4 text-${service.color}-500 mr-3 flex-shrink-0`}
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
@@ -291,21 +289,24 @@ const Services = () => {
       </div>
 
       {/* Process Timeline */}
-      <div className="py-20 bg-white">
+      <div className="py-24 bg-ios-surface/30">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Process</h2>
-            <p className="text-xl text-gray-600">
-              A streamlined approach to deliver exceptional results
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-ios-text">Our Process</h2>
+            <p className="text-xl text-ios-subtext max-w-2xl mx-auto">
+              A streamlined approach to deliver exceptional results, transparently and efficiently.
             </p>
           </motion.div>
-          
-          <div className="grid md:grid-cols-6 gap-8">
+
+          <div className="grid md:grid-cols-6 gap-8 relative">
+            {/* Connecting Line for Desktop */}
+            <div className="hidden md:block absolute top-[2.5rem] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-blue-500/20" />
+
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
@@ -313,20 +314,17 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative"
+                className="relative z-10"
               >
                 <div className="flex flex-col items-center">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                    {step.icon}
+                  <div className="w-20 h-20 bg-ios-surface-2 border border-ios-border rounded-3xl flex items-center justify-center text-3xl transform rotate-3 hover:rotate-0 transition-all duration-300 shadow-lg hover:shadow-ios-blue/20 hover:border-ios-blue/30 group">
+                    <span className="group-hover:scale-110 transition-transform duration-300">{step.icon}</span>
                   </div>
-                  <div className="mt-6 text-center">
-                    <h3 className="text-lg font-bold mb-2">{step.title}</h3>
-                    <p className="text-gray-600">{step.description}</p>
+                  <div className="mt-8 text-center px-2">
+                    <h3 className="text-lg font-bold mb-2 text-ios-text">{step.title}</h3>
+                    <p className="text-sm text-ios-subtext leading-relaxed">{step.description}</p>
                   </div>
                 </div>
-                {index < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gradient-to-r from-blue-200 to-indigo-200" />
-                )}
               </motion.div>
             ))}
           </div>
@@ -334,22 +332,22 @@ const Services = () => {
       </div>
 
       {/* Project Builder Section */}
-      <div className="py-16 bg-gray-50">
+      <div className="py-24 bg-ios-bg" id="project-builder">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5 }}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-4">Build Your Project</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-ios-text">Build Your Project</h2>
+            <p className="text-ios-subtext max-w-2xl mx-auto text-lg">
               Use our interactive project builder to customize your solution and get started.
               Select the services you need and tell us about your project requirements.
             </p>
           </motion.div>
-          
+
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -362,16 +360,17 @@ const Services = () => {
       </div>
 
       {/* Call to Action Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
+      <div className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-indigo-900" />
+        <div className="relative z-10 container mx-auto px-4">
+          <div className="glass-card bg-white/5 border-white/10 p-12 md:p-20 text-center max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
             >
-              <h2 className="text-3xl font-extrabold text-white sm:text-4xl mb-8">
+              <h2 className="text-3xl font-bold text-white sm:text-5xl mb-8 leading-tight">
                 Ready to Transform Your Business?
               </h2>
               <div className="mt-8 flex justify-center">
@@ -379,9 +378,9 @@ const Services = () => {
                   href="#project-builder"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-blue-600 bg-white hover:bg-blue-50 sm:px-8"
+                  className="inline-flex items-center px-10 py-4 border border-transparent text-lg font-bold rounded-full shadow-xl text-blue-900 bg-white hover:bg-blue-50 transition-all hover:-translate-y-1"
                 >
-                  Get Started
+                  Start Building Now
                 </motion.a>
               </div>
             </motion.div>

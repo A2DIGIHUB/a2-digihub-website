@@ -5,12 +5,12 @@ import PageHeader from '../components/common/PageHeader';
 
 const Portfolio = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-ios-bg">
       <PageHeader
         title="Our Portfolio"
         description="Explore our successful projects and digital innovations"
       />
-      
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

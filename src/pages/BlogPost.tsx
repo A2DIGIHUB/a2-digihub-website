@@ -40,28 +40,28 @@ const BlogPost: React.FC = () => {
         fetchPost();
     }, [slug]);
 
-    if (loading) return <div className="min-h-screen grid place-items-center">Loading...</div>;
-    if (!post) return <div className="min-h-screen grid place-items-center">Post not found.</div>;
+    if (loading) return <div className="min-h-screen bg-ios-bg grid place-items-center text-ios-subtext">Loading...</div>;
+    if (!post) return <div className="min-h-screen bg-ios-bg grid place-items-center text-ios-subtext">Post not found.</div>;
 
     return (
-        <div className="min-h-screen bg-white">
-            <div className="relative h-[400px]">
+        <div className="min-h-screen bg-ios-bg">
+            <div className="relative h-[50vh] min-h-[400px]">
                 <div className="absolute inset-0">
                     {post.cover_image ? (
                         <img src={post.cover_image} alt={post.title} className="h-full w-full object-cover" />
                     ) : (
                         <div className="h-full w-full bg-slate-900" />
                     )}
-                    <div className="absolute inset-0 bg-slate-900/60 mix-blend-multiply" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ios-bg via-slate-900/60 to-transparent" />
                 </div>
                 <div className="absolute inset-0 flex flex-col justify-end pb-16">
                     <div className="mx-auto max-w-3xl px-6 w-full text-white">
-                        <Link to="/blog" className="inline-flex items-center text-sm hover:text-blue-300 mb-6 transition-colors">
+                        <Link to="/blog" className="inline-flex items-center text-sm font-medium hover:text-ios-blue mb-8 transition-colors bg-black/30 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 w-fit">
                             <ArrowLeftIcon className="w-4 h-4 mr-2" /> Back to Insights
                         </Link>
-                        <h1 className="text-4xl md:text-5xl font-bold mb-4">{post.title}</h1>
-                        <div className="flex items-center text-sm text-gray-300">
-                            <CalendarIcon className="w-4 h-4 mr-2" />
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">{post.title}</h1>
+                        <div className="flex items-center text-sm text-gray-300 font-medium bg-black/30 backdrop-blur-md px-4 py-2 rounded-full w-fit">
+                            <CalendarIcon className="w-4 h-4 mr-2 text-ios-blue" />
                             {new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
                         </div>
                     </div>
@@ -69,15 +69,17 @@ const BlogPost: React.FC = () => {
             </div>
 
             <div className="mx-auto max-w-3xl px-6 py-16">
-                <article className="prose prose-lg prose-blue max-w-none text-gray-700">
-                    {/* Simple line break rendering if not using a markdown renderer, 
-                        or use a library like react-markdown if available in dependencies. 
-                        For now, simply rendering text with basic line preservation. 
-                    */}
-                    {post.content.split('\n').map((paragraph, idx) => (
-                        <p key={idx} className="mb-4">{paragraph}</p>
-                    ))}
-                </article>
+                <div className="glass-card p-8 md:p-12">
+                    <article className="prose prose-lg prose-invert max-w-none text-ios-text">
+                        {/* Simple line break rendering if not using a markdown renderer, 
+                            or use a library like react-markdown if available in dependencies. 
+                            For now, simply rendering text with basic line preservation. 
+                        */}
+                        {post.content.split('\n').map((paragraph, idx) => (
+                            <p key={idx} className="mb-6 leading-relaxed text-ios-subtext">{paragraph}</p>
+                        ))}
+                    </article>
+                </div>
             </div>
 
             <Footer />
