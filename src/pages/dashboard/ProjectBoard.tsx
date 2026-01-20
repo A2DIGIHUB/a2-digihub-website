@@ -33,10 +33,10 @@ interface ProjectRequest {
 
 // Columns configuration
 const columns = {
-    pending: { id: 'pending', title: 'Pending Review', color: 'bg-yellow-100 text-yellow-800' },
-    approved: { id: 'approved', title: 'In Progress', color: 'bg-blue-100 text-blue-800' },
-    completed: { id: 'completed', title: 'Completed', color: 'bg-green-100 text-green-800' },
-    rejected: { id: 'rejected', title: 'Rejected', color: 'bg-red-100 text-red-800' },
+    pending: { id: 'pending', title: 'Pending Review', color: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-500/10 dark:text-yellow-400 dark:border-yellow-500/20 dark:border' },
+    approved: { id: 'approved', title: 'In Progress', color: 'bg-blue-100 text-blue-800 dark:bg-blue-500/10 dark:text-blue-400 dark:border-blue-500/20 dark:border' },
+    completed: { id: 'completed', title: 'Completed', color: 'bg-green-100 text-green-800 dark:bg-green-500/10 dark:text-green-400 dark:border-green-500/20 dark:border' },
+    rejected: { id: 'rejected', title: 'Rejected', color: 'bg-red-100 text-red-800 dark:bg-red-500/10 dark:text-red-400 dark:border-red-500/20 dark:border' },
 };
 
 const ProjectBoard: React.FC = () => {
@@ -134,13 +134,13 @@ const ProjectBoard: React.FC = () => {
                 <div className="flex gap-6 h-full min-w-[1000px] pb-4">
                     {Object.values(columns).map((column) => (
                         <div key={column.id} className="w-80 flex-shrink-0 flex flex-col">
-                            <div className={`flex items-center justify-between p-3 rounded-t-xl font-semibold text-sm ${column.color.split(' ')[0]} ${column.color.split(' ')[1]}`}>
+                            <div className={`flex items-center justify-between p-3 rounded-t-2xl font-semibold text-sm backdrop-blur-md ${column.color}`}>
                                 <span>{column.title}</span>
-                                <span className="bg-white/50 px-2 py-0.5 rounded-full text-xs">
+                                <span className={`px-2 py-0.5 rounded-full text-xs bg-white/50 dark:bg-black/20 text-current`}>
                                     {getTasksByStatus(column.id).length}
                                 </span>
                             </div>
-                            <div className="bg-gray-50/50 border border-gray-100 rounded-b-xl flex-1 p-2">
+                            <div className="bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10 rounded-b-3xl flex-1 p-2 backdrop-blur-sm">
                                 <div className="h-full min-h-[100px] flex flex-col gap-3">
                                     {getTasksByStatus(column.id).map((task) => (
                                         <div
@@ -149,29 +149,29 @@ const ProjectBoard: React.FC = () => {
                                                 setSelectedProjectId(task.id);
                                                 setIsModalOpen(true);
                                             }}
-                                            className="bg-white p-4 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition-all cursor-pointer"
+                                            className="glass-card p-4 hover:border-ios-blue/50 cursor-pointer group"
                                         >
                                             <div className="flex justify-between items-start mb-2">
-                                                <span className="text-xs font-medium px-2 py-1 rounded bg-gray-100 text-gray-600">
+                                                <span className="text-xs font-medium px-2 py-1 rounded-md bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300">
                                                     {task.service_type}
                                                 </span>
                                             </div>
 
-                                            <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
+                                            <h3 className="text-sm font-semibold text-ios-text mb-1 line-clamp-2 group-hover:text-ios-blue transition-colors">
                                                 {task.package_type || task.service_type}
                                             </h3>
 
-                                            <div className="flex items-center text-xs text-gray-500 mb-3">
+                                            <div className="flex items-center text-xs text-gray-500 dark:text-gray-400 mb-3">
                                                 <ClockIcon className="w-3 h-3 mr-1" />
                                                 {task.timeline}
                                             </div>
 
-                                            <div className="border-t border-gray-100 pt-3 mt-2 flex items-center justify-between text-xs">
-                                                <div className="flex items-center font-medium text-gray-900">
+                                            <div className="border-t border-gray-100 dark:border-white/10 pt-3 mt-2 flex items-center justify-between text-xs">
+                                                <div className="flex items-center font-medium text-gray-900 dark:text-gray-200">
                                                     <CurrencyDollarIcon className="w-3 h-3 mr-1 text-gray-400" />
                                                     {task.estimated_price}
                                                 </div>
-                                                <div className="text-gray-400">
+                                                <div className="text-gray-400 dark:text-gray-500">
                                                     {new Date(task.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
                                                 </div>
                                             </div>

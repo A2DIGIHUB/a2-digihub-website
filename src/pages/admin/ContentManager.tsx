@@ -204,23 +204,23 @@ const ContentManager: React.FC = () => {
     };
 
     const renderFormFields = () => {
-        const inputClass = "w-full rounded-lg border-gray-300 border px-4 py-2.5 text-gray-900 shadow-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all";
-        const labelClass = "block text-sm font-semibold text-gray-700 mb-1";
+        const inputClass = "w-full rounded-xl border border-ios-border px-4 py-2.5 bg-ios-surface-2 text-ios-text shadow-sm focus:border-ios-blue focus:ring-2 focus:ring-ios-blue/20 outline-none transition-all placeholder-ios-subtext/50";
+        const labelClass = "block text-sm font-semibold text-ios-subtext mb-1.5";
 
         // Helper to render image upload field
         const renderImageUpload = (field: string) => (
             <div className="col-span-full">
                 <label className={labelClass}>Cover Image</label>
-                <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer"
+                <div className="mt-2 flex justify-center rounded-xl border border-dashed border-ios-border px-6 py-10 bg-ios-surface/50 hover:bg-ios-surface transition-colors cursor-pointer"
                     onClick={() => fileInputRef.current?.click()}>
                     <div className="text-center">
                         {formData[field] ? (
                             <div className="relative">
-                                <img src={formData[field]} alt="Preview" className="mx-auto h-48 object-cover rounded-lg shadow-sm" />
+                                <img src={formData[field]} alt="Preview" className="mx-auto h-48 object-cover rounded-xl shadow-md border border-ios-border" />
                                 <button
                                     type="button"
                                     onClick={(e) => { e.stopPropagation(); setFormData({ ...formData, [field]: '' }); }}
-                                    className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-600"
+                                    className="absolute -top-2 -right-2 bg-red-500 text-white p-1.5 rounded-full shadow-md hover:bg-red-600 transition-colors"
                                 >
                                     <XMarkIcon className="w-4 h-4" />
                                 </button>
@@ -229,18 +229,18 @@ const ContentManager: React.FC = () => {
                             <>
                                 {uploadingImage ? (
                                     <div className="animate-pulse flex flex-col items-center">
-                                        <CloudArrowUpIcon className="mx-auto h-12 w-12 text-blue-400" />
-                                        <span className="mt-2 text-sm text-gray-500">Uploading...</span>
+                                        <CloudArrowUpIcon className="mx-auto h-12 w-12 text-ios-blue" />
+                                        <span className="mt-2 text-sm text-ios-subtext">Uploading...</span>
                                     </div>
                                 ) : (
                                     <>
-                                        <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
-                                        <div className="mt-4 flex text-sm leading-6 text-gray-600 justify-center">
-                                            <span className="relative rounded-md bg-white font-semibold text-blue-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-blue-600 focus-within:ring-offset-2 hover:text-blue-500">
+                                        <PhotoIcon className="mx-auto h-12 w-12 text-ios-subtext/50" aria-hidden="true" />
+                                        <div className="mt-4 flex text-sm leading-6 text-ios-subtext justify-center">
+                                            <span className="relative rounded-md font-semibold text-ios-blue hover:text-blue-500 transition-colors">
                                                 <span>Upload a file</span>
                                             </span>
                                         </div>
-                                        <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 5MB</p>
+                                        <p className="text-xs leading-5 text-ios-subtext/70 mt-1">PNG, JPG, GIF up to 5MB</p>
                                     </>
                                 )}
                             </>
@@ -287,10 +287,10 @@ const ContentManager: React.FC = () => {
                                 <option value="Advanced">Advanced</option>
                             </select>
                         </div>
-                        <div className="flex items-center pt-6">
-                            <label className="flex items-center cursor-pointer">
-                                <input type="checkbox" className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" checked={formData.active !== false} onChange={e => setFormData({ ...formData, active: e.target.checked })} />
-                                <span className="ml-2 text-sm font-medium text-gray-700">Active Course</span>
+                        <div className="flex items-center pt-8">
+                            <label className="flex items-center cursor-pointer group">
+                                <input type="checkbox" className="w-5 h-5 text-ios-blue rounded border-ios-border focus:ring-ios-blue bg-ios-surface" checked={formData.active !== false} onChange={e => setFormData({ ...formData, active: e.target.checked })} />
+                                <span className="ml-3 text-sm font-medium text-ios-text group-hover:text-ios-blue transition-colors">Active Course</span>
                             </label>
                         </div>
                     </div>
@@ -323,9 +323,9 @@ const ContentManager: React.FC = () => {
                         <input type="url" className={inputClass} value={formData.live_link || ''} onChange={e => setFormData({ ...formData, live_link: e.target.value })} placeholder="https://..." />
                     </div>
                     <div className="flex items-center">
-                        <label className="flex items-center cursor-pointer">
-                            <input type="checkbox" className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" checked={formData.featured === true} onChange={e => setFormData({ ...formData, featured: e.target.checked })} />
-                            <span className="ml-2 text-sm font-medium text-gray-700">Featured Project (Show on Home)</span>
+                        <label className="flex items-center cursor-pointer group">
+                            <input type="checkbox" className="w-5 h-5 text-ios-blue rounded border-ios-border focus:ring-ios-blue bg-ios-surface" checked={formData.featured === true} onChange={e => setFormData({ ...formData, featured: e.target.checked })} />
+                            <span className="ml-3 text-sm font-medium text-ios-text group-hover:text-ios-blue transition-colors">Featured Project (Show on Home)</span>
                         </label>
                     </div>
                     {renderImageUpload('image_url')}
@@ -351,9 +351,9 @@ const ContentManager: React.FC = () => {
                         <textarea rows={10} required className={inputClass} value={formData.content || ''} onChange={e => setFormData({ ...formData, content: e.target.value })} placeholder="# Heading..." />
                     </div>
                     <div className="flex items-center">
-                        <label className="flex items-center cursor-pointer">
-                            <input type="checkbox" className="w-5 h-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500" checked={formData.is_published === true} onChange={e => setFormData({ ...formData, is_published: e.target.checked })} />
-                            <span className="ml-2 text-sm font-medium text-gray-700">Publish Immediately</span>
+                        <label className="flex items-center cursor-pointer group">
+                            <input type="checkbox" className="w-5 h-5 text-ios-blue rounded border-ios-border focus:ring-ios-blue bg-ios-surface" checked={formData.is_published === true} onChange={e => setFormData({ ...formData, is_published: e.target.checked })} />
+                            <span className="ml-3 text-sm font-medium text-ios-text group-hover:text-ios-blue transition-colors">Publish Immediately</span>
                         </label>
                     </div>
                     {renderImageUpload('cover_image')}
@@ -368,12 +368,12 @@ const ContentManager: React.FC = () => {
         <div className="space-y-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Content Management</h1>
-                    <p className="mt-1 text-sm text-gray-500">Manage your courses, portfolio items, and blog posts</p>
+                    <h1 className="text-3xl font-bold text-ios-text">Content Management</h1>
+                    <p className="mt-1 text-sm text-ios-subtext">Manage your courses, portfolio items, and blog posts</p>
                 </div>
                 <button
                     onClick={handleCreate}
-                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    className="btn-ios-primary flex items-center shadow-lg shadow-blue-500/20"
                 >
                     <PlusIcon className="-ml-1 mr-2 h-5 w-5" aria-hidden="true" />
                     Add New
@@ -381,16 +381,15 @@ const ContentManager: React.FC = () => {
             </div>
 
             <Tab.Group selectedIndex={activeTab} onChange={setActiveTab}>
-                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/10 p-1 max-w-lg">
+                <Tab.List className="flex space-x-2 rounded-2xl bg-ios-surface/50 p-1.5 max-w-lg shadow-inner">
                     {tabs.map((tab) => (
                         <Tab
                             key={tab}
                             className={({ selected }) =>
-                                `w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700
-                 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2
-                 ${selected
-                                    ? 'bg-white shadow'
-                                    : 'text-blue-500 hover:bg-white/[0.12] hover:text-blue-600'
+                                `w-full rounded-xl py-2.5 text-sm font-semibold leading-5 transition-all outline-none
+                                ${selected
+                                    ? 'bg-ios-surface shadow-sm text-ios-text ring-1 ring-ios-border'
+                                    : 'text-ios-subtext hover:text-ios-text hover:bg-ios-surface/50'
                                 }`
                             }
                         >
@@ -399,28 +398,31 @@ const ContentManager: React.FC = () => {
                     ))}
                 </Tab.List>
                 <Tab.Panels className="mt-6">
-                    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden min-h-[400px] transition-colors">
+                    <div className="glass-panel min-h-[400px]">
                         {loading ? (
-                            <div className="flex justify-center items-center h-64 text-gray-500 dark:text-gray-400">
-                                <span className="animate-pulse">Loading content...</span>
+                            <div className="flex justify-center items-center h-64 text-ios-subtext">
+                                <span className="animate-pulse flex items-center gap-2">
+                                    <div className="w-2 h-2 bg-ios-blue rounded-full animate-bounce"></div>
+                                    Loading content...
+                                </span>
                             </div>
                         ) : (
-                            <ul className="divide-y divide-gray-100">
+                            <ul className="divide-y divide-ios-border">
                                 {/* Render active list based on tab */}
                                 {(activeTab === 0 ? courses : activeTab === 1 ? portfolio : blogs).map((item: any) => (
-                                    <li key={item.id} className="group hover:bg-gray-50 transition-colors p-4 sm:px-6">
+                                    <li key={item.id} className="group hover:bg-ios-blue/5 transition-colors p-4 sm:px-6">
                                         <div className="flex items-center justify-between gap-4">
                                             <div className="flex items-center gap-4 min-w-0">
-                                                <div className="h-12 w-12 flex-shrink-0 rounded-lg bg-gray-100 overflow-hidden border border-gray-200">
+                                                <div className="h-14 w-14 flex-shrink-0 rounded-xl bg-ios-surface-2 overflow-hidden border border-ios-border">
                                                     {(item.image_url || item.cover_image) ? (
                                                         <img src={item.image_url || item.cover_image} alt="" className="h-full w-full object-cover" />
                                                     ) : (
-                                                        <PhotoIcon className="h-full w-full p-2 text-gray-400" />
+                                                        <PhotoIcon className="h-full w-full p-3 text-ios-subtext" />
                                                     )}
                                                 </div>
                                                 <div className="min-w-0 flex-1">
-                                                    <p className="text-sm font-semibold text-gray-900 truncate">{item.title}</p>
-                                                    <p className="text-sm text-gray-500 truncate">
+                                                    <p className="text-base font-semibold text-ios-text truncate">{item.title}</p>
+                                                    <p className="text-sm text-ios-subtext truncate mt-0.5">
                                                         {activeTab === 0 ? `₦${item.price} • ${item.level}` :
                                                             activeTab === 1 ? item.category :
                                                                 new Date(item.created_at).toLocaleDateString()}
@@ -430,13 +432,13 @@ const ContentManager: React.FC = () => {
                                             <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                                                 <button
                                                     onClick={() => handleEdit(item)}
-                                                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
+                                                    className="p-2 text-ios-subtext hover:text-ios-blue hover:bg-ios-blue/10 rounded-full transition-colors"
                                                 >
                                                     <PencilSquareIcon className="w-5 h-5" />
                                                 </button>
                                                 <button
                                                     onClick={() => handleDelete(item.id, activeTab === 0 ? 'courses' : activeTab === 1 ? 'projects_portfolio' : 'blogs')}
-                                                    className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-full transition-colors"
+                                                    className="p-2 text-ios-subtext hover:text-red-500 hover:bg-red-500/10 rounded-full transition-colors"
                                                 >
                                                     <TrashIcon className="w-5 h-5" />
                                                 </button>
@@ -445,8 +447,10 @@ const ContentManager: React.FC = () => {
                                     </li>
                                 ))}
                                 {(activeTab === 0 ? courses : activeTab === 1 ? portfolio : blogs).length === 0 && (
-                                    <div className="text-center py-20 text-gray-400">
-                                        No items found. Click "Add New" to create one.
+                                    <div className="flex flex-col items-center justify-center py-24 text-ios-subtext">
+                                        <CloudArrowUpIcon className="h-16 w-16 mb-4 text-ios-subtext/50" />
+                                        <p className="text-lg font-medium">No items found</p>
+                                        <p className="text-sm">Click "Add New" to get started</p>
                                     </div>
                                 )}
                             </ul>
@@ -455,35 +459,35 @@ const ContentManager: React.FC = () => {
                 </Tab.Panels>
             </Tab.Group>
 
-            {/* Edit/Create Modal */}
+            {/* Edit/Create Modal - Using standard opaque background for modal dialog */}
             <Dialog open={isModalOpen} onClose={() => setIsModalOpen(false)} className="relative z-50">
-                <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" aria-hidden="true" />
+                <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" aria-hidden="true" />
                 <div className="fixed inset-0 flex items-center justify-center p-4">
-                    <Dialog.Panel className="w-full max-w-2xl rounded-2xl bg-white dark:bg-slate-800 p-6 shadow-xl max-h-[90vh] overflow-y-auto transition-colors">
-                        <div className="flex justify-between items-center mb-6">
-                            <Dialog.Title className="text-lg font-bold text-gray-900 dark:text-white">
+                    <Dialog.Panel className="w-full max-w-2xl rounded-3xl bg-white dark:bg-[#1C1C1E] p-8 shadow-2xl max-h-[90vh] overflow-y-auto border border-gray-100 dark:border-gray-800">
+                        <div className="flex justify-between items-center mb-8">
+                            <Dialog.Title className="text-2xl font-bold text-gray-900 dark:text-white">
                                 {editingItem ? 'Edit Item' : 'Create New Item'}
                             </Dialog.Title>
-                            <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
+                            <button onClick={() => setIsModalOpen(false)} className="text-gray-400 hover:text-gray-500 dark:hover:text-gray-300 transition-colors p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
                                 <XMarkIcon className="w-6 h-6" />
                             </button>
                         </div>
 
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleSubmit} className="space-y-6">
                             {renderFormFields()}
 
-                            <div className="mt-8 flex justify-end gap-3 pt-6 border-t border-gray-100">
+                            <div className="mt-8 flex justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-800">
                                 <button
                                     type="button"
                                     onClick={() => setIsModalOpen(false)}
-                                    className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                                    className="px-5 py-2.5 text-sm font-medium text-gray-700 bg-gray-100 dark:bg-gray-800 dark:text-gray-300 rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors focus:outline-none"
                                 >
                                     Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     disabled={uploadingImage}
-                                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-xl hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-blue-500/30 transition-all"
                                 >
                                     {uploadingImage ? 'Uploading...' : editingItem ? 'Save Changes' : 'Create Item'}
                                 </button>

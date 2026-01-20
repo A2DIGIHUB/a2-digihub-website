@@ -7,45 +7,63 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: 'var(--primary-50, #f0f9ff)',
-          100: 'var(--primary-100, #e0f2fe)',
-          200: 'var(--primary-200, #bae6fd)',
-          300: 'var(--primary-300, #7dd3fc)',
-          400: 'var(--primary-400, #38bdf8)',
-          500: 'var(--primary-500, #0ea5e9)',
-          600: 'var(--primary-color, #0284c7)', // Main brand color
-          700: 'var(--primary-700, #0369a1)',
-          800: 'var(--primary-800, #075985)',
-          900: 'var(--primary-900, #0c4a6e)',
+        // iOS 18 System Colors (Mapped to CSS Variables)
+        ios: {
+          bg: 'var(--ios-bg)',
+          surface: 'var(--ios-surface)',
+          'surface-2': 'var(--ios-surface-2)',
+          text: 'var(--ios-text)',
+          subtext: 'var(--ios-subtext)',
+          blue: 'var(--ios-blue)',
+          border: 'var(--ios-border)',
+          // Keep static colors that don't change
+          green: '#34c759',
+          red: '#ff3b30',
+          orange: '#ff9500',
+          divider: 'rgba(0,0,0,0.1)',
         },
-        secondary: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
+        primary: {
+          50: '#f2f8fd',
+          100: '#e5f1fb',
+          200: '#c5e2f8',
+          300: '#95caf3',
+          400: '#5ba9eb',
+          500: '#2e8be0',
+          600: '#0071e3', // Aligned with iOS Blue
+          700: '#1a62ab',
+          800: '#1a5189',
+          900: '#1a4471',
         },
       },
       fontFamily: {
-        sans: ['Inter var', 'system-ui', 'sans-serif'],
+        sans: [
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'SF Pro Text',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'sans-serif'
+        ],
       },
-      spacing: {
-        '18': '4.5rem',
-        '112': '28rem',
-        '128': '32rem',
+      borderRadius: {
+        '3xl': '1.5rem',
+        '4xl': '2rem', // Super rounded for cards
+        'squircle': '20px', // Iconic Apple shape approximation
+      },
+      boxShadow: {
+        'ios': '0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02)',
+        'ios-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+        'glass': '0 8px 32px 0 rgba(31, 38, 135, 0.07)',
+      },
+      backdropBlur: {
+        'xs': '2px',
       },
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
-        'slide-up': 'slideUp 0.5s ease-out',
-        'slide-down': 'slideDown 0.5s ease-out',
-        'slide-left': 'slideLeft 0.5s ease-out',
-        'slide-right': 'slideRight 0.5s ease-out',
+        'slide-up': 'slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1)', // iOS Spring-like
+        'scale-in': 'scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
         fadeIn: {
@@ -56,24 +74,10 @@ module.exports = {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
-        slideDown: {
-          '0%': { transform: 'translateY(-20px)', opacity: '0' },
-          '100%': { transform: 'translateY(0)', opacity: '1' },
-        },
-        slideLeft: {
-          '0%': { transform: 'translateX(20px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)', opacity: '1' },
-        },
-        slideRight: {
-          '0%': { transform: 'translateX(-20px)', opacity: '0' },
-          '100%': { transform: 'translateX(0)', opacity: '1' },
-        },
-      },
-      boxShadow: {
-        'inner-lg': 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
-      },
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        scaleIn: {
+          '0%': { transform: 'scale(0.95)', opacity: '0' },
+          '100%': { transform: 'scale(1)', opacity: '1' },
+        }
       },
     },
   },

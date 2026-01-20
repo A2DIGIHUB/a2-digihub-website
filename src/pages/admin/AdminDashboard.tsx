@@ -145,20 +145,20 @@ const AdminDashboard: React.FC = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.1 }}
-                        className="bg-white dark:bg-slate-800 overflow-hidden shadow-sm rounded-xl border border-gray-100 dark:border-slate-700 hover:shadow-md transition-all duration-200"
+                        className="glass-card overflow-hidden"
                     >
                         <div className="p-5">
                             <div className="flex items-center">
-                                <div className={`flex-shrink-0 p-3 rounded-lg bg-${stat.color}-100 dark:bg-${stat.color}-900/20`}>
+                                <div className={`flex-shrink-0 p-3 rounded-2xl bg-${stat.color}-100 dark:bg-${stat.color}-500/20`}>
                                     <stat.icon className={`h-6 w-6 text-${stat.color}-600 dark:text-${stat.color}-400`} />
                                 </div>
                                 <div className="ml-5 w-0 flex-1">
                                     <dl>
-                                        <dt className="text-sm font-medium text-gray-500 dark:text-gray-400 truncate">
+                                        <dt className="text-sm font-medium text-ios-subtext truncate">
                                             {stat.name}
                                         </dt>
                                         <dd className="flex items-baseline">
-                                            <div className="text-2xl font-semibold text-gray-900 dark:text-white">
+                                            <div className="text-2xl font-bold text-ios-text">
                                                 {stat.value}
                                             </div>
                                             <div className={`ml-2 flex items-baseline text-sm font-semibold ${stat.changeType === 'positive' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
@@ -175,9 +175,9 @@ const AdminDashboard: React.FC = () => {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-slate-800 dark:to-slate-800 rounded-xl p-6 border border-purple-100 dark:border-slate-700">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center">
-                    <ChartBarIcon className="h-5 w-5 mr-2 text-purple-600 dark:text-purple-400" />
+            <div className="glass-panel rounded-3xl p-6">
+                <h3 className="text-lg font-semibold text-ios-text mb-4 flex items-center">
+                    <ChartBarIcon className="h-5 w-5 mr-2 text-ios-blue" />
                     Quick Actions
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -185,12 +185,12 @@ const AdminDashboard: React.FC = () => {
                         <Link
                             key={action.name}
                             to={action.href}
-                            className="flex items-center p-4 bg-white dark:bg-slate-700 rounded-lg shadow-sm hover:shadow-md transition-all border border-gray-100 dark:border-slate-600 group"
+                            className="flex items-center p-4 bg-ios-surface/50 border border-ios-border rounded-2xl hover:bg-ios-blue/5 hover:border-ios-blue/30 transition-all group"
                         >
-                            <div className={`p-2 rounded-lg bg-${action.color}-100 dark:bg-${action.color}-900/20 group-hover:scale-110 transition-transform`}>
+                            <div className={`p-2 rounded-xl bg-${action.color}-100 dark:bg-${action.color}-500/20 group-hover:scale-110 transition-transform`}>
                                 <action.icon className={`h-5 w-5 text-${action.color}-600 dark:text-${action.color}-400`} />
                             </div>
-                            <span className="ml-3 text-sm font-medium text-gray-900 dark:text-white">
+                            <span className="ml-3 text-sm font-medium text-ios-text">
                                 {action.name}
                             </span>
                         </Link>
@@ -201,43 +201,45 @@ const AdminDashboard: React.FC = () => {
             {/* Recent Activity */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Recent Requests */}
-                <div className="bg-white dark:bg-slate-800 shadow-sm rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-100 dark:border-slate-700">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                            <DocumentTextIcon className="h-5 w-5 mr-2 text-gray-400" />
+                <div className="glass-card overflow-hidden">
+                    <div className="px-6 py-5 border-b border-ios-border">
+                        <h3 className="text-lg font-semibold text-ios-text flex items-center">
+                            <DocumentTextIcon className="h-5 w-5 mr-2 text-ios-subtext" />
                             Recent Requests
                         </h3>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="mt-1 text-sm text-ios-subtext">
                             Latest project submissions
                         </p>
                     </div>
-                    <div className="divide-y divide-gray-100 dark:divide-slate-700 max-h-96 overflow-y-auto">
+                    <div className="divide-y divide-ios-border max-h-96 overflow-y-auto">
                         {loading ? (
                             <div className="p-6 text-center">
-                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ios-blue mx-auto"></div>
                             </div>
                         ) : quotes.length === 0 ? (
-                            <div className="p-6 text-center text-gray-500 dark:text-gray-400">
+                            <div className="p-6 text-center text-ios-subtext">
                                 No requests yet
                             </div>
                         ) : (
                             quotes.slice(0, 5).map((quote) => (
-                                <div key={quote.id} className="px-6 py-4 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                <div key={quote.id} className="px-6 py-4 hover:bg-ios-blue/5 transition-colors">
                                     <div className="flex items-center justify-between">
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">
+                                            <p className="text-sm font-semibold text-ios-text truncate">
                                                 {quote.profiles?.full_name || 'Unknown User'}
                                             </p>
-                                            <p className="text-xs text-gray-500 dark:text-gray-400">
+                                            <p className="text-xs text-ios-subtext">
                                                 {quote.profiles?.phone || 'No contact info'}
                                             </p>
-                                            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                                            <p className="text-sm text-ios-subtext mt-1">
                                                 {quote.service_type} • {quote.estimated_price}
                                             </p>
                                         </div>
-                                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${quote.status === 'approved' ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' :
-                                            quote.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300' :
-                                                'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300'
+                                        <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full border ${quote.status === 'approved'
+                                            ? 'bg-green-100 text-green-800 border-green-200 dark:bg-green-500/10 dark:text-green-300 dark:border-green-500/20'
+                                            : quote.status === 'rejected'
+                                                ? 'bg-red-100 text-red-800 border-red-200 dark:bg-red-500/10 dark:text-red-300 dark:border-red-500/20'
+                                                : 'bg-yellow-100 text-yellow-800 border-yellow-200 dark:bg-yellow-500/10 dark:text-yellow-300 dark:border-yellow-500/20'
                                             }`}>
                                             {quote.status}
                                         </span>
@@ -247,10 +249,10 @@ const AdminDashboard: React.FC = () => {
                         )}
                     </div>
                     {quotes.length > 5 && (
-                        <div className="px-6 py-4 bg-gray-50 dark:bg-slate-700/50 border-t border-gray-100 dark:border-slate-700">
+                        <div className="px-6 py-4 bg-ios-surface/50 border-t border-ios-border">
                             <Link
                                 to="/admin/projects"
-                                className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300"
+                                className="text-sm font-medium text-ios-blue hover:text-blue-400"
                             >
                                 View all {quotes.length} requests →
                             </Link>
@@ -259,50 +261,51 @@ const AdminDashboard: React.FC = () => {
                 </div>
 
                 {/* Recent Users */}
-                <div className="bg-white dark:bg-slate-800 shadow-sm rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden">
-                    <div className="px-6 py-5 border-b border-gray-100 dark:border-slate-700">
-                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white flex items-center">
-                            <UsersIcon className="h-5 w-5 mr-2 text-gray-400" />
+                <div className="glass-card overflow-hidden">
+                    <div className="px-6 py-5 border-b border-ios-border">
+                        <h3 className="text-lg font-semibold text-ios-text flex items-center">
+                            <UsersIcon className="h-5 w-5 mr-2 text-ios-subtext" />
                             Recent Users
                         </h3>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                        <p className="mt-1 text-sm text-ios-subtext">
                             Newest platform members
                         </p>
                     </div>
-                    <div className="divide-y divide-gray-100 dark:divide-slate-700 max-h-96 overflow-y-auto">
+                    <div className="divide-y divide-ios-border max-h-96 overflow-y-auto">
                         {loading ? (
                             <div className="p-6 text-center">
-                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 mx-auto"></div>
+                                <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ios-blue mx-auto"></div>
                             </div>
                         ) : users.length === 0 ? (
-                            <div className="p-6 text-center text-gray-500 dark:text-gray-400">
+                            <div className="p-6 text-center text-ios-subtext">
                                 No users yet
                             </div>
                         ) : (
                             users.slice(0, 5).map((user) => (
-                                <div key={user.id} className="px-6 py-4 hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                                <div key={user.id} className="px-6 py-4 hover:bg-ios-blue/5 transition-colors">
                                     <div className="flex items-center">
                                         <div className="flex-shrink-0 h-10 w-10">
                                             {user.avatar_url ? (
-                                                <img className="h-10 w-10 rounded-full object-cover" src={user.avatar_url} alt="" />
+                                                <img className="h-10 w-10 rounded-full object-cover border border-ios-border" src={user.avatar_url} alt="" />
                                             ) : (
-                                                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center">
-                                                    <span className="text-white font-semibold text-sm">
+                                                <div className="h-10 w-10 rounded-full bg-ios-surface border border-ios-border flex items-center justify-center">
+                                                    <span className="text-ios-subtext font-semibold text-sm">
                                                         {user.full_name?.charAt(0) || user.email?.charAt(0).toUpperCase()}
                                                     </span>
                                                 </div>
                                             )}
                                         </div>
                                         <div className="ml-4 flex-1">
-                                            <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                                            <p className="text-sm font-semibold text-ios-text">
                                                 {user.full_name || 'Unnamed'}
                                             </p>
-                                            <p className="text-sm text-gray-500 dark:text-gray-400">
+                                            <p className="text-sm text-ios-subtext">
                                                 {user.email}
                                             </p>
                                         </div>
-                                        <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${user.role === 'admin' ? 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300' :
-                                            'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300'
+                                        <span className={`px-2.5 py-0.5 inline-flex text-xs leading-5 font-semibold rounded-full border ${user.role === 'admin'
+                                            ? 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-500/10 dark:text-purple-300 dark:border-purple-500/20'
+                                            : 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-500/10 dark:text-blue-300 dark:border-blue-500/20'
                                             }`}>
                                             {user.role || 'user'}
                                         </span>
@@ -312,10 +315,10 @@ const AdminDashboard: React.FC = () => {
                         )}
                     </div>
                     {users.length > 5 && (
-                        <div className="px-6 py-4 bg-gray-50 dark:bg-slate-700/50 border-t border-gray-100 dark:border-slate-700">
+                        <div className="px-6 py-4 bg-ios-surface/50 border-t border-ios-border">
                             <Link
                                 to="/admin/users"
-                                className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:text-purple-700 dark:hover:text-purple-300"
+                                className="text-sm font-medium text-ios-blue hover:text-blue-400"
                             >
                                 View all {users.length} users →
                             </Link>
