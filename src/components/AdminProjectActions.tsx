@@ -124,7 +124,7 @@ const AdminProjectActions: React.FC<AdminProjectActionsProps> = ({
         <>
             <button
                 onClick={() => setIsOpen(true)}
-                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors"
+                className="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-white bg-ios-blue hover:bg-purple-700 rounded-lg transition-colors"
             >
                 Update Status
             </button>
@@ -222,7 +222,7 @@ const AdminProjectActions: React.FC<AdminProjectActionsProps> = ({
                             <button
                                 onClick={handleUpdateProject}
                                 disabled={loading}
-                                className="flex-1 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors disabled:opacity-50"
+                                className="flex-1 px-4 py-2 bg-ios-blue hover:bg-purple-700 text-white rounded-lg transition-colors disabled:opacity-50"
                             >
                                 {loading ? 'Updating...' : 'Update Project'}
                             </button>

@@ -180,9 +180,9 @@ const Services = () => {
   return (
     <div className="min-h-screen bg-ios-bg text-ios-text">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-900 to-indigo-900 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-indigo-900 mix-blend-multiply opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 mix-blend-multiply opacity-90" />
           <div className="absolute inset-0" style={{ backgroundImage: "url('/grid.svg')", opacity: 0.1 }} />
         </div>
         <div className="relative z-10">
@@ -361,7 +361,7 @@ const Services = () => {
 
       {/* Call to Action Section */}
       <div className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 to-indigo-900" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-900" />
         <div className="relative z-10 container mx-auto px-4">
           <div className="glass-card bg-white/5 border-white/10 p-12 md:p-20 text-center max-w-5xl mx-auto">
             <motion.div

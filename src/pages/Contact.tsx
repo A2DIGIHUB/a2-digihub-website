@@ -29,7 +29,7 @@ const Contact: React.FC = () => {
 
   return (
     <div className="bg-ios-bg transition-colors duration-300">
-      <div className="relative isolate bg-gradient-to-r from-blue-900 to-indigo-900 py-24 sm:py-32 overflow-hidden">
+      <div className="relative isolate bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 py-24 sm:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-20 bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" style={{ backgroundImage: "url('/grid.svg')" }} />
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <div className="mx-auto max-w-2xl text-center">
@@ -105,7 +105,7 @@ const Contact: React.FC = () => {
                     autoComplete="given-name"
                     value={formData.firstName}
                     onChange={handleChange}
-                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue sm:text-sm sm:leading-6 transition-all"
+                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface/50 backdrop-blur-sm shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue focus:bg-ios-surface transition-all sm:text-sm sm:leading-6"
                     placeholder="John"
                   />
                 </div>

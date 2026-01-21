@@ -8,7 +8,7 @@ interface PageHeaderProps {
 
 const PageHeader: React.FC<PageHeaderProps> = ({ title, description }) => {
   return (
-    <div className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
+    <div className="relative overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-purple-900">
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute w-full h-full">
@@ -45,11 +45,11 @@ const PageHeader: React.FC<PageHeaderProps> = ({ title, description }) => {
           transition={{ duration: 0.5 }}
           className="max-w-3xl mx-auto text-center relative z-10"
         >
-          <h1 className="text-4xl font-bold sm:text-5xl lg:text-6xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-blue-100 to-blue-200">
+          <h1 className="text-4xl font-bold sm:text-5xl lg:text-6xl mb-6 bg-clip-text text-transparent bg-gradient-to-r from-white via-purple-100 to-purple-200">
             {title}
           </h1>
           {description && (
-            <p className="text-xl text-blue-100/90">
+            <p className="text-xl text-purple-100/90">
               {description}
             </p>
           )}

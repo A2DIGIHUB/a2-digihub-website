@@ -593,27 +593,27 @@ const ProjectBuilder: React.FC = () => {
               {services.map((service) => (
                 <div
                   key={service.id}
-                  className={`p-6 border rounded-lg transition-all ${selectedServices.includes(service.id)
-                    ? 'border-blue-500 bg-blue-50'
-                    : 'border-gray-200 hover:border-blue-300'
+                  className={`p-6 glass-card cursor-pointer transition-all ${selectedServices.includes(service.id)
+                    ? 'border-ios-blue bg-ios-blue/5 scale-[1.02]'
+                    : 'hover:bg-ios-surface-2'
                     }`}
                   onClick={() => handleServiceSelect(service.id)}
                 >
-                  <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                  <p className="text-gray-600 mb-4">{service.description}</p>
+                  <h3 className="text-xl font-semibold mb-2 text-ios-text">{service.title}</h3>
+                  <p className="text-ios-subtext mb-4">{service.description}</p>
                   <div className="mb-4">
-                    <p className="font-medium mb-2">Price Range:</p>
-                    <p className="text-blue-600">{service.priceRange}</p>
+                    <p className="font-medium mb-2 text-ios-text">Price Range:</p>
+                    <p className="text-ios-blue font-semibold">{service.priceRange}</p>
                   </div>
                   <div className="mb-4">
-                    <p className="font-medium mb-2">Delivery Time:</p>
-                    <p>{service.deliveryTime}</p>
+                    <p className="font-medium mb-2 text-ios-text">Delivery Time:</p>
+                    <p className="text-ios-subtext">{service.deliveryTime}</p>
                   </div>
                   <div>
-                    <p className="font-medium mb-2">Features:</p>
+                    <p className="font-medium mb-2 text-ios-text">Features:</p>
                     <ul className="list-disc list-inside space-y-1">
                       {service.features.map((feature, index) => (
-                        <li key={index} className="text-gray-600">{feature}</li>
+                        <li key={index} className="text-ios-subtext">{feature}</li>
                       ))}
                     </ul>
                   </div>
@@ -634,8 +634,8 @@ const ProjectBuilder: React.FC = () => {
             <div className="space-y-6">
               {/* Project Details Summary (Sub-options) - Moved ABOVE Timeline */}
               {selectedServices.includes(2) && (
-                <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <h3 className="text-lg font-semibold mb-4">Select Website Type</h3>
+                <div className="mb-8 p-6 bg-ios-surface/30 rounded-2xl border border-ios-border">
+                  <h3 className="text-lg font-semibold mb-4 text-ios-text">Select Website Type</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {services.find(s => s.id === 2)?.subOptions?.map((option) => (
                       <button
@@ -649,20 +649,20 @@ const ProjectBuilder: React.FC = () => {
                             setEstimatedPrice(newEstimate);
                           }
                         }}
-                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${selectedSubOptions.includes(option.id)
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200'
+                        className={`w-full h-full p-4 glass-card text-left transition-all ${selectedSubOptions.includes(option.id)
+                          ? 'border-ios-blue bg-ios-blue/5 scale-[1.02]'
+                          : 'hover:bg-ios-surface-2'
                           }`}
                       >
                         <div className="flex flex-col h-full">
                           <div className="flex-grow">
-                            <h4 className="font-semibold text-lg mb-1">{option.title}</h4>
-                            <p className="text-sm text-gray-600 mb-2">{option.description}</p>
-                            <p className="text-sm text-blue-600 font-medium mb-3">Est. Time: {option.deliveryTime}</p>
-                            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+                            <h4 className="font-semibold text-lg mb-1 text-ios-text">{option.title}</h4>
+                            <p className="text-sm text-ios-subtext mb-2">{option.description}</p>
+                            <p className="text-sm text-ios-blue font-medium mb-3">Est. Time: {option.deliveryTime}</p>
+                            <ul className="text-sm text-ios-subtext space-y-1 mb-4">
                               {option.features.map((feature, index) => (
                                 <li key={index} className="flex items-start">
-                                  <svg className="w-4 h-4 mr-2 text-blue-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <svg className="w-4 h-4 mr-2 text-ios-blue mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                   </svg>
                                   <span>{feature}</span>
@@ -670,8 +670,8 @@ const ProjectBuilder: React.FC = () => {
                               ))}
                             </ul>
                           </div>
-                          <div className="mt-auto pt-4 border-t border-gray-200">
-                            <div className="text-lg font-semibold text-blue-600">
+                          <div className="mt-auto pt-4 border-t border-ios-border">
+                            <div className="text-lg font-semibold text-ios-blue">
                               From ₦{option.basePrice.toLocaleString()}
                             </div>
                           </div>
@@ -683,8 +683,8 @@ const ProjectBuilder: React.FC = () => {
               )}
 
               {selectedServices.includes(1) && (
-                <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <h3 className="text-lg font-semibold mb-4">Select Branding Package</h3>
+                <div className="mb-8 p-6 bg-ios-surface/30 rounded-2xl border border-ios-border">
+                  <h3 className="text-lg font-semibold mb-4 text-ios-text">Select Branding Package</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {services.find(s => s.id === 1)?.subOptions?.map((option) => (
                       <button
@@ -698,20 +698,20 @@ const ProjectBuilder: React.FC = () => {
                             setEstimatedPrice(newEstimate);
                           }
                         }}
-                        className={`w-full h-full p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${selectedSubOptions.includes(option.id)
-                          ? 'border-blue-500 bg-blue-50'
-                          : 'border-gray-200'
+                        className={`w-full h-full p-4 glass-card text-left transition-all ${selectedSubOptions.includes(option.id)
+                          ? 'border-ios-blue bg-ios-blue/5 scale-[1.02]'
+                          : 'hover:bg-ios-surface-2'
                           }`}
                       >
                         <div className="flex flex-col h-full">
                           <div className="flex-grow">
-                            <h4 className="font-semibold text-lg mb-1">{option.title}</h4>
-                            <p className="text-sm text-gray-600 mb-2">{option.description}</p>
-                            <p className="text-sm text-blue-600 font-medium mb-3">Est. Time: {option.deliveryTime}</p>
-                            <ul className="text-sm text-gray-600 space-y-1 mb-4">
+                            <h4 className="font-semibold text-lg mb-1 text-ios-text">{option.title}</h4>
+                            <p className="text-sm text-ios-subtext mb-2">{option.description}</p>
+                            <p className="text-sm text-ios-blue font-medium mb-3">Est. Time: {option.deliveryTime}</p>
+                            <ul className="text-sm text-ios-subtext space-y-1 mb-4">
                               {option.features.map((feature, index) => (
                                 <li key={index} className="flex items-start">
-                                  <svg className="w-4 h-4 mr-2 text-blue-500 mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <svg className="w-4 h-4 mr-2 text-ios-blue mt-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                   </svg>
                                   <span>{feature}</span>
@@ -719,8 +719,8 @@ const ProjectBuilder: React.FC = () => {
                               ))}
                             </ul>
                           </div>
-                          <div className="mt-auto pt-4 border-t border-gray-200">
-                            <div className="text-lg font-semibold text-blue-600">
+                          <div className="mt-auto pt-4 border-t border-ios-border">
+                            <div className="text-lg font-semibold text-ios-blue">
                               From ₦{option.basePrice.toLocaleString()}
                             </div>
                           </div>
@@ -736,43 +736,43 @@ const ProjectBuilder: React.FC = () => {
                 (selectedServices.includes(2) && selectedSubOptions.length > 0) ||
                 (!selectedServices.includes(1) && !selectedServices.includes(2))) && (
                   <div className="mb-8 animate-in fade-in slide-in-from-top-4 duration-500">
-                    <label className="block text-sm font-medium text-gray-700 mb-4">
+                    <label className="block text-sm font-medium text-ios-text mb-4">
                       Select Delivery Speed
                     </label>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <button
                         type="button"
                         onClick={() => handleTimelineChange('urgent')}
-                        className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'urgent' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`p-4 glass-card text-left transition-all ${timeline === 'urgent' ? 'border-ios-blue bg-ios-blue/5 scale-[1.02]' : 'hover:bg-ios-surface-2'
                           }`}
                       >
-                        <h3 className="font-semibold mb-2">Accelerated Timeline</h3>
-                        <p className="text-sm text-gray-600">Prioritized delivery</p>
-                        <p className="text-sm text-blue-600 mt-2">50% premium</p>
+                        <h3 className="font-semibold mb-2 text-ios-text">Accelerated Timeline</h3>
+                        <p className="text-sm text-ios-subtext">Prioritized delivery</p>
+                        <p className="text-sm text-ios-blue mt-2 font-medium">50% premium</p>
                       </button>
                       <button
                         type="button"
                         onClick={() => handleTimelineChange('standard')}
-                        className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'standard' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`p-4 glass-card text-left transition-all ${timeline === 'standard' ? 'border-ios-blue bg-ios-blue/5 scale-[1.02]' : 'hover:bg-ios-surface-2'
                           }`}
                       >
-                        <h3 className="font-semibold mb-2">Standard Timeline</h3>
-                        <p className="text-sm text-gray-600">Standard schedule</p>
-                        <p className="text-sm text-blue-600 mt-2">Standard rate</p>
+                        <h3 className="font-semibold mb-2 text-ios-text">Standard Timeline</h3>
+                        <p className="text-sm text-ios-subtext">Standard schedule</p>
+                        <p className="text-sm text-ios-blue mt-2 font-medium">Standard rate</p>
                       </button>
                       <button
                         type="button"
                         onClick={() => handleTimelineChange('flexible')}
-                        className={`p-4 border rounded-lg text-left hover:border-blue-500 transition-colors ${timeline === 'flexible' ? 'border-blue-500 bg-blue-50' : 'border-gray-200'
+                        className={`p-4 glass-card text-left transition-all ${timeline === 'flexible' ? 'border-ios-blue bg-ios-blue/5 scale-[1.02]' : 'hover:bg-ios-surface-2'
                           }`}
                       >
-                        <h3 className="font-semibold mb-2">Flexible Timeline</h3>
-                        <p className="text-sm text-gray-600">Extended schedule</p>
-                        <p className="text-sm text-blue-600 mt-2">10% discount</p>
+                        <h3 className="font-semibold mb-2 text-ios-text">Flexible Timeline</h3>
+                        <p className="text-sm text-ios-subtext">Extended schedule</p>
+                        <p className="text-sm text-ios-green mt-2 font-medium">10% discount</p>
                       </button>
                     </div>
                     {estimatedPrice && (
-                      <div className="mt-4 p-4 bg-blue-50 text-blue-800 rounded-lg text-center font-bold text-xl border border-blue-200">
+                      <div className="mt-4 p-4 bg-ios-blue/10 text-ios-blue rounded-2xl text-center font-bold text-xl border border-ios-blue/30">
                         Estimated Total: {estimatedPrice}
                       </div>
                     )}
@@ -781,21 +781,21 @@ const ProjectBuilder: React.FC = () => {
 
               {/* Selected Project Summary */}
               {selectedServices.includes(2) && selectedSubOptions[0] && timeline && (
-                <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <h3 className="text-lg font-semibold mb-4">Project Summary</h3>
+                <div className="mb-8 p-6 bg-ios-surface/30 rounded-2xl border border-ios-border">
+                  <h3 className="text-lg font-semibold mb-4 text-ios-text">Project Summary</h3>
                   <div className="space-y-4">
-                    <div className="bg-white p-4 rounded-lg border border-gray-200">
+                    <div className="bg-ios-surface p-4 rounded-xl border border-ios-border">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="font-semibold text-blue-600">
+                          <h4 className="font-semibold text-ios-blue">
                             {services.find(s => s.id === 2)?.subOptions?.find(opt => opt.id === selectedSubOptions[0])?.title}
                           </h4>
-                          <p className="text-sm text-gray-600 mt-1 capitalize">{timeline} Delivery</p>
+                          <p className="text-sm text-ios-subtext mt-1 capitalize">{timeline} Delivery</p>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-blue-600">{estimatedPrice}</div>
-                          <p className="text-sm text-gray-500">Final Price</p>
-                          <p className="text-xs text-blue-600 mt-1">
+                          <div className="text-2xl font-bold text-ios-blue">{estimatedPrice}</div>
+                          <p className="text-sm text-ios-subtext">Final Price</p>
+                          <p className="text-xs text-ios-blue mt-1">
                             Est. Time: {services.find(s => s.id === 2)?.subOptions?.find(opt => opt.id === selectedSubOptions[0])?.deliveryTime}
                           </p>
                         </div>
@@ -806,20 +806,20 @@ const ProjectBuilder: React.FC = () => {
               )}
 
               {selectedServices.includes(1) && selectedSubOptions[0] && timeline && (
-                <div className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
-                  <h3 className="text-lg font-semibold mb-4">Project Summary</h3>
+                <div className="mb-8 p-6 bg-ios-surface/30 rounded-2xl border border-ios-border">
+                  <h3 className="text-lg font-semibold mb-4 text-ios-text">Project Summary</h3>
                   <div className="space-y-4">
-                    <div className="bg-white p-4 rounded-lg border border-gray-200">
+                    <div className="bg-ios-surface p-4 rounded-xl border border-ios-border">
                       <div className="flex justify-between items-start">
                         <div>
-                          <h4 className="font-semibold text-blue-600">
+                          <h4 className="font-semibold text-ios-blue">
                             {services.find(s => s.id === 1)?.subOptions?.find(opt => opt.id === selectedSubOptions[0])?.title}
                           </h4>
-                          <p className="text-sm text-gray-600 mt-1 capitalize">{timeline} Delivery</p>
+                          <p className="text-sm text-ios-subtext mt-1 capitalize">{timeline} Delivery</p>
                         </div>
                         <div className="text-right">
-                          <div className="text-2xl font-bold text-blue-600">{estimatedPrice}</div>
-                          <p className="text-sm text-gray-500">Final Price</p>
+                          <div className="text-2xl font-bold text-ios-blue">{estimatedPrice}</div>
+                          <p className="text-sm text-ios-subtext">Final Price</p>
                         </div>
                       </div>
                     </div>
@@ -828,11 +828,11 @@ const ProjectBuilder: React.FC = () => {
               )}
 
               <div>
-                <label className="block text-gray-700 font-medium mb-2">Project Requirements (Optional)</label>
+                <label className="block text-ios-text font-medium mb-2">Project Requirements (Optional)</label>
                 <textarea
                   value={requirements}
                   onChange={(e) => setRequirements(e.target.value)}
-                  className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 h-32"
+                  className="w-full p-3 bg-ios-surface border border-ios-border rounded-xl focus:ring-2 focus:ring-ios-blue text-ios-text placeholder:text-ios-subtext h-32 transition-all"
                   placeholder="Please describe your project requirements and any specific features you need..."
                 ></textarea>
                 {renderError(errors.requirements)}
@@ -847,20 +847,20 @@ const ProjectBuilder: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-8 max-w-6xl mx-auto">
+    <div className="glass-card p-8 max-w-6xl mx-auto backdrop-blur-xl">
       {submitSuccess ? (
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center py-12"
         >
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-green-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
           </div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-2">Project Submitted Successfully!</h3>
-          <p className="text-gray-600">
+          <h3 className="text-2xl font-bold text-ios-text mb-2">Project Submitted Successfully!</h3>
+          <p className="text-ios-subtext">
             Thank you for your interest. Our team will review your project details and contact you soon.
           </p>
         </motion.div>
@@ -868,24 +868,24 @@ const ProjectBuilder: React.FC = () => {
         <div>
           <div className="mb-8">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-bold text-gray-900">Project Builder</h2>
+              <h2 className="text-3xl font-bold text-ios-text">Project Builder</h2>
               <div className="flex items-center space-x-2">
                 {[1, 2].map((stepNumber) => (
                   <div
                     key={stepNumber}
                     className={`w-3 h-3 rounded-full transition-colors duration-300 ${stepNumber === step
-                      ? 'bg-blue-500'
+                      ? 'bg-ios-blue'
                       : stepNumber < step
                         ? 'bg-green-500'
-                        : 'bg-gray-300'
+                        : 'bg-ios-subtext/30'
                       }`}
                   />
                 ))}
               </div>
             </div>
-            <div className="flex justify-between text-sm font-medium text-gray-500">
-              <span className={step >= 1 ? 'text-blue-600' : ''}>Select Services</span>
-              <span className={step >= 2 ? 'text-blue-600' : ''}>Project Details</span>
+            <div className="flex justify-between text-sm font-medium text-ios-subtext">
+              <span className={step >= 1 ? 'text-ios-blue' : ''}>Select Services</span>
+              <span className={step >= 2 ? 'text-ios-blue' : ''}>Project Details</span>
             </div>
           </div>
 
@@ -895,7 +895,7 @@ const ProjectBuilder: React.FC = () => {
             </AnimatePresence>
 
             <motion.div
-              className="mt-8 flex justify-between"
+              className="mt-8 flex justify-between pt-6 border-t border-ios-border"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
@@ -904,7 +904,7 @@ const ProjectBuilder: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setStep(step - 1)}
-                  className="px-6 py-3 text-blue-600 font-semibold hover:bg-blue-50 rounded-lg transition-colors"
+                  className="px-6 py-3 text-ios-blue font-semibold hover:bg-ios-blue/10 rounded-xl transition-colors"
                 >
                   Back
                 </button>
@@ -913,7 +913,7 @@ const ProjectBuilder: React.FC = () => {
                 <motion.button
                   type="button"
                   onClick={handleNext}
-                  className="ml-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  className="ml-auto px-6 py-3 bg-ios-blue text-white font-semibold rounded-xl hover:bg-purple-600 transition-all shadow-lg hover:shadow-purple-500/25"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -923,8 +923,8 @@ const ProjectBuilder: React.FC = () => {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`ml-auto px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg transition-colors
-                    ${isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-blue-700'}`}
+                  className={`ml-auto px-6 py-3 bg-ios-blue text-white font-semibold rounded-xl transition-all shadow-lg hover:shadow-blue-500/25
+                    ${isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-purple-600'}`}
                   whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                   whileTap={!isSubmitting ? { scale: 0.98 } : {}}
                 >

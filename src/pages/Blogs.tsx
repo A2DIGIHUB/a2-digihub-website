@@ -42,7 +42,7 @@ const Blogs: React.FC = () => {
     return (
         <div className="min-h-screen bg-ios-bg">
             {/* Hero Section */}
-            <div className="relative bg-gradient-to-br from-blue-900 via-slate-900 to-indigo-900 py-24 sm:py-32">
+            <div className="relative bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-900 py-24 sm:py-32">
                 <div className="absolute inset-0 overflow-hidden">
                     <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url('/grid.svg')" }} />
                 </div>

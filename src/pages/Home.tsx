@@ -38,7 +38,7 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-ios-bg text-ios-text">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 min-h-[90vh]">
+      <section className="relative overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-purple-900 min-h-[90vh]">
         {/* Animated background elements - retained as they look good */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute w-full h-full">
@@ -68,14 +68,14 @@ const Home: React.FC = () => {
         </div>
 
         {/* Main content */}
-        <div className="relative container mx-auto px-6 flex min-h-[90vh] items-center">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 flex min-h-[90vh] items-center py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
             {/* Left column - Text content */}
             <motion.div
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
-              className="space-y-8"
+              className="space-y-6 sm:space-y-8 text-center lg:text-left"
             >
               <div className="space-y-6">
                 <motion.div
@@ -90,14 +90,14 @@ const Home: React.FC = () => {
                 </motion.div>
                 <GradientText
                   text="Transforming Ideas into Digital Reality"
-                  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight"
-                  gradient="from-white via-blue-100 to-indigo-200"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight"
+                  gradient="from-white via-purple-100 to-indigo-200"
                 />
                 <motion.p
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
-                  className="text-lg md:text-xl text-blue-100/90 max-w-xl leading-relaxed"
+                  className="text-base sm:text-lg md:text-xl text-purple-100/90 max-w-xl mx-auto lg:mx-0 leading-relaxed"
                 >
                   {settings.description || "Empowering businesses with cutting-edge digital solutions for the modern technological landscape."}
                 </motion.p>
@@ -111,13 +111,13 @@ const Home: React.FC = () => {
               >
                 <Link
                   to="/contact"
-                  className="group relative px-8 py-4 bg-white text-blue-900 rounded-full font-bold text-lg text-center overflow-hidden transition-all hover:scale-105 shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
+                  className="group relative px-8 py-4 bg-white text-purple-900 rounded-full font-bold text-lg text-center overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_-10px_rgba(255,255,255,0.5)] shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
                 >
                   Get Started
                 </Link>
                 <Link
                   to="/services"
-                  className="group px-8 py-4 bg-white/10 border border-white/20 text-white rounded-full font-bold text-lg text-center hover:bg-white/20 transition-all hover:scale-105 backdrop-blur-md"
+                  className="group px-8 py-4 bg-white/10 border border-white/20 text-white rounded-full font-bold text-lg text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-white/10 backdrop-blur-md"
                 >
                   Explore Services
                 </Link>
@@ -152,7 +152,7 @@ const Home: React.FC = () => {
 
                 {/* Central sphere */}
                 <motion.div
-                  className="absolute inset-0 m-auto w-64 h-64 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full blur-2xl"
+                  className="absolute inset-0 m-auto w-64 h-64 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full blur-2xl"
                   animate={{
                     scale: [1, 1.1, 1],
                   }}
@@ -191,6 +191,8 @@ const Home: React.FC = () => {
             </motion.div>
           </div>
         </div>
+
+
       </section>
 
       {/* Features Section */}
@@ -239,7 +241,7 @@ const Home: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="glass-card p-8 group hover:-translate-y-2 transition-transform duration-300"
               >
-                <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-blue-500 group-hover:text-white transition-colors text-blue-500">
+                <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-500 group-hover:text-white transition-colors text-purple-500">
                   {feature.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-ios-text mb-3">
@@ -323,7 +325,7 @@ const Home: React.FC = () => {
 
       {/* CTA Section */}
       <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-800"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-700 to-purple-800"></div>
 
         <div className="container mx-auto px-6 relative z-10">
           <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 md:p-20 border border-white/20 shadow-2xl text-center max-w-5xl mx-auto">
@@ -337,13 +339,13 @@ const Home: React.FC = () => {
               <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
                 Ready to Transform Your Digital Presence?
               </h2>
-              <p className="text-xl text-blue-100 max-w-2xl mx-auto mb-10">
+              <p className="text-xl text-purple-100 max-w-2xl mx-auto mb-10">
                 Start your journey towards digital excellence today with our expert team.
               </p>
 
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 bg-white text-blue-600 px-10 py-5 rounded-full text-lg font-bold hover:bg-blue-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+                className="inline-flex items-center gap-2 bg-white text-purple-600 px-10 py-5 rounded-full text-lg font-bold hover:bg-purple-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
               >
                 Start Your Project
               </Link>

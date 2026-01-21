@@ -24,13 +24,13 @@ const ErrorFallback: React.FC<ErrorFallbackProps> = ({ error, resetErrorBoundary
           <div className="space-y-4">
             <button
               onClick={resetErrorBoundary}
-              className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+              className="w-full px-4 py-2 bg-ios-blue text-white rounded-md hover:bg-purple-700 transition-colors"
             >
               Try again
             </button>
             <button
               onClick={() => window.location.href = '/'}
-              className="w-full px-4 py-2 border border-blue-600 text-blue-600 rounded-md hover:bg-blue-50 transition-colors"
+              className="w-full px-4 py-2 border border-ios-blue text-ios-blue rounded-md hover:bg-purple-50 transition-colors"
             >
               Go to Homepage
             </button>

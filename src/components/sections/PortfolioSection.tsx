@@ -134,7 +134,7 @@ const PortfolioSection: React.FC<PortfolioSectionProps> = ({ showAll = false }) 
         <div className="text-center mt-12">
           <Link
             to="/portfolio"
-            className="inline-flex items-center px-8 py-4 text-base font-bold text-white bg-ios-blue rounded-full shadow-lg hover:bg-blue-600 transition-all hover:-translate-y-1"
+            className="inline-flex items-center px-8 py-4 text-base font-bold text-white bg-ios-blue rounded-full shadow-lg hover:bg-purple-600 transition-all hover:-translate-y-1"
           >
             View All Projects
             <ArrowRightIcon className="w-5 h-5 ml-2" />

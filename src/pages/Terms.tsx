@@ -34,7 +34,7 @@ const Terms: React.FC = () => {
       className="min-h-screen bg-ios-bg"
     >
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-blue-900 to-indigo-900 text-white relative overflow-hidden">
+      <div className="bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "url('/grid.svg')" }} />
         <div className="container mx-auto px-4 py-20 relative z-10">
           <div className="max-w-4xl mx-auto text-center">

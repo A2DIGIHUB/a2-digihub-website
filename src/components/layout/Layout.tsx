@@ -80,7 +80,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {user ? (
                   <Link
                     to="/dashboard"
-                    className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors shadow-sm hover:shadow-md"
+                    className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-white bg-ios-blue hover:bg-purple-700 rounded-full transition-colors shadow-sm hover:shadow-md"
                   >
                     <UserCircleIcon className="h-5 w-5" />
                     <span>My Dashboard</span>
@@ -95,7 +95,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     </Link>
                     <Link
                       to="/signup"
-                      className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
+                      className="px-5 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 rounded-full shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200"
                     >
                       Get Started
                     </Link>
@@ -165,7 +165,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <Link
                       to="/dashboard"
                       onClick={() => setIsMenuOpen(false)}
-                      className="flex items-center justify-center w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors shadow-sm"
+                      className="flex items-center justify-center w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-ios-blue hover:bg-purple-700 transition-colors shadow-sm"
                     >
                       <UserCircleIcon className="h-5 w-5 mr-2" />
                       My Dashboard
@@ -182,7 +182,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       <Link
                         to="/signup"
                         onClick={() => setIsMenuOpen(false)}
-                        className="block text-center w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-sm transition-all duration-200"
+                        className="block text-center w-full px-4 py-2 rounded-md text-sm font-medium text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-sm transition-all duration-200"
                       >
                         Get Started
                       </Link>

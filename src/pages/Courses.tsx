@@ -142,7 +142,7 @@ const Courses = () => {
   return (
     <div className="min-h-screen bg-ios-bg">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-900 via-indigo-900 to-blue-900 py-24 mb-16 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 py-24 mb-16 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 opacity-20 bg-center" style={{ backgroundImage: "url('/grid.svg')" }} />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-ios-bg/90" />

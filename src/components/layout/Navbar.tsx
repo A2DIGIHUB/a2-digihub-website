@@ -42,11 +42,11 @@ const Navbar: React.FC = () => {
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
             <span className="sr-only">{settings.site_name}</span>
-            <div className={`p-2 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 group-hover:from-blue-500 group-hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-blue-500/20`}>
+            <div className={`p-2 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 group-hover:from-purple-500 group-hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-purple-500/20`}>
               <SparklesIcon className="h-6 w-6 text-white" />
             </div>
             <span className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r ${isScrolled || !isHomePage
-              ? 'from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400'
+              ? 'from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400'
               : 'from-white to-blue-100'
               }`}>
               {settings.site_name}
@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
           </Link>
           <Link
             to="/signup"
-            className="rounded-full bg-ios-blue px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-blue-500 hover:shadow-blue-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
+            className="rounded-full bg-ios-blue px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:bg-purple-500 hover:shadow-purple-500/30 transition-all duration-300 transform hover:-translate-y-0.5"
           >
             Get Started
           </Link>
@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
         <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-ios-bg px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-              <div className="p-2 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600">
+              <div className="p-2 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600">
                 <SparklesIcon className="h-6 w-6 text-white" />
               </div>
               <span className="text-xl font-bold text-ios-text">
@@ -138,7 +138,7 @@ const Navbar: React.FC = () => {
                 </Link>
                 <Link
                   to="/signup"
-                  className="-mx-3 block rounded-xl px-3 py-2.5 text-base font-semibold leading-7 text-white bg-ios-blue hover:bg-blue-500 text-center shadow-lg"
+                  className="-mx-3 block rounded-xl px-3 py-2.5 text-base font-semibold leading-7 text-white bg-ios-blue hover:bg-purple-500 text-center shadow-lg"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Get Started

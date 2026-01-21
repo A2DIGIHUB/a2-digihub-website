@@ -1,3 +1,4 @@
+/* Soft Periwinkle Theme - Updated */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -6,35 +7,45 @@
 
 @layer base {
   :root {
-    /* iOS Light Mode Colors */
+    /* iOS Light Mode Colors - Soft Periwinkle Palette */
     --ios-bg: #F5F5F7;
     --ios-surface: #FFFFFF;
     --ios-text: #1d1d1f;
     --ios-subtext: #86868b;
     --ios-border: rgba(0, 0, 0, 0.1);
-    --ios-blue: #0071e3;
+    --ios-blue: #7A6DC5;
+    /* Periwinkle-500 - Primary */
+    --ios-gold: #F59E0B;
+    /* Amber-500 - Luxury accent */
+    --ios-purple: #594886;
+    /* Deeper purple for variety */
     --glass-border: rgba(255, 255, 255, 0.5);
     --glass-bg: rgba(255, 255, 255, 0.7);
   }
 
   .dark {
-    /* iOS Dark Mode Colors - Refined for Consistency */
-    --ios-bg: #000000;
-    --ios-surface: #1C1C1E;
-    /* Apple System Gray 6 (Dark) */
-    --ios-surface-2: #2C2C2E;
-    /* Apple System Gray 5 (Dark) */
+    /* iOS Dark Mode Colors - Soft Periwinkle Palette */
+    --ios-bg: #0C0A1A;
+    /* Very dark purple-tinted black */
+    --ios-surface: #1C1A2E;
+    /* Dark purple surface */
+    --ios-surface-2: #2C2A3E;
+    /* Lighter purple surface */
     --ios-text: #FFFFFF;
-    --ios-subtext: #8E8E93;
-    /* Apple System Gray */
-    --ios-border: rgba(255, 255, 255, 0.15);
-    --ios-blue: #0A84FF;
-    /* System Blue Dark Mode */
+    --ios-subtext: #A8A4B8;
+    /* Purple-tinted gray */
+    --ios-border: rgba(186, 178, 218, 0.15);
+    /* Purple-tinted border */
+    --ios-blue: #9B8FD9;
+    /* Lighter periwinkle for dark mode */
+    --ios-gold: #FBBF24;
+    /* Amber-400 - Brighter gold */
+    --ios-purple: #BAB2DA;
+    /* Light purple for dark mode */
 
     /* Glass settings */
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-bg: rgba(28, 28, 30, 0.75);
-    /* Matches surface but transparent */
+    --glass-border: rgba(186, 178, 218, 0.15);
+    --glass-bg: rgba(28, 26, 46, 0.75);
   }
 
   html {

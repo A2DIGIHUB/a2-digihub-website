@@ -7,14 +7,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // iOS 18 System Colors (Mapped to CSS Variables)
+        // iOS 18 System Colors - Soft Periwinkle Palette
         ios: {
           bg: 'var(--ios-bg)',
           surface: 'var(--ios-surface)',
           'surface-2': 'var(--ios-surface-2)',
           text: 'var(--ios-text)',
           subtext: 'var(--ios-subtext)',
-          blue: 'var(--ios-blue)',
+          blue: 'var(--ios-blue)', // Now soft periwinkle
+          gold: 'var(--ios-gold)', // Premium gold accent
+          purple: 'var(--ios-purple)', // Deeper purple
           border: 'var(--ios-border)',
           // Keep static colors that don't change
           green: '#34c759',
@@ -23,16 +25,16 @@ module.exports = {
           divider: 'rgba(0,0,0,0.1)',
         },
         primary: {
-          50: '#f2f8fd',
-          100: '#e5f1fb',
-          200: '#c5e2f8',
-          300: '#95caf3',
-          400: '#5ba9eb',
-          500: '#2e8be0',
-          600: '#0071e3', // Aligned with iOS Blue
-          700: '#1a62ab',
-          800: '#1a5189',
-          900: '#1a4471',
+          50: '#EEEDF5',
+          100: '#DEDBF0',
+          200: '#BDB6E2',
+          300: '#9B92D3',
+          400: '#7A6DC5', // Periwinkle-400
+          500: '#594886', // Periwinkle-500 - Main brand
+          600: '#473A92', // Deeper purple
+          700: '#352C6D',
+          800: '#241D49',
+          900: '#120F24',
         },
       },
       fontFamily: {

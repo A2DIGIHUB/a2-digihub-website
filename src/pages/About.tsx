@@ -307,7 +307,7 @@ const TeamCarousel: React.FC = () => {
             >
               <div className="flex flex-col md:flex-row items-center gap-8">
                 <motion.div
-                  className="relative w-48 h-48 rounded-full overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-500"
+                  className="relative w-48 h-48 rounded-full overflow-hidden bg-gradient-to-br from-purple-500 to-indigo-500"
                   variants={imageVariants}
                   whileHover="hover"
                 >
@@ -446,7 +446,7 @@ const About: React.FC = () => {
       className="min-h-screen"
     >
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white overflow-hidden">
+      <div className="relative bg-gradient-to-r from-purple-600 to-indigo-600 text-white overflow-hidden">
         {/* Background Pattern */}
         <motion.div
           className="absolute inset-0 opacity-20"
@@ -458,7 +458,7 @@ const About: React.FC = () => {
         </motion.div>
 
         {/* Decorative Elements */}
-        <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20" />
+        <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-96 h-96 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20" />
         <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-96 h-96 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20" />
 
         {/* Content */}
@@ -504,7 +504,7 @@ const About: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.4 }}
                 >
-                  <button className="mt-8 px-8 py-4 bg-white text-blue-600 rounded-lg font-semibold flex items-center space-x-2 hover:bg-blue-50 transition-colors duration-200">
+                  <button className="mt-8 px-8 py-4 bg-white text-purple-600 rounded-lg font-semibold flex items-center space-x-2 hover:bg-purple-50 transition-colors duration-200">
                     <span>Learn More</span>
                     <ChevronRightIcon className="w-5 h-5" />
                   </button>
@@ -531,7 +531,7 @@ const About: React.FC = () => {
                     }}
                     className="absolute top-0 right-0 w-64 h-64 bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20"
                   >
-                    <div className="w-12 h-12 bg-blue-500/20 rounded-xl mb-4" />
+                    <div className="w-12 h-12 bg-purple-500/20 rounded-xl mb-4" />
                     <div className="space-y-2">
                       <div className="w-3/4 h-4 bg-white/20 rounded" />
                       <div className="w-1/2 h-4 bg-white/20 rounded" />
@@ -674,7 +674,7 @@ const About: React.FC = () => {
       </div>
 
       {/* Team Section */}
-      <div className="py-24 bg-gradient-to-br from-blue-900 to-indigo-900 relative overflow-hidden">
+      <div className="py-24 bg-gradient-to-br from-purple-900 to-indigo-900 relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
@@ -725,7 +725,7 @@ const About: React.FC = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="glass-card p-8 hover:-translate-y-2 transition-transform duration-300"
               >
-                <div className="w-16 h-16 mx-auto mb-6 text-ios-blue bg-blue-500/10 rounded-2xl flex items-center justify-center">
+                <div className="w-16 h-16 mx-auto mb-6 text-ios-blue bg-purple-500/10 rounded-2xl flex items-center justify-center">
                   {value.icon}
                 </div>
                 <h3 className="text-xl font-bold mb-4 text-center text-ios-text">{value.title}</h3>
@@ -764,7 +764,7 @@ const About: React.FC = () => {
                 className="glass-card p-10 group"
               >
                 <div className="space-y-6">
-                  <div className="w-20 h-20 bg-blue-500/10 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 border border-blue-500/20">
+                  <div className="w-20 h-20 bg-purple-500/10 rounded-3xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform duration-300 border border-purple-500/20">
                     <DocumentArrowDownIcon className="w-10 h-10 text-ios-blue" />
                   </div>
                   <h3 className="text-2xl font-bold text-ios-text">Company Profile</h3>
@@ -847,7 +847,7 @@ const About: React.FC = () => {
       <div className="py-24 bg-ios-bg">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto glass-card overflow-hidden relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-indigo-600/10" />
             <div className="relative p-12 text-center">
               <h2 className="text-3xl font-bold mb-6 text-ios-text">Have Questions?</h2>
               <p className="text-xl text-ios-subtext mb-8">
