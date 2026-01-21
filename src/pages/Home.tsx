@@ -20,6 +20,7 @@ import { useContent } from '../contexts/ContentContext';
 const Home: React.FC = () => {
   const { settings } = useContent();
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [activeBlogIndex, setActiveBlogIndex] = useState(0);
 
   useEffect(() => {
     fetchLatestBlogs();
@@ -256,6 +257,80 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* Process Timeline Section */}
+      <section className="py-24 bg-ios-surface/30 relative overflow-hidden">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-ios-text mb-4">
+              How We Work
+            </h2>
+            <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
+              Our proven process ensures your project succeeds from concept to launch
+            </p>
+          </motion.div>
+
+          <div className="max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {[
+                {
+                  step: '01',
+                  title: 'Discovery Call',
+                  description: 'We discuss your vision, goals, and requirements to understand your needs.',
+                  icon: '🎯'
+                },
+                {
+                  step: '02',
+                  title: 'Strategy & Planning',
+                  description: 'We create a detailed roadmap with timelines, milestones, and deliverables.',
+                  icon: '📋'
+                },
+                {
+                  step: '03',
+                  title: 'Development & Testing',
+                  description: 'Our team builds your solution with regular updates and quality assurance.',
+                  icon: '⚡'
+                },
+                {
+                  step: '04',
+                  title: 'Launch & Support',
+                  description: 'We deploy your project and provide ongoing support and maintenance.',
+                  icon: '🚀'
+                }
+              ].map((process, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="glass-card p-6 relative group hover:-translate-y-2 transition-all duration-300"
+                >
+                  <div className="text-6xl mb-4 opacity-10 font-bold text-ios-blue absolute top-4 right-4">
+                    {process.step}
+                  </div>
+                  <div className="text-4xl mb-4">{process.icon}</div>
+                  <h3 className="text-xl font-bold text-ios-text mb-3">
+                    {process.title}
+                  </h3>
+                  <p className="text-ios-subtext text-sm leading-relaxed">
+                    {process.description}
+                  </p>
+                  {index < 3 && (
+                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-ios-blue to-transparent"></div>
+                  )}
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Portfolio Section */}
       <section className="py-24 bg-ios-surface/30">
         <div className="container mx-auto px-6">
@@ -279,76 +354,233 @@ const Home: React.FC = () => {
             </motion.p>
           </div>
 
+          {/* Use PortfolioSection component which will be updated to carousel */}
           <PortfolioSection showAll={false} />
         </div>
       </section>
 
-      {/* Latest Insights (Blogs) */}
+      {/* Latest Insights (Blogs) - Carousel */}
       {blogs.length > 0 && (
-        <section className="py-24 bg-ios-bg">
+        <section className="py-24 bg-ios-bg overflow-hidden">
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-4xl font-bold text-ios-text mb-4">Latest Insights</h2>
               <p className="text-ios-subtext text-lg">Updates from our team</p>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {blogs.map(blog => (
-                <Link to={`/blog/${blog.slug}`} key={blog.id} className="group block">
-                  <div className="glass-card overflow-hidden h-full flex flex-col">
-                    <div className="h-56 bg-ios-surface-2 relative overflow-hidden">
-                      {blog.cover_image && (
-                        <img
-                          src={blog.cover_image}
-                          alt={blog.title}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                      )}
-                    </div>
-                    <div className="p-8 flex flex-col flex-grow">
-                      <h3 className="font-bold text-xl mb-3 text-ios-text group-hover:text-ios-blue transition-colors line-clamp-2">
-                        {blog.title}
-                      </h3>
-                      <p className="text-ios-subtext line-clamp-3 mb-6 flex-grow">
-                        {blog.excerpt}
-                      </p>
-                      <span className="text-sm font-semibold text-ios-blue flex items-center mt-auto">
-                        Read more <span className="ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              ))}
+
+            <div className="relative max-w-6xl mx-auto">
+              {/* Carousel Container */}
+              <div className="flex items-center justify-center gap-4">
+                {/* Previous Button */}
+                <button
+                  onClick={() => setActiveBlogIndex((prev) => (prev === 0 ? blogs.length - 1 : prev - 1))}
+                  className="p-3 rounded-full bg-ios-surface border border-ios-border hover:bg-ios-surface-2 transition-all z-10"
+                  aria-label="Previous blog"
+                >
+                  <ChevronDownIcon className="w-6 h-6 text-ios-text rotate-90" />
+                </button>
+
+                {/* Carousel Items */}
+                <div className="flex-1 relative h-[500px] flex items-center justify-center">
+                  {blogs.map((blog, index) => {
+                    const offset = index - activeBlogIndex;
+                    const isActive = offset === 0;
+                    const isVisible = Math.abs(offset) <= 1;
+
+                    if (!isVisible) return null;
+
+                    return (
+                      <motion.div
+                        key={blog.id}
+                        initial={false}
+                        animate={{
+                          x: `${offset * 110}%`,
+                          scale: isActive ? 1 : 0.8,
+                          opacity: isActive ? 1 : 0.4,
+                          filter: isActive ? 'blur(0px)' : 'blur(4px)',
+                          zIndex: isActive ? 10 : 1,
+                        }}
+                        transition={{ duration: 0.5, ease: 'easeOut' }}
+                        className="absolute w-full max-w-md"
+                        onClick={() => !isActive && setActiveBlogIndex(index)}
+                      >
+                        <Link
+                          to={`/blog/${blog.slug}`}
+                          className={`group block ${!isActive ? 'pointer-events-none' : ''}`}
+                        >
+                          <div className="glass-card overflow-hidden h-full flex flex-col">
+                            <div className="h-56 bg-ios-surface-2 relative overflow-hidden">
+                              {blog.cover_image && (
+                                <img
+                                  src={blog.cover_image}
+                                  alt={blog.title}
+                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                                />
+                              )}
+                            </div>
+                            <div className="p-8 flex flex-col flex-grow">
+                              <h3 className="font-bold text-xl mb-3 text-ios-text group-hover:text-ios-blue transition-colors line-clamp-2">
+                                {blog.title}
+                              </h3>
+                              <p className="text-ios-subtext line-clamp-3 mb-6 flex-grow">
+                                {blog.excerpt}
+                              </p>
+                              <span className="text-sm font-semibold text-ios-blue flex items-center mt-auto">
+                                Read more <span className="ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
+                              </span>
+                            </div>
+                          </div>
+                        </Link>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+
+                {/* Next Button */}
+                <button
+                  onClick={() => setActiveBlogIndex((prev) => (prev === blogs.length - 1 ? 0 : prev + 1))}
+                  className="p-3 rounded-full bg-ios-surface border border-ios-border hover:bg-ios-surface-2 transition-all z-10"
+                  aria-label="Next blog"
+                >
+                  <ChevronDownIcon className="w-6 h-6 text-ios-text -rotate-90" />
+                </button>
+              </div>
+
+              {/* Dots Indicator */}
+              <div className="flex justify-center gap-2 mt-8">
+                {blogs.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setActiveBlogIndex(index)}
+                    className={`h-2 rounded-full transition-all ${index === activeBlogIndex
+                        ? 'w-8 bg-ios-blue'
+                        : 'w-2 bg-ios-border hover:bg-ios-blue/50'
+                      }`}
+                    aria-label={`Go to blog ${index + 1}`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </section>
       )}
 
-      {/* CTA Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-indigo-700 to-purple-800"></div>
+      {/* FAQ Section */}
+      <section className="py-24 bg-ios-bg">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-ios-text mb-4">
+              Frequently Asked Questions
+            </h2>
+            <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
+              Got questions? We've got answers
+            </p>
+          </motion.div>
 
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 md:p-20 border border-white/20 shadow-2xl text-center max-w-5xl mx-auto">
+          <div className="max-w-3xl mx-auto space-y-4">
+            {[
+              {
+                question: 'How long does a typical project take?',
+                answer: 'Project timelines vary based on complexity. A simple website takes 2-4 weeks, while complex web applications can take 2-3 months. We provide detailed timelines during the planning phase.'
+              },
+              {
+                question: 'What technologies do you use?',
+                answer: 'We use modern, industry-standard technologies including React, TypeScript, Node.js, Python, and cloud platforms like AWS and Azure. We choose the best tech stack for your specific needs.'
+              },
+              {
+                question: 'Do you offer support after launch?',
+                answer: 'Yes! We provide ongoing support and maintenance packages. This includes bug fixes, updates, security patches, and feature enhancements to keep your solution running smoothly.'
+              },
+              {
+                question: 'What is your pricing model?',
+                answer: 'We offer flexible pricing based on project scope. Options include fixed-price projects, hourly rates, or monthly retainers. Contact us for a custom quote tailored to your needs.'
+              },
+              {
+                question: 'Can you work with our existing systems?',
+                answer: 'Absolutely! We specialize in integrating with existing systems, APIs, and databases. We ensure seamless compatibility and data migration when needed.'
+              },
+              {
+                question: 'Do you provide training for our team?',
+                answer: 'Yes, we offer comprehensive training and documentation for your team to effectively use and manage the solutions we build. Training can be conducted remotely or on-site.'
+              }
+            ].map((faq, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <details className="glass-card p-6 group cursor-pointer">
+                  <summary className="flex justify-between items-center font-semibold text-ios-text list-none">
+                    <span className="text-lg">{faq.question}</span>
+                    <ChevronDownIcon className="w-5 h-5 text-ios-blue transition-transform group-open:rotate-180" />
+                  </summary>
+                  <p className="mt-4 text-ios-subtext leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </details>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-24 bg-ios-surface/30">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="space-y-6"
+              className="glass-card p-8 md:p-12 text-center"
             >
-              <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight mb-6">
-                Ready to Transform Your Digital Presence?
-              </h2>
-              <p className="text-xl text-purple-100 max-w-2xl mx-auto mb-10">
-                Start your journey towards digital excellence today with our expert team.
-              </p>
+              <div className="mb-6">
+                <span className="text-4xl mb-4 block">📬</span>
+                <h2 className="text-3xl md:text-4xl font-bold text-ios-text mb-4">
+                  Stay Updated with Tech Insights
+                </h2>
+                <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
+                  Get weekly tips on AI, web development, and digital transformation delivered to your inbox
+                </p>
+              </div>
 
-              <Link
-                to="/contact"
-                className="inline-flex items-center gap-2 bg-white text-purple-600 px-10 py-5 rounded-full text-lg font-bold hover:bg-purple-50 transition-all shadow-xl hover:shadow-2xl hover:-translate-y-1"
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const email = (e.target as HTMLFormElement).email.value;
+                  // TODO: Integrate with your email service (EmailJS, Mailchimp, etc.)
+                  alert(`Thanks for subscribing! We'll send updates to ${email}`);
+                  (e.target as HTMLFormElement).reset();
+                }}
+                className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto"
               >
-                Start Your Project
-              </Link>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="Enter your email"
+                  className="flex-1 px-6 py-4 rounded-xl bg-ios-surface/50 backdrop-blur-sm border border-ios-border text-ios-text placeholder:text-ios-subtext focus:outline-none focus:ring-2 focus:ring-ios-blue transition-all"
+                />
+                <button
+                  type="submit"
+                  className="px-8 py-4 bg-ios-blue text-white font-semibold rounded-xl hover:bg-purple-600 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30"
+                >
+                  Subscribe
+                </button>
+              </form>
+
+              <p className="text-ios-subtext text-sm mt-4">
+                No spam, unsubscribe anytime. We respect your privacy.
+              </p>
             </motion.div>
           </div>
         </div>
