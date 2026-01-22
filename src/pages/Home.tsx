@@ -90,7 +90,7 @@ const Home: React.FC = () => {
                   </span>
                 </motion.div>
                 <GradientText
-                  text="Transforming Ideas into Digital Reality"
+                  text="Engineering Long-Term Value."
                   className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight"
                   gradient="from-white via-purple-100 to-indigo-200"
                 />
