@@ -56,7 +56,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               className="flex items-center space-x-2 group"
             >
               <span className="text-xl font-bold bg-gradient-to-r from-indigo-500 via-sky-500 to-emerald-500 bg-clip-text text-transparent group-hover:from-indigo-600 group-hover:via-sky-600 group-hover:to-emerald-600 transition-all duration-300">
-                ILLUMI-LABS
+                OKIKE
               </span>
             </Link>
 

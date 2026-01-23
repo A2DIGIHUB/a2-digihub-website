@@ -24,9 +24,9 @@ interface ContentContextType {
 }
 
 const defaultSettings: SiteSettings = {
-    site_name: 'Illumi-Labs',
+    site_name: 'OKIKE',
     description: 'Empowering businesses with cutting-edge digital solutions.',
-    contact_email: 'contact@illumi-labs.com',
+    contact_email: 'contact@okike.com',
     phone: '+1 (555) 123-4567',
     address: '123 Digital Ave, Tech City',
     primary_color: '#2563EB',

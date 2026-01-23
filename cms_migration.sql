@@ -1,9 +1,9 @@
 -- Site Settings (Singleton Table)
 create table public.site_settings (
   id uuid default gen_random_uuid() primary key,
-  site_name text default 'Illumi-Labs',
+  site_name text default 'OKIKE',
   description text default 'Empowering businesses with cutting-edge digital solutions.',
-  contact_email text default 'contact@illumi-labs.com',
+  contact_email text default 'contact@okike.com',
   phone text default '+1 (555) 123-4567',
   address text default '123 Digital Ave, Tech City',
   primary_color text default '#2563EB', -- Default Blue-600
@@ -15,7 +15,7 @@ create table public.site_settings (
 create unique index site_settings_one_row_idx on public.site_settings ((true));
 
 -- Initial seed
-insert into public.site_settings (site_name) values ('Illumi-Labs') on conflict do nothing;
+insert into public.site_settings (site_name) values ('OKIKE') on conflict do nothing;
 
 -- RLS for Site Settings
 alter table public.site_settings enable row level security;

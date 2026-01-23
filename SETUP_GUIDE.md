@@ -1,6 +1,6 @@
-# Illumi-Labs Setup Guide
+# OKIKE Setup Guide
 
-This guide will help you set up the Illumi-Labs website with all required features.
+This guide will help you set up the OKIKE website with all required features.
 
 ## Prerequisites
 

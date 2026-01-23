@@ -88,7 +88,7 @@ const DashboardLayout: React.FC = () => {
                                 <SparklesIcon className="h-6 w-6" />
                             </div>
                             <span className="text-xl font-bold tracking-tight text-ios-text">
-                                Illumi-Labs
+                                OKIKE
                             </span>
                         </div>
                         <button

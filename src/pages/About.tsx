@@ -485,7 +485,7 @@ const About: React.FC = () => {
 
                 {/* Title */}
                 <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-                  About Illumi-Labs
+                  About OKIKE
                 </h1>
 
                 {/* Description */}
@@ -693,7 +693,7 @@ const About: React.FC = () => {
               transition={{ delay: 0.2 }}
               className="text-xl text-blue-100 max-w-2xl mx-auto"
             >
-              The passionate individuals driving innovation and excellence at Illumi-Labs
+              The passionate individuals driving innovation and excellence at OKIKE
             </motion.p>
           </div>
           <TeamCarousel />

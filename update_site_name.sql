@@ -1,10 +1,10 @@
--- Update site settings to Illumi-Labs
+-- Update site settings to OKIKE
 -- Run this in your Supabase SQL Editor
 
 UPDATE public.site_settings 
 SET 
-    site_name = 'Illumi-Labs',
-    contact_email = 'contact@illumi-labs.com'
+    site_name = 'OKIKE',
+    contact_email = 'contact@okike.com'
 WHERE true;
 
 -- Verify the update

@@ -1,4 +1,4 @@
-# Illumi-Labs Robots.txt
+# OKIKE Robots.txt
 # https://www.robotstxt.org/robotstxt.html
 
 # Allow all crawlers
@@ -6,7 +6,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://illumi-labs.com/sitemap.xml
+Sitemap: https://okike.com/sitemap.xml
 
 # Prevent crawling of certain directories
 Disallow: /private/
