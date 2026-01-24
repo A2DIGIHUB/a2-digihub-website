@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
 import { useContent } from '../contexts/ContentContext';
+import Footer from '../components/Footer';
 
 const Contact: React.FC = () => {
   const { settings } = useContent();
@@ -189,6 +190,7 @@ const Contact: React.FC = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

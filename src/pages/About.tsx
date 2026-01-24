@@ -17,8 +17,10 @@ import {
   RocketLaunchIcon,
   LightBulbIcon,
   HeartIcon,
-  BuildingOfficeIcon
+  BuildingOfficeIcon,
+  UserPlusIcon
 } from '@heroicons/react/24/outline';
+import Footer from '../components/Footer';
 
 const stats = [
   { label: 'Years of Experience', value: '10', prefix: '', suffix: '+' },
@@ -873,6 +875,7 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </motion.div>
   );
 };
