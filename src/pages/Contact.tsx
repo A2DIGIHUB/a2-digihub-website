@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { EnvelopeIcon, PhoneIcon, MapPinIcon } from '@heroicons/react/24/outline';
+import { EnvelopeIcon, PhoneIcon, MapPinIcon, ChatBubbleLeftRightIcon } from '@heroicons/react/24/outline';
 import { useContent } from '../contexts/ContentContext';
 import Footer from '../components/Footer';
 
@@ -16,7 +16,6 @@ const Contact: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log('Form submitted:', formData);
   };
 
@@ -29,167 +28,178 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="bg-ios-bg transition-colors duration-300">
-      <div className="relative isolate bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 py-24 sm:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-20 bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" style={{ backgroundImage: "url('/grid.svg')" }} />
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
-          <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">Get in touch</h1>
-            <p className="mt-6 text-lg leading-8 text-blue-100">
-              Ready to start your digital transformation? Contact us today for a consultation.
-            </p>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
+      {/* Header Section */}
+      <section className="relative py-24 bg-white dark:bg-gray-950 overflow-hidden">
+        {/* Subtle background accent */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-orange-50 dark:bg-orange-950/10 rounded-full blur-3xl opacity-30"></div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8 py-24">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-16 gap-y-16">
-          {/* Contact Info */}
-          <div>
-            <h2 className="text-3xl font-bold tracking-tight text-ios-text">Contact Information</h2>
-            <p className="mt-6 text-lg leading-8 text-ios-subtext">
-              We're here to help you with any questions about our services or to discuss your next project.
-            </p>
-            <div className="mt-10 space-y-8">
-              <div className="flex gap-x-4">
-                <div className="flex-none p-2 bg-ios-surface rounded-lg border border-ios-border">
-                  <span className="sr-only">Address</span>
-                  <MapPinIcon className="h-6 w-6 text-ios-blue" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-ios-text">Our Office</h3>
-                  <p className="mt-2 text-ios-subtext">
-                    {settings.address || 'Loading address...'}
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-x-4">
-                <div className="flex-none p-2 bg-ios-surface rounded-lg border border-ios-border">
-                  <span className="sr-only">Telephone</span>
-                  <PhoneIcon className="h-6 w-6 text-ios-blue" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-ios-text">Phone</h3>
-                  <p className="mt-2 text-ios-subtext">
-                    <a href={`tel:${settings.phone}`} className="hover:text-ios-blue transition-colors">{settings.phone}</a>
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-x-4">
-                <div className="flex-none p-2 bg-ios-surface rounded-lg border border-ios-border">
-                  <span className="sr-only">Email</span>
-                  <EnvelopeIcon className="h-6 w-6 text-ios-blue" aria-hidden="true" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-ios-text">Email</h3>
-                  <p className="mt-2 text-ios-subtext">
-                    <a href={`mailto:${settings.contact_email}`} className="hover:text-ios-blue transition-colors">{settings.contact_email}</a>
-                  </p>
-                </div>
-              </div>
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-2xl text-center mx-auto mb-16"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 dark:bg-orange-950/30 rounded-full mb-6">
+              <span className="w-2 h-2 bg-orange-600 rounded-full"></span>
+              <span className="text-sm font-medium text-orange-600 dark:text-orange-500">Contact Us</span>
             </div>
-          </div>
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6 text-gray-900 dark:text-white">
+              Let's build something <span className="text-orange-600 dark:text-orange-500">extraordinary</span>
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400">
+              Ready to start your digital transformation? We're here to help you turn your vision into reality.
+            </p>
+          </motion.div>
 
-          {/* Contact Form */}
-          <form onSubmit={handleSubmit} className="glass-card p-8 sm:p-10">
-            <h3 className="text-xl font-bold text-ios-text mb-8">Send us a message</h3>
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-              <div>
-                <label htmlFor="firstName" className="block text-sm font-semibold leading-6 text-ios-text">
-                  First name
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    name="firstName"
-                    id="firstName"
-                    autoComplete="given-name"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface/50 backdrop-blur-sm shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue focus:bg-ios-surface transition-all sm:text-sm sm:leading-6"
-                    placeholder="John"
-                  />
+          <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Contact Info */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="space-y-8"
+            >
+              <div className="bg-gray-50 dark:bg-gray-900 p-8 rounded-2xl border border-gray-100 dark:border-gray-800">
+                <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">Get in touch</h2>
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-orange-600 dark:text-orange-500">
+                      <MapPinIcon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Our Office</h3>
+                      <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {settings.address || 'Loading address...'}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-orange-600 dark:text-orange-500">
+                      <PhoneIcon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Phone</h3>
+                      <a href={`tel:${settings.phone}`} className="text-gray-600 dark:text-gray-400 hover:text-orange-600 transition-colors">
+                        {settings.phone}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-orange-600 dark:text-orange-500">
+                      <EnvelopeIcon className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">Email</h3>
+                      <a href={`mailto:${settings.contact_email}`} className="text-gray-600 dark:text-gray-400 hover:text-orange-600 transition-colors">
+                        {settings.contact_email}
+                      </a>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div>
-                <label htmlFor="lastName" className="block text-sm font-semibold leading-6 text-ios-text">
-                  Last name
-                </label>
-                <div className="mt-2.5">
-                  <input
-                    type="text"
-                    name="lastName"
-                    id="lastName"
-                    autoComplete="family-name"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue sm:text-sm sm:leading-6 transition-all"
-                    placeholder="Doe"
-                  />
+
+              <div className="bg-gradient-to-br from-orange-600 to-orange-700 p-8 rounded-2xl text-white relative overflow-hidden">
+                <div className="relative z-10">
+                  <h3 className="text-xl font-bold mb-2">Need immediate assistance?</h3>
+                  <p className="text-orange-100 mb-6">Our support team is available 24/7 to help you with any technical issues.</p>
+                  <a href="#" className="inline-flex items-center gap-2 font-semibold hover:gap-3 transition-all">
+                    Visit Support Center <span>→</span>
+                  </a>
+                </div>
+                <div className="absolute bottom-0 right-0 p-8 opacity-10 pointer-events-none">
+                  <ChatBubbleLeftRightIcon className="w-32 h-32" />
                 </div>
               </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="email" className="block text-sm font-semibold leading-6 text-ios-text">
-                  Email
-                </label>
-                <div className="mt-2.5">
+            </motion.div>
+
+            {/* Contact Form */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-950 p-8 rounded-2xl border border-gray-200 dark:border-gray-800 shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                  <div>
+                    <label htmlFor="firstName" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">First name</label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      id="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
+                      placeholder="John"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="lastName" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Last name</label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      id="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <label htmlFor="email" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Email</label>
                   <input
                     type="email"
                     name="email"
                     id="email"
-                    autoComplete="email"
                     value={formData.email}
                     onChange={handleChange}
-                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue sm:text-sm sm:leading-6 transition-all"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
                     placeholder="john@example.com"
                   />
                 </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="phoneNumber" className="block text-sm font-semibold leading-6 text-ios-text">
-                  Phone number
-                </label>
-                <div className="mt-2.5">
+
+                <div className="mb-6">
+                  <label htmlFor="phoneNumber" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Phone number</label>
                   <input
                     type="tel"
                     name="phoneNumber"
                     id="phoneNumber"
-                    autoComplete="tel"
                     value={formData.phoneNumber}
                     onChange={handleChange}
-                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue sm:text-sm sm:leading-6 transition-all"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all"
                     placeholder="+1 (555) 000-0000"
                   />
                 </div>
-              </div>
-              <div className="sm:col-span-2">
-                <label htmlFor="message" className="block text-sm font-semibold leading-6 text-ios-text">
-                  Message
-                </label>
-                <div className="mt-2.5">
+
+                <div className="mb-8">
+                  <label htmlFor="message" className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Message</label>
                   <textarea
                     name="message"
                     id="message"
                     rows={4}
                     value={formData.message}
                     onChange={handleChange}
-                    className="block w-full rounded-xl border-0 px-4 py-3 text-ios-text bg-ios-surface shadow-sm ring-1 ring-inset ring-ios-border placeholder:text-ios-subtext focus:ring-2 focus:ring-inset focus:ring-ios-blue sm:text-sm sm:leading-6 transition-all"
-                    placeholder="How can we help you?"
+                    className="w-full px-4 py-3 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-orange-500 focus:border-transparent outline-none transition-all resize-none"
+                    placeholder="Tell us about your project..."
                   />
                 </div>
-              </div>
-            </div>
-            <div className="mt-8">
-              <button
-                type="submit"
-                className="block w-full rounded-xl bg-ios-blue px-3.5 py-3 text-center text-sm font-semibold text-white shadow-lg hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ios-blue transition-all active:scale-[0.98]"
-              >
-                Send message
-              </button>
-            </div>
-          </form>
+
+                <button
+                  type="submit"
+                  className="w-full px-6 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+                >
+                  Send Message
+                </button>
+              </form>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      </section>
       <Footer />
     </div>
   );

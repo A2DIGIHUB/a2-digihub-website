@@ -30,6 +30,7 @@ const AdminDashboard = React.lazy(() => import('./pages/admin/AdminDashboard'));
 const UserManagement = React.lazy(() => import('./pages/admin/UserManagement'));
 const SiteSettings = React.lazy(() => import('./pages/admin/SiteSettings'));
 const ContentManager = React.lazy(() => import('./pages/admin/ContentManager'));
+const AdminPartners = React.lazy(() => import('./pages/admin/AdminPartners'));
 const Login = React.lazy(() => import('./pages/auth/Login'));
 const SignUp = React.lazy(() => import('./pages/auth/SignUp'));
 
@@ -78,6 +79,7 @@ function App() {
                       <Route path="projects" element={<ProjectBoard />} />
                       <Route path="users" element={<UserManagement />} />
                       <Route path="content" element={<ContentManager />} />
+                      <Route path="partners" element={<AdminPartners />} />
                       <Route path="settings" element={<SiteSettings />} />
                     </Route>
                   </Routes>

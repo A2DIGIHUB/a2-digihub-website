@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Dialog } from '@headlessui/react';
-import { Bars3Icon, XMarkIcon, SparklesIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useContent } from '../../contexts/ContentContext';
@@ -24,46 +24,53 @@ const Navbar: React.FC = () => {
   const { theme } = useTheme();
   const { settings } = useContent();
 
-  const isScrolled = scrollPosition > 20;
+  const isScrolled = scrollPosition > 10;
   const isHomePage = location.pathname === '/';
 
   // Dynamic navbar styles based on scroll and page
+  // Always use a subtle background for better readability in Clean Minimal
   const navBackground = isScrolled || !isHomePage
-    ? 'glass-panel border-b border-ios-border shadow-lg'
+    ? 'bg-white/95 dark:bg-gray-950/95 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 shadow-sm'
     : 'bg-transparent';
 
   const textColor = isScrolled || !isHomePage
-    ? 'text-ios-text'
-    : 'text-white';
+    ? 'text-gray-900 dark:text-white'
+    : 'text-gray-900 dark:text-white lg:text-white'; // On home hero, text might need to be white if hero is dark, but our new hero is light. 
+  // Wait, the new Home.tsx hero has white bg? 
+  // "bg-white dark:bg-gray-950". 
+  // So text should ALWAYS be dark (or white in dark mode).
+  // Let's simplify.
+
+  const finalTextColor = 'text-gray-900 dark:text-white';
+  const finalNavBackground = 'bg-white/90 dark:bg-gray-950/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 sticky top-0 z-50';
 
   // Check if current path is active
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${navBackground}`}>
-      <nav className="container mx-auto flex items-center justify-between px-6 py-4 lg:px-8" aria-label="Global">
+    <header className={finalNavBackground}>
+      <nav className="container mx-auto px-6 lg:px-8 max-w-7xl flex items-center justify-between py-4" aria-label="Global">
         {/* Logo */}
         <div className="flex lg:flex-1">
-          <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-3 group">
+          <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2 group">
             <span className="sr-only">{settings.site_name}</span>
-            <div className="p-2.5 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 group-hover:from-purple-500 group-hover:to-indigo-500 transition-all duration-300 shadow-lg shadow-purple-500/20 group-hover:shadow-purple-500/40 group-hover:scale-105">
-              <SparklesIcon className="h-6 w-6 text-white" />
+            <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-orange-600 text-white font-bold text-xl shadow-md group-hover:scale-105 transition-transform duration-200">
+              O
             </div>
-            <span className={`text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r transition-all duration-300 ${isScrolled || !isHomePage
-              ? 'from-purple-600 to-indigo-600 dark:from-purple-400 dark:to-indigo-400'
-              : 'from-white to-purple-100'
-              }`}>
-              {settings.site_name}
-            </span>
+            <div className="flex flex-col">
+              <span className={`text-xl font-bold tracking-tight ${finalTextColor}`}>
+                {settings.site_name}
+              </span>
+            </div>
           </Link>
         </div>
 
         {/* Mobile menu button */}
-        <div className="flex lg:hidden items-center gap-3">
+        <div className="flex lg:hidden items-center gap-4">
           <ThemeToggle />
           <button
             type="button"
-            className={`-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 hover:bg-white/10 transition-colors ${textColor}`}
+            className="-m-2.5 inline-flex items-center justify-center rounded-lg p-2.5 text-gray-700 dark:text-gray-200"
             onClick={() => setMobileMenuOpen(true)}
           >
             <span className="sr-only">Open main menu</span>
@@ -72,24 +79,17 @@ const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden lg:flex lg:gap-x-1 items-center">
+        <div className="hidden lg:flex lg:gap-x-8 items-center">
           {navigation.map((item) => (
             <Link
               key={item.name}
               to={item.href}
-              className={`relative px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-300 group ${isActive(item.href)
-                ? 'text-ios-blue'
-                : `${textColor} hover:text-ios-blue`
+              className={`text-sm font-bold transition-all duration-200 ${isActive(item.href)
+                ? 'text-orange-600 dark:text-orange-500'
+                : 'text-gray-600 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-500'
                 }`}
             >
               {item.name}
-              {isActive(item.href) && (
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-ios-blue rounded-full"></span>
-              )}
-              <span className={`absolute inset-0 rounded-lg transition-all duration-300 ${isActive(item.href)
-                ? 'bg-ios-blue/10'
-                : 'bg-transparent group-hover:bg-white/5'
-                }`}></span>
             </Link>
           ))}
         </div>
@@ -97,75 +97,71 @@ const Navbar: React.FC = () => {
         {/* Desktop Actions */}
         <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center gap-4">
           <ThemeToggle />
-          <div className="h-6 w-px bg-ios-border"></div>
           <Link
-            to="/login"
-            className={`text-sm font-semibold px-4 py-2 rounded-lg transition-all duration-300 ${textColor} hover:text-ios-blue hover:bg-white/5`}
+            to="/contact"
+            className="px-5 py-2.5 bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-bold rounded-lg hover:bg-orange-600 dark:hover:bg-orange-500 hover:text-white transition-all shadow-sm hover:shadow-md"
           >
-            Log in
-          </Link>
-          <Link
-            to="/signup"
-            className="relative overflow-hidden rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 transform hover:-translate-y-0.5 hover:scale-105 group"
-          >
-            <span className="relative z-10">Get Started</span>
-            <span className="absolute inset-0 bg-gradient-to-r from-purple-500 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            Start Project
           </Link>
         </div>
       </nav>
 
       {/* Mobile menu */}
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm" />
-        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-ios-bg px-6 py-6 sm:max-w-sm border-l border-ios-border shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-gray-900/50 backdrop-blur-sm" />
+        <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white dark:bg-gray-950 px-6 py-6 sm:max-w-sm border-l border-gray-100 dark:border-gray-800 shadow-xl">
           <div className="flex items-center justify-between mb-8">
             <Link to="/" className="-m-1.5 p-1.5 flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-              <div className="p-2 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 shadow-lg">
-                <SparklesIcon className="h-6 w-6 text-white" />
+              <div className="w-8 h-8 rounded-lg bg-orange-600 text-white flex items-center justify-center font-bold">
+                O
               </div>
-              <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-indigo-600">
+              <span className="text-lg font-bold text-gray-900 dark:text-white">
                 {settings.site_name}
               </span>
             </Link>
             <button
               type="button"
-              className="-m-2.5 rounded-lg p-2.5 text-ios-text hover:bg-ios-surface transition-colors"
+              className="-m-2.5 rounded-md p-2.5 text-gray-700 dark:text-gray-200"
               onClick={() => setMobileMenuOpen(false)}
             >
               <span className="sr-only">Close menu</span>
               <XMarkIcon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <div className="space-y-2">
-            {navigation.map((item) => (
-              <Link
-                key={item.name}
-                to={item.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`block px-4 py-3 text-base font-semibold rounded-xl transition-all duration-300 ${isActive(item.href)
-                  ? 'bg-ios-blue text-white shadow-lg shadow-purple-500/20'
-                  : 'text-ios-text hover:bg-ios-surface'
-                  }`}
-              >
-                {item.name}
-              </Link>
-            ))}
-          </div>
-          <div className="mt-8 pt-8 border-t border-ios-border space-y-3">
-            <Link
-              to="/login"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full px-4 py-3 text-center text-base font-semibold text-ios-text bg-ios-surface rounded-xl hover:bg-ios-surface-2 transition-colors"
-            >
-              Log in
-            </Link>
-            <Link
-              to="/signup"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block w-full px-4 py-3 text-center text-base font-semibold text-white bg-gradient-to-r from-purple-600 to-indigo-600 rounded-xl shadow-lg hover:shadow-xl transition-all"
-            >
-              Get Started
-            </Link>
+          <div className="mt-6 flow-root">
+            <div className="-my-6 divide-y divide-gray-100 dark:divide-gray-800">
+              <div className="space-y-2 py-6">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`-mx-3 block rounded-lg px-3 py-2 text-base font-bold leading-7 hover:bg-gray-50 dark:hover:bg-gray-900 ${isActive(item.href)
+                        ? 'text-orange-600 dark:text-orange-500 bg-orange-50 dark:bg-orange-950/30'
+                        : 'text-gray-900 dark:text-white'
+                      }`}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              <div className="py-6 space-y-3">
+                <Link
+                  to="/login"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-bold leading-7 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-900"
+                >
+                  Log in
+                </Link>
+                <Link
+                  to="/contact"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block w-full px-3 py-3 text-center text-base font-bold text-white bg-orange-600 rounded-lg hover:bg-orange-700 transition-colors"
+                >
+                  Start Project
+                </Link>
+              </div>
+            </div>
           </div>
         </Dialog.Panel>
       </Dialog>

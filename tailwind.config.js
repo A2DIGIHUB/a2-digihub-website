@@ -7,16 +7,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // iOS 18 System Colors - Soft Periwinkle Palette
+        // OKIKE Brand Colors
         ios: {
           bg: 'var(--ios-bg)',
           surface: 'var(--ios-surface)',
           'surface-2': 'var(--ios-surface-2)',
           text: 'var(--ios-text)',
           subtext: 'var(--ios-subtext)',
-          blue: 'var(--ios-blue)', // Now soft periwinkle
-          gold: 'var(--ios-gold)', // Premium gold accent
-          purple: 'var(--ios-purple)', // Deeper purple
+          blue: 'var(--ios-blue)', // OKIKE Orange
+          gold: 'var(--ios-gold)', // Secondary accent
+          purple: 'var(--ios-purple)', // Dark accent
           border: 'var(--ios-border)',
           // Keep static colors that don't change
           green: '#34c759',
@@ -25,16 +25,16 @@ module.exports = {
           divider: 'rgba(0,0,0,0.1)',
         },
         primary: {
-          50: '#EEEDF5',
-          100: '#DEDBF0',
-          200: '#BDB6E2',
-          300: '#9B92D3',
-          400: '#7A6DC5', // Periwinkle-400
-          500: '#594886', // Periwinkle-500 - Main brand
-          600: '#473A92', // Deeper purple
-          700: '#352C6D',
-          800: '#241D49',
-          900: '#120F24',
+          50: '#FFF3E0',
+          100: '#FFE0B2',
+          200: '#FFCC80',
+          300: '#FFB74D',
+          400: '#FFA726',
+          500: '#F34309', // OKIKE Orange - Main brand
+          600: '#E64A19',
+          700: '#D84315',
+          800: '#BF360C',
+          900: '#A52A0A',
         },
       },
       fontFamily: {

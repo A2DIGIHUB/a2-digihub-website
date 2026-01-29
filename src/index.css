@@ -7,45 +7,44 @@
 
 @layer base {
   :root {
-    /* iOS Light Mode Colors - Soft Periwinkle Palette */
-    --ios-bg: #F5F5F7;
-    --ios-surface: #FFFFFF;
+    /* OKIKE Brand Colors */
+    --ios-bg: #FFFFFF;
+    --ios-surface: #F5F5F7;
     --ios-text: #1d1d1f;
     --ios-subtext: #86868b;
     --ios-border: rgba(0, 0, 0, 0.1);
-    --ios-blue: #7A6DC5;
-    /* Periwinkle-500 - Primary */
+
+    /* Brand Colors */
+    --ios-blue: #F34309;
+    /* OKIKE Orange - Primary */
     --ios-gold: #F59E0B;
-    /* Amber-500 - Luxury accent */
-    --ios-purple: #594886;
-    /* Deeper purple for variety */
-    --glass-border: rgba(255, 255, 255, 0.5);
-    --glass-bg: rgba(255, 255, 255, 0.7);
+    /* Amber-500 - Secondary */
+    --ios-purple: #1d1d1f;
+    /* Dark Grey/Black - Accent */
+
+    --glass-border: rgba(0, 0, 0, 0.05);
+    --glass-bg: rgba(255, 255, 255, 0.8);
   }
 
   .dark {
-    /* iOS Dark Mode Colors - Soft Periwinkle Palette */
-    --ios-bg: #0C0A1A;
-    /* Very dark purple-tinted black */
-    --ios-surface: #1C1A2E;
-    /* Dark purple surface */
-    --ios-surface-2: #2C2A3E;
-    /* Lighter purple surface */
+    /* OKIKE Dark Mode Colors */
+    --ios-bg: #000000;
+    --ios-surface: #1C1C1E;
     --ios-text: #FFFFFF;
-    --ios-subtext: #A8A4B8;
-    /* Purple-tinted gray */
-    --ios-border: rgba(186, 178, 218, 0.15);
-    /* Purple-tinted border */
-    --ios-blue: #9B8FD9;
-    /* Lighter periwinkle for dark mode */
+    --ios-subtext: #86868b;
+    --ios-surface-2: #2C2C2E;
+
+    --ios-border: rgba(255, 255, 255, 0.15);
+
+    /* Brand Colors Dark Mode */
+    --ios-blue: #FF5722;
+    /* Lighter Orange for dark mode */
     --ios-gold: #FBBF24;
-    /* Amber-400 - Brighter gold */
-    --ios-purple: #BAB2DA;
-    /* Light purple for dark mode */
+    --ios-purple: #FFFFFF;
 
     /* Glass settings */
-    --glass-border: rgba(186, 178, 218, 0.15);
-    --glass-bg: rgba(28, 26, 46, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-bg: rgba(28, 28, 30, 0.75);
   }
 
   html {
@@ -54,12 +53,20 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--ios-bg);
     color: var(--ios-text);
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   body {
-    @apply antialiased overflow-x-hidden min-h-screen;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     background-color: var(--ios-bg);
     color: var(--ios-text);
+    overflow-x: hidden;
+    max-width: 100vw;
   }
 
   h1,

@@ -8,7 +8,9 @@ import {
   ChartBarIcon,
   ShieldCheckIcon,
   CursorArrowRaysIcon,
-  WrenchScrewdriverIcon
+  WrenchScrewdriverIcon,
+  CheckCircleIcon,
+  ArrowRightIcon
 } from '@heroicons/react/24/outline';
 import Footer from '../components/Footer';
 import ProjectBuilder from '../components/ProjectBuilder';
@@ -26,7 +28,6 @@ const services = [
       'Implementation Roadmap',
     ],
     icon: RocketLaunchIcon,
-    color: 'blue',
   },
   {
     id: 2,
@@ -40,7 +41,6 @@ const services = [
       'API Integration',
     ],
     icon: CodeBracketIcon,
-    color: 'indigo',
   },
   {
     id: 3,
@@ -54,7 +54,6 @@ const services = [
       'Cloud Security',
     ],
     icon: CloudArrowUpIcon,
-    color: 'blue',
   },
   {
     id: 4,
@@ -68,7 +67,6 @@ const services = [
       'Machine Learning Models',
     ],
     icon: CpuChipIcon,
-    color: 'indigo',
   },
   {
     id: 5,
@@ -82,7 +80,6 @@ const services = [
       'Performance Metrics',
     ],
     icon: ChartBarIcon,
-    color: 'blue',
   },
   {
     id: 6,
@@ -96,7 +93,6 @@ const services = [
       'Security Training',
     ],
     icon: ShieldCheckIcon,
-    color: 'indigo',
   },
   {
     id: 7,
@@ -110,7 +106,6 @@ const services = [
       'Usability Testing',
     ],
     icon: CursorArrowRaysIcon,
-    color: 'blue',
   },
   {
     id: 8,
@@ -124,7 +119,6 @@ const services = [
       'Project Management',
     ],
     icon: WrenchScrewdriverIcon,
-    color: 'indigo',
   },
 ];
 
@@ -171,71 +165,69 @@ const processSteps = [
 
 const Services = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [hoveredService, setHoveredService] = useState<number | null>(null);
 
   const filteredServices = services.filter(
     (service) => selectedCategory === 'all' || service.category === selectedCategory
   );
 
   return (
-    <div className="min-h-screen bg-ios-bg text-ios-text">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-900 via-indigo-900 to-purple-900 mix-blend-multiply opacity-90" />
-          <div className="absolute inset-0" style={{ backgroundImage: "url('/grid.svg')", opacity: 0.1 }} />
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white">
+      {/* Hero Section - Clean Minimal */}
+      <section className="relative py-24 overflow-hidden">
+        {/* Subtle background accent */}
+        <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-orange-50 dark:bg-orange-950/10 rounded-full blur-3xl opacity-30"></div>
+
+        <div className="container mx-auto px-6 relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl"
+          >
+            <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 dark:bg-orange-950/30 rounded-full mb-6">
+              <span className="w-2 h-2 bg-orange-600 rounded-full"></span>
+              <span className="text-sm font-medium text-orange-600 dark:text-orange-500">Our Capabilities</span>
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-bold mb-6 text-gray-900 dark:text-white leading-tight">
+              Comprehensive <span className="text-orange-600 dark:text-orange-500">solutions</span> for your business
+            </h1>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed">
+              We combine technical expertise with strategic thinking to deliver digital products that drive real growth and innovation.
+            </p>
+          </motion.div>
         </div>
-        <div className="relative z-10">
-          <div className="container mx-auto px-4 py-24 md:py-32">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="max-w-4xl mx-auto text-center"
-            >
-              <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white tracking-tight">
-                Our Services
-              </h1>
-              <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
-                Comprehensive digital solutions to transform your business and drive growth
-              </p>
-            </motion.div>
-          </div>
-        </div>
-      </div>
+      </section>
 
       {/* Category Filter */}
-      <div className="sticky top-0 z-20 glass-panel backdrop-blur-xl border-b border-ios-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex flex-wrap justify-center gap-3">
+      <section className="sticky top-0 z-20 bg-white/80 dark:bg-gray-950/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 py-4">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
-              <motion.button
+              <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${selectedCategory === category.id
-                  ? 'bg-ios-blue text-white shadow-lg shadow-blue-500/30'
-                  : 'bg-ios-surface hover:bg-ios-surface-2 text-ios-subtext hover:text-ios-text border border-ios-border'
+                className={`px-6 py-2.5 rounded-full text-sm font-bold transition-all duration-200 ${selectedCategory === category.id
+                    ? 'bg-orange-600 text-white shadow-md'
+                    : 'bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-800'
                   }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
                 {category.name}
-              </motion.button>
+              </button>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Services Grid */}
-      <div className="py-24 bg-ios-bg">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
           <AnimatePresence mode="wait">
             <motion.div
               key={selectedCategory}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.4 }}
               className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
             >
               {filteredServices.map((service) => (
@@ -245,40 +237,19 @@ const Services = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onHoverStart={() => setHoveredService(service.id)}
-                  onHoverEnd={() => setHoveredService(null)}
-                  className={`glass-card p-8 group cursor-pointer ${hoveredService === service.id ? 'scale-[1.02] border-ios-blue/30 shadow-xl' : ''
-                    }`}
+                  className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl p-8 hover:border-orange-500 dark:hover:border-orange-500 transition-all duration-300 group hover:shadow-lg"
                 >
-                  <div className={`text-${service.color}-500 mb-6 p-4 rounded-2xl bg-${service.color}-500/10 w-fit group-hover:bg-${service.color}-500 group-hover:text-white transition-colors duration-300`}>
+                  <div className="w-14 h-14 bg-orange-50 dark:bg-orange-950/30 rounded-xl flex items-center justify-center mb-6 text-orange-600 dark:text-orange-500 group-hover:scale-110 transition-transform duration-300">
                     <service.icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-ios-text">{service.title}</h3>
-                  <p className="text-ios-subtext mb-6 text-sm leading-relaxed">{service.description}</p>
+                  <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">{service.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-6 text-sm leading-relaxed min-h-[40px]">{service.description}</p>
                   <ul className="space-y-3">
                     {service.features.map((feature, index) => (
-                      <motion.li
-                        key={index}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="flex items-center text-ios-subtext text-sm"
-                      >
-                        <svg
-                          className={`w-4 h-4 text-${service.color}-500 mr-3 flex-shrink-0`}
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M5 13l4 4L19 7"
-                          />
-                        </svg>
+                      <li key={index} className="flex items-start gap-3 text-sm text-gray-600 dark:text-gray-400">
+                        <CheckCircleIcon className="w-5 h-5 text-orange-600 dark:text-orange-500 flex-shrink-0" />
                         <span>{feature}</span>
-                      </motion.li>
+                      </li>
                     ))}
                   </ul>
                 </motion.div>
@@ -286,26 +257,26 @@ const Services = () => {
             </motion.div>
           </AnimatePresence>
         </div>
-      </div>
+      </section>
 
       {/* Process Timeline */}
-      <div className="py-24 bg-ios-surface/30">
-        <div className="container mx-auto px-4">
+      <section className="py-24 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+        <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-20"
           >
-            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-ios-text">Our Process</h2>
-            <p className="text-xl text-ios-subtext max-w-2xl mx-auto">
-              A streamlined approach to deliver exceptional results, transparently and efficiently.
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-900 dark:text-white">Our Process</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              A transparent, agile workflow designed to deliver excellence at every stage.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-6 gap-8 relative">
-            {/* Connecting Line for Desktop */}
-            <div className="hidden md:block absolute top-[2.5rem] left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-blue-500/20 via-indigo-500/20 to-blue-500/20" />
+          <div className="grid md:grid-cols-6 gap-8 relative items-start">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-0.5 bg-gray-200 dark:bg-gray-800" />
 
             {processSteps.map((step, index) => (
               <motion.div
@@ -314,79 +285,64 @@ const Services = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
-                className="relative z-10"
+                className="relative z-10 flex flex-col items-center text-center"
               >
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-ios-surface-2 border border-ios-border rounded-3xl flex items-center justify-center text-3xl transform rotate-3 hover:rotate-0 transition-all duration-300 shadow-lg hover:shadow-ios-blue/20 hover:border-ios-blue/30 group">
-                    <span className="group-hover:scale-110 transition-transform duration-300">{step.icon}</span>
-                  </div>
-                  <div className="mt-8 text-center px-2">
-                    <h3 className="text-lg font-bold mb-2 text-ios-text">{step.title}</h3>
-                    <p className="text-sm text-ios-subtext leading-relaxed">{step.description}</p>
-                  </div>
+                <div className="w-20 h-20 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-2xl flex items-center justify-center text-3xl shadow-sm mb-6 group hover:border-orange-500 transition-colors">
+                  <span className="group-hover:scale-110 transition-transform">{step.icon}</span>
                 </div>
+                <h3 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">{step.title}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{step.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Project Builder Section */}
-      <div className="py-24 bg-ios-bg" id="project-builder">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-ios-text">Build Your Project</h2>
-            <p className="text-ios-subtext max-w-2xl mx-auto text-lg">
-              Use our interactive project builder to customize your solution and get started.
-              Select the services you need and tell us about your project requirements.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <ProjectBuilder />
-          </motion.div>
-        </div>
-      </div>
-
-      {/* Call to Action Section */}
-      <div className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900 via-indigo-900 to-purple-900" />
-        <div className="relative z-10 container mx-auto px-4">
-          <div className="glass-card bg-white/5 border-white/10 p-12 md:p-20 text-center max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-3xl font-bold text-white sm:text-5xl mb-8 leading-tight">
-                Ready to Transform Your Business?
-              </h2>
-              <div className="mt-8 flex justify-center">
-                <motion.a
-                  href="#project-builder"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="inline-flex items-center px-10 py-4 border border-transparent text-lg font-bold rounded-full shadow-xl text-blue-900 bg-white hover:bg-blue-50 transition-all hover:-translate-y-1"
-                >
-                  Start Building Now
-                </motion.a>
+      <section className="py-24 bg-white dark:bg-gray-950" id="project-builder">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="lg:w-1/3">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-orange-50 dark:bg-orange-950/30 rounded-full mb-6">
+                <span className="w-2 h-2 bg-orange-600 rounded-full"></span>
+                <span className="text-sm font-medium text-orange-600 dark:text-orange-500">Start Building</span>
               </div>
-            </motion.div>
+              <h2 className="text-4xl font-bold mb-6 text-gray-900 dark:text-white">Customize your solution</h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                Use our interactive project builder to select the services you need and get a preliminary estimate for your project.
+              </p>
+            </div>
+            <div className="lg:w-2/3 w-full">
+              <ProjectBuilder />
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6 text-center">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-8">
+              Ready to get started?
+            </h2>
+            <div className="flex justify-center gap-4">
+              <a
+                href="#project-builder"
+                className="px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-lg transition-colors shadow-sm"
+              >
+                Start Project Builder
+              </a>
+              <a
+                href="/contact"
+                className="px-8 py-4 bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 hover:border-orange-600 text-gray-900 dark:text-white font-bold rounded-lg transition-colors"
+              >
+                Contact Sales
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <Footer />
     </div>

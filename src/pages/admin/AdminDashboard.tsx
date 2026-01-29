@@ -115,6 +115,7 @@ const AdminDashboard: React.FC = () => {
         { name: 'Manage Users', href: '/admin/users', icon: UsersIcon, color: 'blue' },
         { name: 'View Requests', href: '/admin/projects', icon: FolderIcon, color: 'purple' },
         { name: 'CMS Content', href: '/admin/content', icon: DocumentTextIcon, color: 'green' },
+        { name: 'Partners', href: '/admin/partners', icon: UsersIcon, color: 'pink' },
         { name: 'Site Settings', href: '/admin/settings', icon: CogIcon, color: 'orange' },
     ];
 

@@ -20,11 +20,22 @@ import { useContent } from '../contexts/ContentContext';
 const Home: React.FC = () => {
   const { settings } = useContent();
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [partners, setPartners] = useState<any[]>([]);
   const [activeBlogIndex, setActiveBlogIndex] = useState(0);
 
   useEffect(() => {
     fetchLatestBlogs();
+    fetchPartners();
   }, []);
+
+  const fetchPartners = async () => {
+    const { data } = await supabase
+      .from('partners')
+      .select('id, name, logo_url, website_url')
+      .eq('active', true)
+      .order('created_at', { ascending: true });
+    setPartners(data || []);
+  };
 
   const fetchLatestBlogs = async () => {
     const { data } = await supabase
@@ -37,201 +48,247 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-ios-bg text-ios-text">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-800 to-purple-900 min-h-[90vh]">
-        {/* Animated background elements - retained as they look good */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full">
-            {[...Array(20)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute bg-white/5 rounded-full"
-                style={{
-                  width: Math.random() * 300 + 50,
-                  height: Math.random() * 300 + 50,
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                  scale: [1, 1.2, 1],
-                  opacity: [0.1, 0.2, 0.1],
-                  rotate: [0, 180, 360],
-                }}
-                transition={{
-                  duration: Math.random() * 10 + 10,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-            ))}
-          </div>
-        </div>
+    <div className="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-white overflow-x-hidden max-w-[100vw]">
+      {/* Hero Section - Clean & Minimal */}
+      <section className="relative overflow-hidden bg-white dark:bg-gray-950 pt-12 pb-16 lg:pt-16 lg:pb-24">
 
-        {/* Main content */}
-        <div className="relative container mx-auto px-4 sm:px-6 lg:px-8 flex min-h-[90vh] items-center py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
-            {/* Left column - Text content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-              className="space-y-6 sm:space-y-8 text-center lg:text-left"
-            >
-              <div className="space-y-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.8 }}
-                  className="inline-block"
-                >
-                  <span className="px-5 py-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white shadow-lg text-sm font-medium tracking-wide">
-                    Welcome to {settings.site_name}
-                  </span>
-                </motion.div>
-                <GradientText
-                  text="The Cultural Architect"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight"
-                  gradient="from-white via-purple-100 to-indigo-200"
-                />
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.8 }}
-                  className="text-base sm:text-lg md:text-xl text-purple-100/90 max-w-xl mx-auto lg:mx-0 leading-relaxed"
-                >
-                  {settings.description || "Empowering businesses with cutting-edge digital solutions for the modern technological landscape."}
-                </motion.p>
-              </div>
+        {/* Subtle background accent */}
+        <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-orange-50 dark:bg-orange-950/10 rounded-full blur-3xl opacity-30"></div>
 
+        <div className="container mx-auto px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto">
+
+            {/* Main content */}
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+
+              {/* Left: Clear messaging */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4"
+                transition={{ duration: 0.6 }}
+                className="space-y-8"
               >
-                <Link
-                  to="/contact"
-                  className="group relative px-8 py-4 bg-white text-purple-900 rounded-full font-bold text-lg text-center overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-[0_0_50px_-10px_rgba(255,255,255,0.5)] shadow-[0_0_40px_-10px_rgba(255,255,255,0.3)]"
-                >
-                  Get Started
-                </Link>
-                <Link
-                  to="/services"
-                  className="group px-8 py-4 bg-white/10 border border-white/20 text-white rounded-full font-bold text-lg text-center hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-white/10 backdrop-blur-md"
-                >
-                  Explore Services
-                </Link>
-              </motion.div>
-            </motion.div>
+                {/* Tag */}
+                <div className="inline-flex items-center gap-2 px-4 py-2 bg-gray-100 dark:bg-gray-900 rounded-full text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                  The Cultural Architect
+                </div>
 
-            {/* Right column - Interactive 3D element */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1 }}
-              className="relative hidden lg:block"
-            >
-              <div className="relative w-full aspect-square">
-                {/* Animated rings */}
-                {[...Array(3)].map((_, i) => (
+                {/* Headline - Clear & Direct */}
+                <h1 className="text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-gray-900 dark:text-white">
+                  Technology that
+                  <span className="block text-orange-600 dark:text-orange-500">honors heritage</span>
+                </h1>
+
+                {/* Clear value proposition */}
+                <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-xl">
+                  We build digital solutions that empower African communities, preserve cultural identity, and create sustainable impact.
+                </p>
+
+                {/* Clear CTAs */}
+                <div className="flex flex-wrap gap-4 pt-4">
+                  <Link
+                    to="/contact"
+                    className="px-8 py-4 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                  >
+                    Start a Project
+                  </Link>
+                  <Link
+                    to="/portfolio"
+                    className="px-8 py-4 border-2 border-gray-300 dark:border-gray-700 hover:border-orange-600 dark:hover:border-orange-500 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors duration-200"
+                  >
+                    View Our Work
+                  </Link>
+                </div>
+
+                {/* Quick stats - Instant credibility */}
+                <div className="grid grid-cols-3 gap-6 pt-8 border-t border-gray-200 dark:border-gray-800">
+                  <div>
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white">50+</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Communities</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white">200+</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Projects</div>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-gray-900 dark:text-white">5</div>
+                    <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">Languages</div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Right: Visual clarity - What we do */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-6"
+              >
+                {/* Clear service cards */}
+                {[
+                  {
+                    icon: '🏛️',
+                    title: 'Heritage Preservation',
+                    desc: 'Digitizing cultural assets for future generations'
+                  },
+                  {
+                    icon: '🌍',
+                    title: 'Community Solutions',
+                    desc: 'Tools that serve local needs and create opportunities'
+                  },
+                  {
+                    icon: '🎨',
+                    title: 'Identity Amplification',
+                    desc: 'Celebrating uniqueness in the digital space'
+                  }
+                ].map((item, i) => (
                   <motion.div
                     key={i}
-                    className="absolute inset-0 border border-white/10 rounded-full"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.1, 0.2, 0.1],
-                      rotate: [0, 180, 360],
-                    }}
-                    transition={{
-                      duration: 10 + i * 2,
-                      repeat: Infinity,
-                      ease: "linear",
-                    }}
-                  />
-                ))}
-
-                {/* Central sphere */}
-                <motion.div
-                  className="absolute inset-0 m-auto w-64 h-64 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full blur-2xl"
-                  animate={{
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-
-                {/* Floating icons with glass effect */}
-                {[
-                  { icon: <RocketLaunchIcon className="w-10 h-10" />, position: "top-[20%] left-[20%]" },
-                  { icon: <CpuChipIcon className="w-10 h-10" />, position: "top-[20%] right-[20%]" },
-                  { icon: <CloudIcon className="w-10 h-10" />, position: "bottom-[20%] left-[20%]" },
-                  { icon: <LightBulbIcon className="w-10 h-10" />, position: "bottom-[20%] right-[20%]" },
-                ].map((item, index) => (
-                  <motion.div
-                    key={index}
-                    className={`absolute ${item.position} w-20 h-20 glass-panel rounded-2xl flex items-center justify-center text-white p-4`}
-                    animate={{
-                      y: [0, -15, 0],
-                      rotate: [0, 5, -5, 0],
-                    }}
-                    transition={{
-                      duration: 4,
-                      repeat: Infinity,
-                      ease: "easeInOut",
-                      delay: index * 0.5,
-                    }}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                    className="flex gap-4 p-6 bg-gray-50 dark:bg-gray-900 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 border border-gray-200 dark:border-gray-800"
                   >
-                    {item.icon}
+                    <div className="flex-shrink-0 w-12 h-12 flex items-center justify-center bg-white dark:bg-gray-950 rounded-lg text-2xl border border-gray-200 dark:border-gray-800">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        {item.desc}
+                      </p>
+                    </div>
                   </motion.div>
                 ))}
+              </motion.div>
+
+            </div>
+
+            {/* Trust indicators - Quick understanding */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+              className="mt-20 pt-12 border-t border-gray-200 dark:border-gray-800"
+            >
+              <p className="text-center text-sm text-gray-500 dark:text-gray-500 mb-8">
+                Trusted by organizations across Africa
+              </p>
+              <div className="flex flex-wrap justify-center items-center gap-12 opacity-50">
+                {/* Client logos */}
+                {partners.length > 0 ? (
+                  partners.map((partner) => (
+                    <a
+                      key={partner.id}
+                      href={partner.website_url || '#'}
+                      target={partner.website_url ? "_blank" : "_self"}
+                      rel="noopener noreferrer"
+                      className="group grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
+                      title={partner.name}
+                    >
+                      <img
+                        src={partner.logo_url}
+                        alt={partner.name}
+                        className="h-12 w-auto object-contain max-w-[120px]"
+                      />
+                    </a>
+                  ))
+                ) : (
+                  /* Placeholder if no partners */
+                  [1, 2, 3, 4, 5].map((i) => (
+                    <div key={i} className="w-24 h-12 bg-gray-200 dark:bg-gray-800 rounded opacity-30"></div>
+                  ))
+                )}
               </div>
             </motion.div>
+
           </div>
         </div>
-
-
       </section>
 
-      {/* Features Section */}
-      <section className="py-24 bg-ios-bg">
+      {/* Cultural Impact Stats Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900 border-y border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <GradientText
-              text="Cutting-Edge Features"
-              className="text-4xl md:text-5xl font-bold mb-4"
-            />
-            <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
-              Discover how our innovative solutions can transform your business with
-              state-of-the-art technology and expert implementation.
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              Our Impact in Numbers
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+              Real results from communities we've empowered and heritage we've preserved
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {[
+              { value: '50+', label: 'Communities Served', icon: '🌍' },
+              { value: '200+', label: 'Cultural Projects', icon: '🎨' },
+              { value: '5', label: 'Languages Supported', icon: '🗣️' },
+              { value: '10K+', label: 'Heritage Items Digitized', icon: '📚' }
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="text-center p-6 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-orange-500 dark:hover:border-orange-500 transition-colors"
+              >
+                <div className="text-3xl mb-3">{stat.icon}</div>
+                <div className="text-3xl md:text-4xl font-bold text-orange-600 dark:text-orange-500 mb-2">
+                  {stat.value}
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-400 font-medium">
+                  {stat.label}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
+              Our Cultural Impact
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
+              Transforming communities through technology that honors heritage, empowers people, and amplifies cultural identity.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {[
               {
                 icon: <RocketLaunchIcon className="w-8 h-8" />,
-                title: 'Rapid Development',
-                description: 'Quick turnaround times with our agile development methodology.'
+                title: 'Heritage Preservation',
+                description: 'Digitizing and protecting cultural heritage for future generations through innovative technology.'
               },
               {
                 icon: <CpuChipIcon className="w-8 h-8" />,
-                title: 'Advanced Technology',
-                description: 'Utilizing cutting-edge tech stack for optimal performance.'
+                title: 'Community Empowerment',
+                description: 'Building digital tools that serve local needs and create sustainable economic opportunities.'
               },
               {
                 icon: <CloudIcon className="w-8 h-8" />,
-                title: 'Cloud Solutions',
-                description: 'Scalable and secure cloud infrastructure for your applications.'
+                title: 'Identity Amplification',
+                description: 'Creating solutions that celebrate uniqueness and amplify cultural voices in the digital space.'
               }
             ].map((feature, index) => (
               <motion.div
@@ -239,16 +296,16 @@ const Home: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-8 group hover:-translate-y-2 transition-transform duration-300"
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="p-6 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-orange-500 dark:hover:border-orange-500 transition-colors"
               >
-                <div className="w-16 h-16 bg-purple-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-purple-500 group-hover:text-white transition-colors text-purple-500">
+                <div className="w-12 h-12 bg-orange-50 dark:bg-orange-950/30 rounded-lg flex items-center justify-center mb-4 text-orange-600 dark:text-orange-500">
                   {feature.icon}
                 </div>
-                <h3 className="text-2xl font-bold text-ios-text mb-3">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
                   {feature.title}
                 </h3>
-                <p className="text-ios-subtext leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 leading-relaxed">
                   {feature.description}
                 </p>
               </motion.div>
@@ -258,25 +315,25 @@ const Home: React.FC = () => {
       </section>
 
       {/* Process Timeline Section */}
-      <section className="py-24 bg-ios-surface/30 relative overflow-hidden">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-ios-text mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               How We Work
             </h2>
-            <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
               Our proven process ensures your project succeeds from concept to launch
             </p>
           </motion.div>
 
           <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
                   step: '01',
@@ -308,22 +365,19 @@ const Home: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="glass-card p-6 relative group hover:-translate-y-2 transition-all duration-300"
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                  className="p-6 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-orange-500 dark:hover:border-orange-500 transition-colors relative"
                 >
-                  <div className="text-6xl mb-4 opacity-10 font-bold text-ios-blue absolute top-4 right-4">
+                  <div className="text-4xl opacity-10 font-bold text-orange-600 absolute top-4 right-4">
                     {process.step}
                   </div>
-                  <div className="text-4xl mb-4">{process.icon}</div>
-                  <h3 className="text-xl font-bold text-ios-text mb-3">
+                  <div className="text-3xl mb-3">{process.icon}</div>
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
                     {process.title}
                   </h3>
-                  <p className="text-ios-subtext text-sm leading-relaxed">
+                  <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
                     {process.description}
                   </p>
-                  {index < 3 && (
-                    <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-ios-blue to-transparent"></div>
-                  )}
                 </motion.div>
               ))}
             </div>
@@ -332,14 +386,14 @@ const Home: React.FC = () => {
       </section>
 
       {/* Portfolio Section */}
-      <section className="py-24 bg-ios-surface/30">
+      <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="text-center max-w-3xl mx-auto mb-12">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-5xl font-bold text-ios-text mb-4"
+              className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3"
             >
               Our Featured Projects
             </motion.h2>
@@ -348,7 +402,7 @@ const Home: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-xl text-ios-subtext"
+              className="text-lg text-gray-600 dark:text-gray-400"
             >
               Discover how we've helped businesses transform and succeed in the digital age
             </motion.p>
@@ -356,129 +410,98 @@ const Home: React.FC = () => {
 
           {/* Use PortfolioSection component which will be updated to carousel */}
           <PortfolioSection showAll={false} />
+
+          {/* View All Link */}
+          <div className="text-center mt-8">
+            <Link
+              to="/portfolio"
+              className="inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-700 hover:border-orange-600 dark:hover:border-orange-500 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors duration-200"
+            >
+              View All Projects
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* Latest Insights (Blogs) - Carousel */}
+      {/* Latest Insights (Blogs) - Grid */}
       {blogs.length > 0 && (
-        <section className="py-24 bg-ios-bg overflow-hidden">
+        <section className="py-16 bg-gray-50 dark:bg-gray-900">
           <div className="container mx-auto px-6">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-ios-text mb-4">Latest Insights</h2>
-              <p className="text-ios-subtext text-lg">Updates from our team</p>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">Latest Insights</h2>
+              <p className="text-gray-600 dark:text-gray-400 text-lg">Updates from our team</p>
             </div>
 
-            <div className="relative max-w-6xl mx-auto">
-              {/* Carousel Container */}
-              <div className="flex items-center justify-center gap-4">
-                {/* Previous Button */}
-                <button
-                  onClick={() => setActiveBlogIndex((prev) => (prev === 0 ? blogs.length - 1 : prev - 1))}
-                  className="p-3 rounded-full bg-ios-surface border border-ios-border hover:bg-ios-surface-2 transition-all z-10"
-                  aria-label="Previous blog"
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {blogs.slice(0, 3).map((blog) => (
+                <motion.div
+                  key={blog.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4 }}
                 >
-                  <ChevronDownIcon className="w-6 h-6 text-ios-text rotate-90" />
-                </button>
+                  <Link
+                    to={`/blog/${blog.slug}`}
+                    className="group block"
+                  >
+                    <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg overflow-hidden h-full flex flex-col hover:border-orange-500 dark:hover:border-orange-500 transition-colors">
+                      <div className="h-48 bg-gray-100 dark:bg-gray-900 relative overflow-hidden">
+                        {blog.cover_image && (
+                          <img
+                            src={blog.cover_image}
+                            alt={blog.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
+                        )}
+                      </div>
+                      <div className="p-6 flex flex-col flex-grow">
+                        <h3 className="font-bold text-lg mb-2 text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-500 transition-colors line-clamp-2">
+                          {blog.title}
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-400 text-sm line-clamp-3 mb-4 flex-grow">
+                          {blog.excerpt}
+                        </p>
+                        <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                          <span>{new Date(blog.created_at).toLocaleDateString()}</span>
+                          <span className="text-orange-600 dark:text-orange-500 font-medium group-hover:underline">Read more →</span>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+            </div>
 
-                {/* Carousel Items */}
-                <div className="flex-1 relative h-[500px] flex items-center justify-center">
-                  {blogs.map((blog, index) => {
-                    const offset = index - activeBlogIndex;
-                    const isActive = offset === 0;
-                    const isVisible = Math.abs(offset) <= 1;
-
-                    if (!isVisible) return null;
-
-                    return (
-                      <motion.div
-                        key={blog.id}
-                        initial={false}
-                        animate={{
-                          x: `${offset * 110}%`,
-                          scale: isActive ? 1 : 0.8,
-                          opacity: isActive ? 1 : 0.4,
-                          filter: isActive ? 'blur(0px)' : 'blur(4px)',
-                          zIndex: isActive ? 10 : 1,
-                        }}
-                        transition={{ duration: 0.5, ease: 'easeOut' }}
-                        className="absolute w-full max-w-md"
-                        onClick={() => !isActive && setActiveBlogIndex(index)}
-                      >
-                        <Link
-                          to={`/blog/${blog.slug}`}
-                          className={`group block ${!isActive ? 'pointer-events-none' : ''}`}
-                        >
-                          <div className="glass-card overflow-hidden h-full flex flex-col">
-                            <div className="h-56 bg-ios-surface-2 relative overflow-hidden">
-                              {blog.cover_image && (
-                                <img
-                                  src={blog.cover_image}
-                                  alt={blog.title}
-                                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-                              )}
-                            </div>
-                            <div className="p-8 flex flex-col flex-grow">
-                              <h3 className="font-bold text-xl mb-3 text-ios-text group-hover:text-ios-blue transition-colors line-clamp-2">
-                                {blog.title}
-                              </h3>
-                              <p className="text-ios-subtext line-clamp-3 mb-6 flex-grow">
-                                {blog.excerpt}
-                              </p>
-                              <span className="text-sm font-semibold text-ios-blue flex items-center mt-auto">
-                                Read more <span className="ml-2 group-hover:translate-x-1 transition-transform">&rarr;</span>
-                              </span>
-                            </div>
-                          </div>
-                        </Link>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-
-                {/* Next Button */}
-                <button
-                  onClick={() => setActiveBlogIndex((prev) => (prev === blogs.length - 1 ? 0 : prev + 1))}
-                  className="p-3 rounded-full bg-ios-surface border border-ios-border hover:bg-ios-surface-2 transition-all z-10"
-                  aria-label="Next blog"
-                >
-                  <ChevronDownIcon className="w-6 h-6 text-ios-text -rotate-90" />
-                </button>
-              </div>
-
-              {/* Dots Indicator */}
-              <div className="flex justify-center gap-2 mt-8">
-                {blogs.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveBlogIndex(index)}
-                    className={`h-2 rounded-full transition-all ${index === activeBlogIndex
-                        ? 'w-8 bg-ios-blue'
-                        : 'w-2 bg-ios-border hover:bg-ios-blue/50'
-                      }`}
-                    aria-label={`Go to blog ${index + 1}`}
-                  />
-                ))}
-              </div>
+            {/* View All Link */}
+            <div className="text-center mt-8">
+              <Link
+                to="/blog"
+                className="inline-flex items-center gap-2 px-6 py-3 border-2 border-gray-300 dark:border-gray-700 hover:border-orange-600 dark:hover:border-orange-500 text-gray-900 dark:text-white font-semibold rounded-lg transition-colors duration-200"
+              >
+                View All Posts
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </Link>
             </div>
           </div>
         </section>
       )}
 
       {/* FAQ Section */}
-      <section className="py-24 bg-ios-bg">
+      <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
+            className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-ios-text mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
               Frequently Asked Questions
             </h2>
-            <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
               Got questions? We've got answers
             </p>
           </motion.div>
@@ -517,12 +540,12 @@ const Home: React.FC = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <details className="glass-card p-6 group cursor-pointer">
-                  <summary className="flex justify-between items-center font-semibold text-ios-text list-none">
+                <details className="p-6 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg group cursor-pointer hover:border-orange-500 dark:hover:border-orange-500 transition-colors">
+                  <summary className="flex justify-between items-center font-semibold text-gray-900 dark:text-white list-none">
                     <span className="text-lg">{faq.question}</span>
-                    <ChevronDownIcon className="w-5 h-5 text-ios-blue transition-transform group-open:rotate-180" />
+                    <ChevronDownIcon className="w-5 h-5 text-orange-600 dark:text-orange-500 transition-transform group-open:rotate-180" />
                   </summary>
-                  <p className="mt-4 text-ios-subtext leading-relaxed">
+                  <p className="mt-4 text-gray-600 dark:text-gray-400 leading-relaxed">
                     {faq.answer}
                   </p>
                 </details>
@@ -533,22 +556,22 @@ const Home: React.FC = () => {
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-24 bg-ios-surface/30">
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="glass-card p-8 md:p-12 text-center"
+              className="p-8 md:p-12 bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg text-center"
             >
               <div className="mb-6">
                 <span className="text-4xl mb-4 block">📬</span>
-                <h2 className="text-3xl md:text-4xl font-bold text-ios-text mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">
                   Stay Updated with Tech Insights
                 </h2>
-                <p className="text-ios-subtext text-lg max-w-2xl mx-auto">
+                <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
                   Get weekly tips on AI, web development, and digital transformation delivered to your inbox
                 </p>
               </div>
@@ -568,17 +591,17 @@ const Home: React.FC = () => {
                   name="email"
                   required
                   placeholder="Enter your email"
-                  className="flex-1 px-6 py-4 rounded-xl bg-ios-surface/50 backdrop-blur-sm border border-ios-border text-ios-text placeholder:text-ios-subtext focus:outline-none focus:ring-2 focus:ring-ios-blue transition-all"
+                  className="flex-1 px-6 py-4 rounded-lg bg-gray-50 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white placeholder:text-gray-500 dark:placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all"
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 bg-ios-blue text-white font-semibold rounded-xl hover:bg-purple-600 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/30"
+                  className="px-8 py-4 bg-orange-600 text-white font-semibold rounded-lg hover:bg-orange-700 transition-colors duration-200"
                 >
                   Subscribe
                 </button>
               </form>
 
-              <p className="text-ios-subtext text-sm mt-4">
+              <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">
                 No spam, unsubscribe anytime. We respect your privacy.
               </p>
             </motion.div>
